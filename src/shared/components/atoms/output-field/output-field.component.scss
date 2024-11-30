@@ -1,16 +1,24 @@
-.output {
+div {
   width: 40%;
   height: auto;
 
   border-radius: 16px;
 
-  background-color: white;
+  color: rgb(255, 255, 255);
 }
 
 .outputText {
-  height: 100%;
   margin: 0;
   padding: 12px;
 
   overflow-wrap: anywhere;
 }
+
+.aiText {
+  background-color: rgb(105, 28, 28);
+}
+
+.humanText {
+  background-color: rgb(32, 32, 108);
+}
+
