@@ -1,6 +1,7 @@
 div {
-  width: 40%;
+  width: 90%;
   height: auto;
+  margin-bottom: 20px;
 
   border-radius: 16px;
 
@@ -15,10 +16,12 @@ div {
 }
 
 .aiText {
-  background-color: rgb(105, 28, 28);
+  background-color: rgba(0, 0, 0, 0);
+  float: left;
 }
 
 .humanText {
   background-color: rgb(32, 32, 108);
+  float: right;
 }
 
