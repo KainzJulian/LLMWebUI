@@ -6,7 +6,7 @@ import { ConvoListComponent } from '../../molecules/convo-list/convo-list.compon
 @Component({
   selector: 'app-wep-page',
   standalone: true,
-  imports: [OutputFieldComponent, ConvoListComponent],
+  imports: [OutputFieldComponent, ConvoListComponent, InputFieldComponent],
   templateUrl: './wep-page.component.html',
   styleUrl: './wep-page.component.scss',
 })
