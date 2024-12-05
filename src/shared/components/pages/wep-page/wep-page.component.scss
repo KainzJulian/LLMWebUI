@@ -3,6 +3,17 @@
   height: 100%;
   background-color: rgb(89, 0, 0);
 
+  display: flex;
+  flex-direction: row;
+}
+
+.convoGroup {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ln-block {
+  display: inline-block;
 }
 
 .convoGroup {
