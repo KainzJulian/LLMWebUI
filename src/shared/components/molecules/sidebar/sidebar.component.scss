@@ -5,16 +5,34 @@
   min-width: 200px;
 
   background-color: rgb(255, 134, 134);
+
+  display: flex;
+  flex-direction: column;
 }
 
 div > div {
   width: 100%;
 }
 
+
 .aiModelGroup {
   margin-bottom: 20px;
+  overflow-y: auto;
+  max-height: fit-content;
 }
 
 .chatGroup {
-  margin-top: 20px;
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+
+.sidebarButton {
+  height: 50px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.optionsButton {
+  height: 100px;
 }

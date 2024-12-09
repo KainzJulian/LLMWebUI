@@ -10,6 +10,7 @@ import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 export class ButtonComponent {
   @Input() text: string = '';
   @Input() type: 'chat' | 'ai' = 'chat';
+  @Input() iconName: string = '';
 
   isHovering: boolean = false;
 }

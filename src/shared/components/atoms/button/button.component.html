@@ -1,6 +1,6 @@
 <div (mouseenter)="isHovering = true" (mouseleave)="isHovering = false">
   <button [innerText]="text"></button>
   @if (isHovering == true) {
-  <img src="/icons/options.svg" alt="test" class="icon" />
+  <img [src]="'/icons/' + iconName + '.svg'" alt="test" class="icon" />
   }
 </div>
