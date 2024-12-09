@@ -4,6 +4,7 @@ import { OutputFieldComponent } from '../../atoms/output-field/output-field.comp
 import { ConvoListComponent } from '../../molecules/convo-list/convo-list.component';
 import { ButtonComponent } from '../../atoms/button/button.component';
 import { SidebarComponent } from '../../molecules/sidebar/sidebar.component';
+import { FloatingPanelComponent } from '../../atoms/floating-panel/floating-panel.component';
 
 @Component({
   selector: 'app-wep-page',
@@ -11,8 +12,8 @@ import { SidebarComponent } from '../../molecules/sidebar/sidebar.component';
   imports: [
     ConvoListComponent,
     InputFieldComponent,
-    ButtonComponent,
     SidebarComponent,
+    FloatingPanelComponent,
   ],
   templateUrl: './wep-page.component.html',
   styleUrl: './wep-page.component.scss',

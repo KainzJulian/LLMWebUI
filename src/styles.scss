@@ -31,8 +31,11 @@ textarea {
   height: 25px;
 
   margin: auto;
+  border-radius: 12px;
+  padding: 5px;
 
   &:hover {
-    filter: invert(0.80);
+    background-color: rgba($color: #ffffff, $alpha: .5);
   }
 }
+

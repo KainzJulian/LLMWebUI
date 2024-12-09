@@ -1,0 +1,15 @@
+@if(stateService.isOpen()) {
+
+<div class="container">
+  <img (click)="close()" src="/icons/close.svg" alt="X" class="icon" />
+
+  <div class="listItem">
+    <p>Alle Chats archivieren</p>
+    <button>Alle archivieren</button>
+  </div>
+  <div class="listItem">
+    <p>Alle Chats löschen</p>
+    <button>Alle löschen</button>
+  </div>
+</div>
+}
