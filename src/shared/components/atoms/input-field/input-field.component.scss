@@ -1,24 +1,39 @@
-div {
-  background-color: rgb(162, 162, 162);
-  padding: 32px;
+.container {
+  height: 100%;
+  width: 100%;
+  padding: 0px;
 
-  border-radius: 32px;
+  box-sizing: border-box;
 
-  width: 60%;
-
-  margin-left: auto;
-  margin-right: auto;
+  display: flex;
+  flex-direction: column;
 }
+
 
 .input {
   background-color: rgba($color: #000000, $alpha: 0);
-  // border:#000000 ;
+  border: none;
   outline: none;
   resize: none;
 
-  // width: 100%;
-  // height: 100%;
+  width: 100%;
+  height: 100%;
 
-  margin: 0px;
-  padding: 0px;
+  margin-top: 16px;
+  padding-right: 16px;
+  padding-left: 16px;
+}
+
+.menuBar {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  margin-right: 16px;
+  margin-left: 16px;
+
+  display: flex;
+  justify-content: flex-end;
+}
+
+#send {
+  margin-right: 2px;
 }

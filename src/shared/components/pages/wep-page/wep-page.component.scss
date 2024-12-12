@@ -10,6 +10,11 @@
 .convoGroup {
   margin-left: auto;
   margin-right: auto;
+
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
 }
 
 .ln-block {
@@ -17,6 +22,22 @@
 }
 
 .convoGroup {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+app-convo-list {
+  height: 80%;
+}
+
+app-input-field {
+  height: 20%;
+  width: 60%;
+
+  background-color: rgb(162, 162, 162);
+
+  border-radius: 16px;
+
   margin-left: auto;
   margin-right: auto;
 }
