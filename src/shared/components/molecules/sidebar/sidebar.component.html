@@ -2,47 +2,14 @@
   <button class="sidebarButton">test</button>
 
   <div class="aiModelGroup">
-    <app-button iconName="addFolder" text="asdf"></app-button>
-    <app-button iconName="addFolder" text="asdf"></app-button>
-    <app-button iconName="addFolder" text="asdf"></app-button>
-    <app-button iconName="addFolder" text="asdf"></app-button>
-    <app-button iconName="addFolder" text="asdf"></app-button>
-    <app-button iconName="addFolder" text="asdf"></app-button>
-    <app-button iconName="addFolder" text="asdf"></app-button>
-    <app-button iconName="addFolder" text="asdf"></app-button>
-    <app-button iconName="addFolder" text="asdf"></app-button>
-    <app-button iconName="addFolder" text="asdf"></app-button>
+    @for(item of modelList; track item.name) {
+    <app-button iconName="addFolder" [text]="item.name"></app-button>
+    }
   </div>
   <div class="chatGroup">
-    <app-button iconName="delete" text="asdf"></app-button>
-    <app-button iconName="delete" text="asdf"></app-button>
-    <app-button iconName="delete" text="asdf"></app-button>
-    <app-button iconName="delete" text="asdf"></app-button>
-    <app-button iconName="delete" text="asdf"></app-button>
-    <app-button iconName="delete" text="asdf"></app-button>
-    <app-button iconName="delete" text="asdf"></app-button>
-    <app-button iconName="delete" text="asdf"></app-button>
-    <app-button iconName="delete" text="asdf"></app-button>
-    <app-button iconName="delete" text="asdf"></app-button>
-    <app-button iconName="delete" text="asdf"></app-button>
-    <app-button iconName="delete" text="asdf"></app-button>
-    <app-button iconName="delete" text="asdf"></app-button>
-    <app-button iconName="delete" text="asdf"></app-button>
-    <app-button iconName="delete" text="asdf"></app-button>
-    <app-button iconName="delete" text="asdf"></app-button>
-    <app-button iconName="delete" text="asdf"></app-button>
-    <app-button iconName="delete" text="asdf"></app-button>
-    <app-button iconName="delete" text="asdf"></app-button>
-    <app-button iconName="delete" text="asdf"></app-button>
-    <app-button iconName="delete" text="asdf"></app-button>
-    <app-button iconName="delete" text="asdf"></app-button>
-    <app-button iconName="delete" text="asdf"></app-button>
-    <app-button iconName="delete" text="asdf"></app-button>
-    <app-button iconName="delete" text="asdf"></app-button>
-    <app-button iconName="delete" text="asdf"></app-button>
-    <app-button iconName="delete" text="asdf"></app-button>
-    <app-button iconName="delete" text="asdf"></app-button>
-    <app-button iconName="delete" text="test"></app-button>
+    @for(item of chatList; track item.name) {
+    <app-button iconName="delete" [text]="item.name"></app-button>
+    }
   </div>
 
   <button (click)="openOptions()" class="optionsButton">options</button>

@@ -9,7 +9,7 @@ import { OutputFieldComponent } from '../../atoms/output-field/output-field.comp
   styleUrl: './convo-list.component.scss',
 })
 export class ConvoListComponent {
-  @Input() convoList: ConvoList = buildConvoList();
+  @Input() convoList: ConvoList = convoListBuilder();
 }
 
 export type ConvoList = Convo[];
@@ -19,7 +19,7 @@ export type Convo = {
   text: string;
 };
 
-export const buildConvoList = (): ConvoList => {
+export const convoListBuilder = (): ConvoList => {
   return [
     {
       isAI: true,
