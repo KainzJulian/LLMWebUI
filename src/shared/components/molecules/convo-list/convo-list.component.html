@@ -1,5 +1,5 @@
 <div>
-  @for (item of convoList; track item.text) {
+  @for (item of convoList.convo; track item.text) {
   <app-output-field
     [text]="item.text"
     [textStyle]="item.isAI ? 'humanText' : 'aiText'"

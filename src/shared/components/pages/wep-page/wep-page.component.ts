@@ -5,6 +5,7 @@ import { ConvoListComponent } from '../../molecules/convo-list/convo-list.compon
 import { ButtonComponent } from '../../atoms/button/button.component';
 import { SidebarComponent } from '../../molecules/sidebar/sidebar.component';
 import { FloatingPanelComponent } from '../../atoms/floating-panel/floating-panel.component';
+import { ChatService } from '../../services/chat.service';
 
 @Component({
   selector: 'app-wep-page',
@@ -18,4 +19,6 @@ import { FloatingPanelComponent } from '../../atoms/floating-panel/floating-pane
   templateUrl: './wep-page.component.html',
   styleUrl: './wep-page.component.scss',
 })
-export class WepPageComponent {}
+export class WepPageComponent {
+  chatService: ChatService = new ChatService();
+}

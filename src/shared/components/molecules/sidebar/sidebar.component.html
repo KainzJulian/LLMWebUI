@@ -7,7 +7,7 @@
     }
   </div>
   <div class="chatGroup">
-    @for(item of chatList; track item.name) {
+    @for(item of chatList.chat; track item.name) {
     <app-button iconName="delete" [text]="item.name"></app-button>
     }
   </div>
