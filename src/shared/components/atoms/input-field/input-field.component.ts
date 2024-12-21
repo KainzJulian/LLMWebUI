@@ -8,6 +8,9 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
   styleUrl: './input-field.component.scss',
 })
 export class InputFieldComponent {
+  sendRequest() {
+    throw new Error('Method not implemented.');
+  }
   @ViewChild('input') input!: ElementRef;
   inputText: string = '';
 

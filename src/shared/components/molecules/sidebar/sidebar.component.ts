@@ -12,6 +12,9 @@ import { Model, ModelService } from '../../services/model.service';
   styleUrl: './sidebar.component.scss',
 })
 export class SidebarComponent {
+  closeSidebar() {
+    throw new Error('Method not implemented.');
+  }
   constructor(
     private sidebarService: SidebarStateService,
     public modelService: ModelService,

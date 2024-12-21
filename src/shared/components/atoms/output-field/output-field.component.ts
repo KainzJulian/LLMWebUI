@@ -10,4 +10,12 @@ import { Component, Input } from '@angular/core';
 export class OutputFieldComponent {
   @Input() text: string = '';
   @Input() textStyle: 'humanText' | 'aiText' = 'aiText';
+
+  public copyText(text: string) {
+    navigator.clipboard.writeText(text);
+  }
+
+  regenerateResponse() {
+    throw new Error('Method not implemented.');
+  }
 }

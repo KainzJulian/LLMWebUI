@@ -10,20 +10,24 @@ import { Chat, ChatService } from '../../services/chat.service';
 })
 export class ButtonComponent {
   @Input() text: string = '';
-  @Input() type: 'chat' | 'ai' = 'chat';
   @Input() iconName: string = '';
 
   @Input() test!: Chat;
+  @Input() index!: number;
 
   isHovering: boolean = false;
 
   constructor(private chatService: ChatService) {}
 
+  ngOnInit(): void {
+    console.log(this.index);
+  }
+
   onClickPrimary() {
-    this.chatService.currentChat = this.test;
+    if (this.test) this.chatService.currentChat = this.test;
   }
 
   onClickSecondary() {
-    console.log('test');
+    if (this.index != null) this.chatService.chatList.splice(this.index, 1);
   }
 }

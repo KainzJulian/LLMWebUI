@@ -9,6 +9,12 @@ import { ButtonComponent } from '../button/button.component';
   styleUrl: './floating-panel.component.scss',
 })
 export class FloatingPanelComponent {
+  archiveAllChats() {
+    throw new Error('Method not implemented.');
+  }
+  deleteAllChats() {
+    throw new Error('Method not implemented.');
+  }
   constructor(public stateService: SidebarStateService) {}
 
   close(): void {

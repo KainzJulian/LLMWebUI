@@ -1,7 +1,17 @@
 <div [classList]="textStyle">
-  <p [innerText]="text.replaceAll('\n', '')" class="outputText"></p>
+  <p #output [innerText]="text.replaceAll('\n', '')" class="outputText"></p>
   @if(textStyle == "aiText") {
-  <img src="/icons/copy.svg" alt="copy" class="icon" />
-  <img src="/icons/repeat.svg" alt="repeat" class="icon" />
+  <img
+    (click)="copyText(output.innerText)"
+    src="/icons/copy.svg"
+    alt="copy"
+    class="icon"
+  />
+  <img
+    (click)="regenerateResponse()"
+    src="/icons/repeat.svg"
+    alt="repeat"
+    class="icon"
+  />
   }
 </div>
