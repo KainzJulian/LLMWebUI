@@ -2,13 +2,13 @@
   <button class="sidebarButton">test</button>
 
   <div class="aiModelGroup">
-    @for(item of modelList; track item.name) {
+    @for(item of modelService.models; track item.name) {
     <app-button iconName="addFolder" [text]="item.name"></app-button>
     }
   </div>
   <div class="chatGroup">
-    @for(item of chatList.chat; track item.name) {
-    <app-button iconName="delete" [text]="item.name"></app-button>
+    @for(item of chatService.chatList; track $index ) {
+    <app-button [test]="item" iconName="delete" [text]="item.name"></app-button>
     }
   </div>
 

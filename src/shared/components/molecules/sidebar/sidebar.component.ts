@@ -1,8 +1,8 @@
-import { Component, Input, signal } from '@angular/core';
+import { Component, Input, model, signal } from '@angular/core';
 import { ButtonComponent } from '../../atoms/button/button.component';
 import { SidebarStateService } from '../../services/sidebar-state.service';
-import { ModelList, modelListBuilder } from '../../interfaces/model';
-import { ChatList, ChatService } from '../../services/chat.service';
+import { Chat, ChatService } from '../../services/chat.service';
+import { Model, ModelService } from '../../services/model.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,10 +12,11 @@ import { ChatList, ChatService } from '../../services/chat.service';
   styleUrl: './sidebar.component.scss',
 })
 export class SidebarComponent {
-  @Input() chatList!: ChatList;
-  modelList: ModelList = modelListBuilder();
-
-  constructor(private sidebarService: SidebarStateService) {}
+  constructor(
+    private sidebarService: SidebarStateService,
+    public modelService: ModelService,
+    public chatService: ChatService
+  ) {}
 
   openOptions() {
     console.log(this.sidebarService.isOpen);

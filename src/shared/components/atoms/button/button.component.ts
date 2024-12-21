@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Chat, ChatService } from '../../services/chat.service';
 
 @Component({
   selector: 'app-button',
@@ -12,5 +13,17 @@ export class ButtonComponent {
   @Input() type: 'chat' | 'ai' = 'chat';
   @Input() iconName: string = '';
 
+  @Input() test!: Chat;
+
   isHovering: boolean = false;
+
+  constructor(private chatService: ChatService) {}
+
+  onClickPrimary() {
+    this.chatService.currentChat = this.test;
+  }
+
+  onClickSecondary() {
+    console.log('test');
+  }
 }

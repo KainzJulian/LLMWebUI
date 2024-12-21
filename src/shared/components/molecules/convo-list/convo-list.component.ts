@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { OutputFieldComponent } from '../../atoms/output-field/output-field.component';
-import { ConvoList } from '../../services/convo.service';
+import { Chat, ChatService } from '../../services/chat.service';
 
 @Component({
   selector: 'app-convo-list',
@@ -10,5 +10,5 @@ import { ConvoList } from '../../services/convo.service';
   styleUrl: './convo-list.component.scss',
 })
 export class ConvoListComponent {
-  @Input() convoList!: ConvoList;
+  constructor(public chatService: ChatService) {}
 }

@@ -1,10 +1,8 @@
 <div class="container">
-  <app-sidebar [chatList]="chatService.chatList"></app-sidebar>
+  <app-sidebar></app-sidebar>
 
   <div class="convoGroup">
-    <app-convo-list
-      [convoList]="chatService.chatList.chat[0].convoList"
-    ></app-convo-list>
+    <app-convo-list></app-convo-list>
     <app-input-field></app-input-field>
   </div>
 

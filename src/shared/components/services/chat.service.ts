@@ -1,34 +1,60 @@
 import { Injectable } from '@angular/core';
-import { ConvoList, ConvoService } from './convo.service';
+import { Convo, ConvoService } from './convo.service';
+import { randomText } from '../../../app/tools';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ChatService {
   public convoService = new ConvoService();
-  public chatList: ChatList;
+  public chatList: Chat[];
+
+  public currentChat!: Chat;
+
+  delete(index: number): Chat {
+    const help = this.chatList[index];
+
+    this.chatList.splice(index, 1);
+    return help;
+  }
+
+  public setCurrentChat(index: number): void {
+    this.currentChat = this.chatList[index];
+  }
 
   constructor() {
-    this.chatList = new ChatList([
-      new Chat('test', this.convoService.convoListBuilder()),
-      new Chat('oo', this.convoService.convoListBuilder()),
-      new Chat('buad', this.convoService.convoListBuilder()),
-      new Chat('tesadsft', this.convoService.convoListBuilder()),
-      new Chat('tesvadft', this.convoService.convoListBuilder()),
-      new Chat('tesaxcvt', this.convoService.convoListBuilder()),
-      new Chat('tesasdft', this.convoService.convoListBuilder()),
-    ]);
+    this.chatList = [];
 
-    for (const element in this.chatList.chat) {
-      console.log(this.chatList.chat[element]);
+    this.chatList.push(
+      new Chat(randomText(10), this.convoService.buildConvo(20))
+    );
+    this.chatList.push(
+      new Chat(randomText(10), this.convoService.buildConvo(20))
+    );
+    this.chatList.push(
+      new Chat(randomText(10), this.convoService.buildConvo(20))
+    );
+    this.chatList.push(
+      new Chat(randomText(10), this.convoService.buildConvo(20))
+    );
+    this.chatList.push(
+      new Chat(randomText(10), this.convoService.buildConvo(20))
+    );
+    this.chatList.push(
+      new Chat(randomText(10), this.convoService.buildConvo(20))
+    );
+    this.chatList.push(
+      new Chat(randomText(10), this.convoService.buildConvo(20))
+    );
+
+    this.currentChat = this.chatList[0];
+
+    for (const element in this.chatList) {
+      console.log(this.chatList[element]);
     }
   }
 }
 
 export class Chat {
-  constructor(public name: string, public convoList: ConvoList) {}
-}
-
-export class ChatList {
-  constructor(public chat: Chat[]) {}
+  constructor(public name: string, public convo: Convo[]) {}
 }

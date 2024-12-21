@@ -1,6 +1,10 @@
 <div (mouseenter)="isHovering = true" (mouseleave)="isHovering = false">
-  <button [innerText]="text"></button>
+  <button (click)="onClickPrimary()" [innerText]="text"></button>
   @if (isHovering == true) {
-  <img [src]="'/icons/' + iconName + '.svg'" class="icon" />
+  <img
+    (click)="onClickSecondary()"
+    [src]="'/icons/' + iconName + '.svg'"
+    class="icon"
+  />
   }
 </div>

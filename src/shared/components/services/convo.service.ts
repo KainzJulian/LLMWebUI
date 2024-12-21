@@ -5,26 +5,20 @@ import { randomText } from '../../../app/tools';
   providedIn: 'root',
 })
 export class ConvoService {
-  convoListBuilder(): ConvoList {
-    return new ConvoList([
-      new Convo(false, randomText(400)),
-      new Convo(true, randomText(400)),
-      new Convo(false, randomText(400)),
-      new Convo(true, randomText(400)),
-      new Convo(false, randomText(400)),
-      new Convo(true, randomText(400)),
-      new Convo(false, randomText(400)),
-      new Convo(true, randomText(400)),
-      new Convo(false, randomText(400)),
-      new Convo(true, randomText(400)),
-      new Convo(false, randomText(400)),
-      new Convo(true, randomText(400)),
-    ]);
-  }
-}
+  public convo: Convo[];
 
-export class ConvoList {
-  constructor(public convo: Convo[]) {}
+  constructor() {
+    this.convo = [];
+  }
+
+  buildConvo(length: number): Convo[] {
+    let help = [];
+
+    for (let i = 0; i < length; i++) {
+      help.push(new Convo(i % 2 == 1, randomText(200)));
+    }
+    return help;
+  }
 }
 
 export class Convo {
