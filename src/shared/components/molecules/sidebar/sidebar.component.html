@@ -9,8 +9,8 @@
   <div class="chatGroup">
     @for(item of chatService.chatList; track $index; let i = $index ) {
     <app-button
-      [index]="i"
-      [test]="item"
+      (clickButton)="this.chatService.setCurrentChat(i)"
+      (clickIcon)="this.chatService.delete(i)"
       iconName="delete"
       [text]="item.name"
     ></app-button>

@@ -15,6 +15,7 @@ export class SidebarComponent {
   closeSidebar() {
     throw new Error('Method not implemented.');
   }
+
   constructor(
     private sidebarService: SidebarStateService,
     public modelService: ModelService,
@@ -24,5 +25,17 @@ export class SidebarComponent {
   openOptions() {
     console.log(this.sidebarService.isOpen);
     this.sidebarService.toggleState();
+  }
+
+  deleteChat(): void {
+    console.log('deleteChat');
+  }
+
+  createChat(): void {
+    console.log('createChat');
+  }
+
+  openChat(): void {
+    console.log('openChat');
   }
 }

@@ -7,12 +7,12 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "style": "scss",
+          "type": ""
         }
       },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:application",

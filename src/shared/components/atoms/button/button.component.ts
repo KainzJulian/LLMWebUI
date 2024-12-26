@@ -1,33 +1,39 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { Chat, ChatService } from '../../services/chat.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-button',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './button.component.html',
   styleUrl: './button.component.scss',
 })
 export class ButtonComponent {
+  isHovering: boolean = false;
+
+  @Output() clickButton = new EventEmitter<void>();
+  @Output() clickIcon = new EventEmitter<void>();
+
+  @Input() index!: number;
+
   @Input() text: string = '';
   @Input() iconName: string = '';
 
-  @Input() test!: Chat;
-  @Input() index!: number;
-
-  isHovering: boolean = false;
-
   constructor(private chatService: ChatService) {}
 
-  ngOnInit(): void {
-    console.log(this.index);
+  onClickButton() {
+    this.clickButton.emit();
   }
 
-  onClickPrimary() {
-    if (this.test) this.chatService.currentChat = this.test;
-  }
-
-  onClickSecondary() {
-    if (this.index != null) this.chatService.chatList.splice(this.index, 1);
+  onClickIcon() {
+    this.clickIcon.emit();
   }
 }

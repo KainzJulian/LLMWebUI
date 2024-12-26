@@ -1,10 +1,9 @@
 <div (mouseenter)="isHovering = true" (mouseleave)="isHovering = false">
-  <button (click)="onClickPrimary()" [innerText]="text"></button>
-  @if (isHovering == true) {
+  <button (click)="onClickButton()" [innerText]="text"></button>
   <img
-    (click)="onClickSecondary()"
+    *ngIf="isHovering == true && iconName != ''"
+    (click)="onClickIcon()"
     [src]="'/icons/' + iconName + '.svg'"
     class="icon"
   />
-  }
 </div>

@@ -57,4 +57,11 @@ export class ChatService {
 
 export class Chat {
   constructor(public name: string, public convo: Convo[]) {}
+
+  public delete(): void {}
+
+  public printChat(): void {
+    console.log(this.name);
+    return;
+  }
 }
