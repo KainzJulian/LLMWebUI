@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Convo, ConvoService } from './convo.service';
-import { randomText } from '../../../app/tools';
+import { randomDate, randomText } from '../../../app/tools';
 
 @Injectable({
   providedIn: 'root',
@@ -19,41 +19,53 @@ export class ChatService {
   }
 
   createChat(name: string) {
-    const chat = new Chat(name, []);
+    const chat = new Chat(name, [], new Date());
     this.chatList.push(chat);
     this.currentChat = chat;
+
+    this.sortChat();
   }
 
   public setCurrentChat(index: number): void {
     this.currentChat = this.chatList[index];
+
+    console.info('Current Chat: ' + this.currentChat.date);
+  }
+
+  private sortChat(): void {
+    this.chatList.sort((a, b) => {
+      return b.date.getTime() - a.date.getTime();
+    });
   }
 
   constructor() {
     this.chatList = [];
 
     this.chatList.push(
-      new Chat(randomText(10), this.convoService.buildConvo(20))
+      new Chat(randomText(10), this.convoService.buildConvo(20), randomDate())
     );
     this.chatList.push(
-      new Chat(randomText(10), this.convoService.buildConvo(20))
+      new Chat(randomText(10), this.convoService.buildConvo(20), randomDate())
     );
     this.chatList.push(
-      new Chat(randomText(10), this.convoService.buildConvo(20))
+      new Chat(randomText(10), this.convoService.buildConvo(20), randomDate())
     );
     this.chatList.push(
-      new Chat(randomText(10), this.convoService.buildConvo(20))
+      new Chat(randomText(10), this.convoService.buildConvo(20), randomDate())
     );
     this.chatList.push(
-      new Chat(randomText(10), this.convoService.buildConvo(20))
+      new Chat(randomText(10), this.convoService.buildConvo(20), randomDate())
     );
     this.chatList.push(
-      new Chat(randomText(10), this.convoService.buildConvo(20))
+      new Chat(randomText(10), this.convoService.buildConvo(20), randomDate())
     );
     this.chatList.push(
-      new Chat(randomText(10), this.convoService.buildConvo(20))
+      new Chat(randomText(10), this.convoService.buildConvo(20), randomDate())
     );
 
     this.currentChat = this.chatList[0];
+
+    this.sortChat();
 
     for (const element in this.chatList) {
       console.log(this.chatList[element]);
@@ -62,7 +74,7 @@ export class ChatService {
 }
 
 export class Chat {
-  constructor(public name: string, public convo: Convo[]) {}
+  constructor(public name: string, public convo: Convo[], public date: Date) {}
 
   public delete(): void {}
 

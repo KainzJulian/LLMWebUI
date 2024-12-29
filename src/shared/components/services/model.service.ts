@@ -1,26 +1,65 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable, OnInit } from '@angular/core';
+import { ENV } from '../../../environments/environment';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ModelService {
   public models: Model[];
+  private modelListURL = ENV.modelList;
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.models = [];
+    console.log('test');
 
-    this.models.push(new Model('test'));
-    this.models.push(new Model('test1'));
-    this.models.push(new Model('test2'));
-    this.models.push(new Model('test3'));
-    this.models.push(new Model('test4'));
-    this.models.push(new Model('test5'));
+    this.testGet();
+  }
+
+  testGet() {
+    return this.http.get<ModelArray>(this.modelListURL).subscribe((value) => {
+      this.models = value.models;
+    });
+  }
+}
+
+class ModelArray {
+  models: Model[];
+
+  constructor(data: Partial<ModelArray> = {}) {
+    this.models = data.models || [];
   }
 }
 
 export class Model {
-  public name: string;
-  constructor(name: string) {
-    this.name = name;
+  name: string;
+  modified_at: string;
+  size: string;
+  digest: string;
+  details: ModelDetails;
+
+  constructor(data: Partial<Model> = {}) {
+    this.name = data.name || '';
+    this.modified_at = data.modified_at || '';
+    this.size = data.size || '';
+    this.digest = data.digest || '';
+    this.details = new ModelDetails(data.details);
+  }
+}
+
+export class ModelDetails {
+  format: string;
+  family: string;
+  families: string | null;
+  parameter_size: string;
+  quantization_level: string;
+
+  constructor(data: Partial<ModelDetails> = {}) {
+    this.format = data.format || '';
+    this.family = data.family || '';
+    this.families = data.families || null;
+    this.parameter_size = data.parameter_size || '';
+    this.quantization_level = data.quantization_level || '';
   }
 }

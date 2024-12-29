@@ -10,3 +10,11 @@ export const randomText = (length: number): string => {
 
   return result;
 };
+
+export const randomDate = (): Date => {
+  return new Date(2024, randomInt(12), randomInt(28));
+};
+
+export const randomInt = (max: number): number => {
+  return Math.floor(Math.random() * max);
+};
