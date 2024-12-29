@@ -3,7 +3,12 @@
 
   <div class="aiModelGroup">
     @for(item of modelService.models; track item.name) {
-    <app-button iconName="addFolder" [text]="item.name"></app-button>
+    <app-button
+      (clickButton)="this.chatService.createChat(item.name)"
+      (clickIcon)="this.chatService.createChat(item.name)"
+      iconName="addFolder"
+      [text]="item.name"
+    ></app-button>
     }
   </div>
   <div class="chatGroup">

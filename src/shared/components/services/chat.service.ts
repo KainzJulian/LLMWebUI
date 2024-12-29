@@ -18,6 +18,12 @@ export class ChatService {
     return help;
   }
 
+  createChat(name: string) {
+    const chat = new Chat(name, []);
+    this.chatList.push(chat);
+    this.currentChat = chat;
+  }
+
   public setCurrentChat(index: number): void {
     this.currentChat = this.chatList[index];
   }
