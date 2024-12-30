@@ -28,6 +28,15 @@ export class InputFieldComponent {
       .subscribe((value) => {
         console.log(value);
       });
+
+    // return this.http
+    //   .post(
+    //     ENV.generateURL,
+    //     '{"model": "tinyllama:latest", "messages":[{"role":"user", "content":"hi how are you ?"}], "stream": false}'
+    //   )
+    //   .subscribe((value) => {
+    //     console.log(value);
+    //   });
   }
 
   getResponse(text: string) {
