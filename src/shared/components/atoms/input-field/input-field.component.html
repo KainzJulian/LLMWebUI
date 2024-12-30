@@ -10,6 +10,11 @@
     autofocus
   ></textarea>
   <div class="menuBar">
-    <img (click)="sendRequest()" src="/icons/send.svg" class="icon" id="send" />
+    <img
+      (click)="sendRequest(input.value)"
+      src="/icons/send.svg"
+      class="icon"
+      id="send"
+    />
   </div>
 </div>

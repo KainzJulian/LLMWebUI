@@ -63,3 +63,25 @@ export class ModelDetails {
     this.quantization_level = data.quantization_level || '';
   }
 }
+
+export class ModelResponse {
+  model: string;
+  created_at: string;
+  // messages: Message[];
+
+  constructor(data: Partial<ModelResponse> = {}) {
+    this.created_at = data.created_at || '';
+    this.model = data.model || '';
+    // this.messages = data.messages || [];
+  }
+}
+
+export class Message {
+  role: string;
+  content: string;
+
+  constructor(data: Partial<Message>) {
+    this.role = data.role || '';
+    this.content = data.content || '';
+  }
+}

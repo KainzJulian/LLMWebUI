@@ -19,7 +19,7 @@ export class ChatService {
   }
 
   createChat(name: string) {
-    const chat = new Chat(name, [], new Date());
+    const chat = new Chat(name, [], new Date(), name);
     this.chatList.push(chat);
     this.currentChat = chat;
 
@@ -42,25 +42,60 @@ export class ChatService {
     this.chatList = [];
 
     this.chatList.push(
-      new Chat(randomText(10), this.convoService.buildConvo(20), randomDate())
+      new Chat(
+        randomText(10),
+        this.convoService.buildConvo(20),
+        randomDate(),
+        ''
+      )
     );
     this.chatList.push(
-      new Chat(randomText(10), this.convoService.buildConvo(20), randomDate())
+      new Chat(
+        randomText(10),
+        this.convoService.buildConvo(20),
+        randomDate(),
+        'tinyllama:latest'
+      )
     );
     this.chatList.push(
-      new Chat(randomText(10), this.convoService.buildConvo(20), randomDate())
+      new Chat(
+        randomText(10),
+        this.convoService.buildConvo(20),
+        randomDate(),
+        'tinyllama:latest'
+      )
     );
     this.chatList.push(
-      new Chat(randomText(10), this.convoService.buildConvo(20), randomDate())
+      new Chat(
+        randomText(10),
+        this.convoService.buildConvo(20),
+        randomDate(),
+        'tinyllama:latest'
+      )
     );
     this.chatList.push(
-      new Chat(randomText(10), this.convoService.buildConvo(20), randomDate())
+      new Chat(
+        randomText(10),
+        this.convoService.buildConvo(20),
+        randomDate(),
+        'tinyllama:latest'
+      )
     );
     this.chatList.push(
-      new Chat(randomText(10), this.convoService.buildConvo(20), randomDate())
+      new Chat(
+        randomText(10),
+        this.convoService.buildConvo(20),
+        randomDate(),
+        'tinyllama:latest'
+      )
     );
     this.chatList.push(
-      new Chat(randomText(10), this.convoService.buildConvo(20), randomDate())
+      new Chat(
+        randomText(10),
+        this.convoService.buildConvo(20),
+        randomDate(),
+        'tinyllama:latest'
+      )
     );
 
     this.currentChat = this.chatList[0];
@@ -74,7 +109,12 @@ export class ChatService {
 }
 
 export class Chat {
-  constructor(public name: string, public convo: Convo[], public date: Date) {}
+  constructor(
+    public name: string,
+    public convo: Convo[],
+    public date: Date,
+    public modelName: string
+  ) {}
 
   public delete(): void {}
 
