@@ -18,6 +18,7 @@
       (clickIcon)="this.chatService.delete(i)"
       iconName="delete"
       [text]="item.name"
+      [isSelected]="this.chatService.isCurrentChat(i)"
     ></app-button>
     }
   </div>

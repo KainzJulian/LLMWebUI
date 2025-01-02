@@ -18,14 +18,17 @@ export class InputFieldComponent {
   constructor(private http: HttpClient, private chatService: ChatService) {}
 
   sendRequest(text: string) {
+    this.clearInput();
+
     console.log(text);
+    const model = this.chatService.currentChat.modelName;
 
     this.chatService.currentChat.addNewConvo(
       new Convo({ role: 'user', content: text })
     );
 
     console.log(
-      `{"model": "tinyllama:latest", "messages": ${JSON.stringify(
+      `{"model": "${model}", "messages": ${JSON.stringify(
         this.chatService.currentChat.convo
       )}, "stream": false}`
     );
@@ -33,7 +36,7 @@ export class InputFieldComponent {
     this.http
       .post<ConvoResponse>(
         ENV.generateURL,
-        `{"model": "tinyllama:latest", "messages": ${JSON.stringify(
+        `{"model": "${model}", "messages": ${JSON.stringify(
           this.chatService.currentChat.convo
         )}, "stream": false}`
       )
@@ -61,5 +64,8 @@ export class InputFieldComponent {
 
   changePosition() {
     // this.input.nativeElement.style.backgroundColor = 'red';
+  }
+  clearInput() {
+    this.input.nativeElement.value = '';
   }
 }
