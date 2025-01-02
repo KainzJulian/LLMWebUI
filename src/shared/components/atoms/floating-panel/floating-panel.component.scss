@@ -15,6 +15,9 @@
 
   padding: 32px;
   color: white;
+
+  display: flex;
+  flex-direction: column;
 }
 
 div.listItem > button {
