@@ -38,6 +38,14 @@ export class ChatService {
     });
   }
 
+  deleteAll() {
+    this.chatList.splice(0, this.chatList.length);
+  }
+
+  public isCurrentChat(index: number): boolean {
+    return this.chatList[index] == this.currentChat;
+  }
+
   constructor() {
     this.chatList = [];
 
@@ -115,8 +123,6 @@ export class Chat {
     public date: Date,
     public modelName: string
   ) {}
-
-  public delete(): void {}
 
   public addNewConvo(convo: Convo) {
     this.convo.push(convo);

@@ -18,6 +18,7 @@ import { CommonModule } from '@angular/common';
 })
 export class ButtonComponent {
   isHovering: boolean = false;
+  @Input() isSelected: boolean = false;
 
   @Output() clickButton = new EventEmitter<void>();
   @Output() clickIcon = new EventEmitter<void>();

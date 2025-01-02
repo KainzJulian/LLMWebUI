@@ -1,4 +1,8 @@
-<div (mouseenter)="isHovering = true" (mouseleave)="isHovering = false">
+<div
+  (mouseenter)="isHovering = true"
+  (mouseleave)="isHovering = false"
+  [classList]="isSelected == true ? 'selected' : ''"
+>
   <button (click)="onClickButton()" [innerText]="text"></button>
   <img
     *ngIf="isHovering == true && iconName != ''"
