@@ -2,25 +2,58 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { ENV } from '../../../environments/environment';
 import { map } from 'rxjs';
+import { ChatService } from './chat.service';
+import { Convo, ConvoResponse } from './convo.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ModelService {
-  public models: Model[];
+  public models: Model[] = [];
   private modelListURL = ENV.modelList;
 
-  constructor(private http: HttpClient) {
-    this.models = [];
+  constructor(private http: HttpClient, public chatService: ChatService) {
     console.log('test');
 
-    this.testGet();
+    this.getModelData();
   }
 
-  testGet() {
+  getModelData() {
     return this.http.get<ModelArray>(this.modelListURL).subscribe((value) => {
       this.models = value.models;
     });
+  }
+
+  sendRequest(text: string = '', hasSessionMemory: boolean = true) {
+    console.log(text);
+    const model = this.chatService.currentChat.modelName;
+
+    const newConvo = new Convo({ role: 'user', content: text });
+    this.chatService.currentChat.addNewConvo(newConvo);
+
+    let convo: Convo[] = [];
+
+    if (hasSessionMemory) convo = this.chatService.currentChat.convo;
+    else convo.push(newConvo);
+
+    console.log(
+      `{"model": "${model}", "messages": ${JSON.stringify(
+        convo
+      )}, "stream": false}`
+    );
+
+    this.http
+      .post<ConvoResponse>(
+        ENV.generateURL,
+        `{"model": "${model}", "messages": ${JSON.stringify(
+          convo
+        )}, "stream": false}`
+      )
+      .subscribe((value) => {
+        console.log(value);
+
+        this.chatService.currentChat.addNewConvo(new Convo(value.message));
+      });
   }
 }
 

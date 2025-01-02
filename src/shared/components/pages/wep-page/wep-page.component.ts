@@ -6,6 +6,7 @@ import { ButtonComponent } from '../../atoms/button/button.component';
 import { SidebarComponent } from '../../molecules/sidebar/sidebar.component';
 import { FloatingPanelComponent } from '../../atoms/floating-panel/floating-panel.component';
 import { ChatService } from '../../services/chat.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-wep-page',
@@ -15,10 +16,11 @@ import { ChatService } from '../../services/chat.service';
     InputFieldComponent,
     SidebarComponent,
     FloatingPanelComponent,
+    CommonModule,
   ],
   templateUrl: './wep-page.component.html',
   styleUrl: './wep-page.component.scss',
 })
 export class WepPageComponent {
-  chatService: ChatService = new ChatService();
+  constructor(public chatService: ChatService) {}
 }

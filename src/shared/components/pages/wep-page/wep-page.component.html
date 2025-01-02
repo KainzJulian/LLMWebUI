@@ -3,7 +3,9 @@
 
   <div class="convoGroup">
     <app-convo-list></app-convo-list>
-    <app-input-field></app-input-field>
+    <app-input-field
+      *ngIf="chatService.currentChat != undefined"
+    ></app-input-field>
   </div>
 
   <app-floating-panel></app-floating-panel>

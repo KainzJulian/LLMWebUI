@@ -7,7 +7,7 @@ import { randomDate, randomText } from '../../../app/tools';
 })
 export class ChatService {
   public convoService = new ConvoService();
-  public chatList: Chat[];
+  public chatList: Chat[] = [];
 
   public currentChat!: Chat;
 
@@ -15,6 +15,8 @@ export class ChatService {
     const help = this.chatList[index];
 
     this.chatList.splice(index, 1);
+    this.currentChat = this.chatList[index];
+
     return help;
   }
 
@@ -47,8 +49,6 @@ export class ChatService {
   }
 
   constructor() {
-    this.chatList = [];
-
     this.chatList.push(
       new Chat(
         randomText(10),
@@ -106,7 +106,8 @@ export class ChatService {
       )
     );
 
-    this.currentChat = this.chatList[0];
+    // this.currentChat = this.chatList[0];
+    console.log(this.chatList.length);
 
     this.sortChat();
 
@@ -118,10 +119,10 @@ export class ChatService {
 
 export class Chat {
   constructor(
-    public name: string,
-    public convo: Convo[],
-    public date: Date,
-    public modelName: string
+    public name: string = '',
+    public convo: Convo[] = [],
+    public date: Date = new Date(),
+    public modelName: string = ''
   ) {}
 
   public addNewConvo(convo: Convo) {
@@ -131,5 +132,9 @@ export class Chat {
   public printChat(): void {
     console.log(this.name);
     return;
+  }
+
+  public isUndefined(): boolean {
+    return this.name == '';
   }
 }
