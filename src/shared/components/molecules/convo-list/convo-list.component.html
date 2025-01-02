@@ -1,9 +1,9 @@
 @if (chatService.currentChat != null) {
 <div>
-  @for (item of chatService.currentChat.convo; track item.text) {
+  @for (item of chatService.currentChat.convo; track item.content) {
   <app-output-field
-    [text]="item.text"
-    [textStyle]="item.isAI ? 'humanText' : 'aiText'"
+    [text]="item.content"
+    [textStyle]="item.role == 'assistant' ? 'aiText' : 'humanText'"
   ></app-output-field>
   }
 </div>

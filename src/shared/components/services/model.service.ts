@@ -64,18 +64,6 @@ export class ModelDetails {
   }
 }
 
-export class ModelResponse {
-  model: string;
-  created_at: string;
-  // messages: Message[];
-
-  constructor(data: Partial<ModelResponse> = {}) {
-    this.created_at = data.created_at || '';
-    this.model = data.model || '';
-    // this.messages = data.messages || [];
-  }
-}
-
 export class Message {
   role: string;
   content: string;

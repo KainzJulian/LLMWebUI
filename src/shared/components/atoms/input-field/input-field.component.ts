@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, model, ViewChild } from '@angular/core';
 import { ENV } from '../../../../environments/environment';
 import { ChatService } from '../../services/chat.service';
+import { Convo, ConvoResponse } from '../../services/convo.service';
 
 @Component({
   selector: 'app-input-field',
@@ -19,24 +20,28 @@ export class InputFieldComponent {
   sendRequest(text: string) {
     console.log(text);
 
-    // tinyllama:latest schreibt lange response deshalb sollte mit anderen models später getestet werden
+    this.chatService.currentChat.addNewConvo(
+      new Convo({ role: 'user', content: text })
+    );
+
+    console.log(
+      `{"model": "tinyllama:latest", "messages": ${JSON.stringify(
+        this.chatService.currentChat.convo
+      )}, "stream": false}`
+    );
+
     this.http
-      .post(
+      .post<ConvoResponse>(
         ENV.generateURL,
-        '{"model": "tinyllama:latest", "prompt":"How are you?", "stream": false}'
+        `{"model": "tinyllama:latest", "messages": ${JSON.stringify(
+          this.chatService.currentChat.convo
+        )}, "stream": false}`
       )
       .subscribe((value) => {
         console.log(value);
-      });
 
-    // return this.http
-    //   .post(
-    //     ENV.generateURL,
-    //     '{"model": "tinyllama:latest", "messages":[{"role":"user", "content":"hi how are you ?"}], "stream": false}'
-    //   )
-    //   .subscribe((value) => {
-    //     console.log(value);
-    //   });
+        this.chatService.currentChat.addNewConvo(new Convo(value.message));
+      });
   }
 
   getResponse(text: string) {

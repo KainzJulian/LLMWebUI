@@ -1,5 +1,5 @@
 <div [classList]="textStyle">
-  <p #output [innerText]="text.replaceAll('\n', '')" class="outputText"></p>
+  <p #output [innerText]="text" class="outputText"></p>
   @if(textStyle == "aiText") {
   <img
     (click)="copyText(output.innerText)"

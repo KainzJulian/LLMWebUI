@@ -118,6 +118,10 @@ export class Chat {
 
   public delete(): void {}
 
+  public addNewConvo(convo: Convo) {
+    this.convo.push(convo);
+  }
+
   public printChat(): void {
     console.log(this.name);
     return;
