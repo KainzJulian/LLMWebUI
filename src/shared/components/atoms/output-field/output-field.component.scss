@@ -1,11 +1,12 @@
+@import "@styles";
+
 div {
   width: 90%;
   height: auto;
   margin-bottom: 20px;
 
   border-radius: 16px;
-
-  color: rgb(255, 255, 255);
+  color: $font_color-light;
 }
 
 .outputText {
@@ -16,11 +17,11 @@ div {
 }
 
 .aiText {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: $ai_text-background;
   float: left;
 }
 
 .humanText {
-  background-color: rgb(32, 32, 108);
+  background-color: $human_text-background;
   float: right;
 }

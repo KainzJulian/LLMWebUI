@@ -1,3 +1,18 @@
+$primary-background: #393939;
+$sidebar-background: #2c2c2c;
+$button-background: #ffffff00;
+$selected-background: #444444;
+$hover-background: #1f1f1f;
+$floating_panel-background: #7d7d7d;
+$icon-background: #cfcfcf;
+
+$font_color-dark: #000000;
+$font_color-light: #ffffff;
+
+$ai_text-background: #00000000;
+$human_text-background: #434343;
+
+
 html, body {
   width: 100%;
   height: 100%;
@@ -31,7 +46,7 @@ textarea {
   padding: 5px;
 
   &:hover {
-    background-color: rgba($color: #ffffff, $alpha: .5);
+    background-color: $icon-background;
   }
 }
 

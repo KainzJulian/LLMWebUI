@@ -1,10 +1,12 @@
+@import "@styles";
+
 .container {
   height: 100%;
   width: auto;
   max-width: 250px;
   min-width: 200px;
 
-  background-color: rgb(255, 134, 134);
+  background-color: $sidebar-background;
 
   display: flex;
   flex-direction: column;
