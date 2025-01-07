@@ -25,6 +25,8 @@ export class ModelService {
   }
 
   sendRequest(text: string = '', hasSessionMemory: boolean = true) {
+    if (this.chatService.currentChat == undefined) return;
+
     console.log(text);
     const model = this.chatService.currentChat.modelName;
 
@@ -52,7 +54,7 @@ export class ModelService {
       .subscribe((value) => {
         console.log(value);
 
-        this.chatService.currentChat.addNewConvo(new Convo(value.message));
+        this.chatService.currentChat?.addNewConvo(new Convo(value.message));
       });
   }
 }

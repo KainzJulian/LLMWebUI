@@ -9,13 +9,16 @@ export class ChatService {
   public convoService = new ConvoService();
   public chatList: Chat[] = [];
 
-  public currentChat!: Chat;
+  public currentChat?: Chat;
 
   delete(index: number): Chat {
     const help = this.chatList[index];
 
-    this.chatList.splice(index, 1);
-    this.currentChat = this.chatList[index];
+    const deletedChat = this.chatList.splice(index, 1);
+
+    if (this.currentChat == deletedChat[0]) {
+      this.currentChat = undefined;
+    }
 
     return help;
   }

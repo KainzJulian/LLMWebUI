@@ -26,6 +26,8 @@ export class OutputFieldComponent {
   }
 
   regenerateResponse() {
+    if (this.chatService.currentChat == undefined) return;
+
     const size = this.chatService.currentChat.convo.length;
     const convo = this.chatService.currentChat.convo[size - 2];
 
