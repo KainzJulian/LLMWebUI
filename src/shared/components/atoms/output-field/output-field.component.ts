@@ -1,17 +1,20 @@
 import { Component, Input } from '@angular/core';
 import { ModelService } from '../../services/model.service';
 import { ChatService } from '../../services/chat.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-output-field',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './output-field.component.html',
   styleUrl: './output-field.component.scss',
 })
 export class OutputFieldComponent {
   @Input() text: string = '';
   @Input() textStyle: 'humanText' | 'aiText' = 'aiText';
+
+  @Input() isLastElement: boolean = false;
 
   constructor(
     private modelService: ModelService,
@@ -22,7 +25,7 @@ export class OutputFieldComponent {
     navigator.clipboard.writeText(text);
   }
 
-  regenerateResponse(text: string) {
+  regenerateResponse() {
     const size = this.chatService.currentChat.convo.length;
     const convo = this.chatService.currentChat.convo[size - 2];
 
