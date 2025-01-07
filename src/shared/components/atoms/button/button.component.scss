@@ -2,7 +2,7 @@
 
 div {
   width: 100%;
-  background-color: $primary-background;
+  background-color: $no-background;
 
   display: flex;
   flex-direction: row;
@@ -13,15 +13,15 @@ div {
 }
 
 button {
-  background-color: $button-background;
+  background-color: $no-background;
   border: none;
   display: inline-block;
 
   text-align: start;
 
-  border-radius: 16px;
+  border-radius: $small-radius;
 
-  padding: 8px;
+  padding: $small-padding;
   margin-left: 20px;
 
   width: auto;
@@ -32,7 +32,7 @@ button {
   text-overflow: ellipsis;
 
   &:hover {
-    background-color: $hover-background;
+    background-color: $primary-light-color;
   }
 
   // background: rgb(255,255,255);
@@ -40,7 +40,7 @@ button {
 }
 
 .selected {
-  background-color: $selected-background;
+  background-color: $primary-light-color;
 }
 
 p {

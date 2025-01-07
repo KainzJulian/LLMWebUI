@@ -1,27 +1,33 @@
 @import "@styles";
 
 div {
-  width: 90%;
+  width: auto;
+  max-width: 70%;
+  min-width: auto;
+
   height: auto;
   margin-bottom: 20px;
 
-  border-radius: 16px;
-  color: $font_color-light;
+  border-radius: $mid-radius;
+  color: $text_color-light;
 }
 
 .outputText {
   margin: 0;
-  padding: 12px;
+  padding-top: $mid-padding;
+  padding-bottom: $mid-padding;
+  padding-left: $big-padding;
+  padding-right: $big-padding;
 
   overflow-wrap: anywhere;
 }
 
 .aiText {
-  background-color: $ai_text-background;
+  background-color: $no-background;
   float: left;
 }
 
 .humanText {
-  background-color: $human_text-background;
+  background-color: $accent-color;
   float: right;
 }

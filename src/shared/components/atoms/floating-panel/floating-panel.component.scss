@@ -2,7 +2,7 @@
 
 .container {
   position: absolute;
-  background-color: $floating_panel-background;
+  background-color: $accent-color;
   width: 50%;
 
   height: fit-content;
@@ -15,7 +15,7 @@
 
   border-radius: 16px;
 
-  padding: 32px;
+  padding: $big-padding;
   color: white;
 
   display: flex;

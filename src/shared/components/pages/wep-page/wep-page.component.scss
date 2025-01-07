@@ -1,7 +1,9 @@
+@import "@styles";
+
 .container {
   width: 100%;
   height: 100%;
-  background-color: rgb(89, 0, 0);
+  background-color: $primary-color;
 
   display: flex;
   flex-direction: row;
@@ -35,7 +37,7 @@ app-input-field {
   height: 20%;
   width: 60%;
 
-  background-color: rgb(162, 162, 162);
+  background-color: $accent-color;
 
   border-radius: 16px;
 

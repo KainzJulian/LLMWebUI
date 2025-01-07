@@ -4,4 +4,7 @@ div {
   margin-left: auto;
   margin-right: auto;
   overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
 }

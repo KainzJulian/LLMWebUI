@@ -1,16 +1,26 @@
-$primary-background: #393939;
-$sidebar-background: #2c2c2c;
-$button-background: #ffffff00;
-$selected-background: #444444;
-$hover-background: #1f1f1f;
-$floating_panel-background: #7d7d7d;
-$icon-background: #cfcfcf;
+$text_color-light: #ececec;
+$text_color-dark: #131313;
 
-$font_color-dark: #000000;
-$font_color-light: #ffffff;
+$primary-color: #1e1e1e;
+$secondary-color: #353535;
+$accent-color: #2f2f2f;
 
-$ai_text-background: #00000000;
-$human_text-background: #434343;
+$no-background: #00000000;
+
+$primary-light-color: #2c2c2c;
+$secondary-light-color: #535353;
+$accent-light-color: #8d8d8d;
+
+$big-radius: 32px;
+$mid-radius: 16px;
+$small-radius: 8px;
+
+$big-padding: 16px;
+$mid-padding: 12px;
+$small-padding: 8px;
+$v_small-padding: 6px;
+
+
 
 
 html, body {
@@ -19,7 +29,7 @@ html, body {
   margin: 0px;
   padding: 0px;
   &::-webkit-scrollbar-track {
-    border-radius: 16px;
+    border-radius: $mid-radius;
   }
 }
 
@@ -42,11 +52,13 @@ textarea {
   width: 25px;
   height: 25px;
 
-  border-radius: 12px;
-  padding: 5px;
+  color: $text_color-dark;
+
+  border-radius: $small-radius;
+  padding: $v_small-padding;
 
   &:hover {
-    background-color: $icon-background;
+    background-color: $accent-light-color;
   }
 }
 

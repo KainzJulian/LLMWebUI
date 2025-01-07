@@ -3,13 +3,19 @@
 .container {
   height: 100%;
   width: auto;
-  max-width: 250px;
+  max-width: 200px;
   min-width: 200px;
 
-  background-color: $sidebar-background;
+  background-color: $secondary-color;
 
   display: flex;
   flex-direction: column;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  padding-top: $small-padding;
+  padding-bottom: $small-padding;
 }
 
 div > div {
@@ -31,11 +37,20 @@ div > div {
 
 .sidebarButton {
   height: 50px;
-  margin-top: 8px;
   margin-bottom: 8px;
 }
 
 .optionsButton {
   height: 100px;
   margin-top: auto;
+  background-color: $no-background;
+  color: $text_color-light;
+  border: none;
+
+  border-radius: $small-radius;
+
+  &:hover {
+    background-color: $accent-light-color;
+    color: $text_color-dark;
+  }
 }
