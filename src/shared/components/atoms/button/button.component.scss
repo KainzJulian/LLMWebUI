@@ -22,11 +22,8 @@ button {
   border-radius: $small-radius;
 
   padding: $small-padding;
-  margin-left: 20px;
 
-  width: auto;
-  min-width: 70%;
-  max-width: 70%;
+  width: 100%;
 
   overflow-x: hidden;
   text-overflow: ellipsis;
@@ -41,10 +38,10 @@ button {
 
 .selected {
   background-color: $primary-light-color;
+  border-radius: $small-radius;
 }
 
-p {
-  display: inline-block;
-  margin-left: 20px;
+img {
+  margin-left: auto;
 }
 

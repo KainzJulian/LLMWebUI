@@ -3,14 +3,14 @@
   @if(textStyle == "aiText") {
   <img
     (click)="copyText(output.innerText)"
-    src="/icons/copy.svg"
+    src="/icons/copy-light.svg"
     alt="copy"
     class="icon"
   />
   <img
     *ngIf="isLastElement"
     (click)="regenerateResponse()"
-    src="/icons/repeat.svg"
+    src="/icons/repeat-light.svg"
     alt="repeat"
     class="icon"
   />
