@@ -52,62 +52,9 @@ export class ChatService {
   }
 
   constructor() {
-    this.chatList.push(
-      new Chat(
-        randomText(10),
-        this.convoService.buildConvo(20),
-        randomDate(),
-        ''
-      )
-    );
-    this.chatList.push(
-      new Chat(
-        randomText(10),
-        this.convoService.buildConvo(20),
-        randomDate(),
-        'tinyllama:latest'
-      )
-    );
-    this.chatList.push(
-      new Chat(
-        randomText(10),
-        this.convoService.buildConvo(20),
-        randomDate(),
-        'tinyllama:latest'
-      )
-    );
-    this.chatList.push(
-      new Chat(
-        randomText(10),
-        this.convoService.buildConvo(20),
-        randomDate(),
-        'tinyllama:latest'
-      )
-    );
-    this.chatList.push(
-      new Chat(
-        randomText(10),
-        this.convoService.buildConvo(20),
-        randomDate(),
-        'tinyllama:latest'
-      )
-    );
-    this.chatList.push(
-      new Chat(
-        randomText(10),
-        this.convoService.buildConvo(20),
-        randomDate(),
-        'tinyllama:latest'
-      )
-    );
-    this.chatList.push(
-      new Chat(
-        randomText(10),
-        this.convoService.buildConvo(20),
-        randomDate(),
-        'tinyllama:latest'
-      )
-    );
+    for (let index = 0; index < 20; index++) {
+      this.chatList.push(this.createNewChat(20, 20));
+    }
 
     // this.currentChat = this.chatList[0];
     console.log(this.chatList.length);
@@ -117,6 +64,15 @@ export class ChatService {
     for (const element in this.chatList) {
       console.log(this.chatList[element]);
     }
+  }
+
+  createNewChat(textLength: number, convoLength: number): Chat {
+    return new Chat(
+      randomText(textLength),
+      this.convoService.buildConvo(convoLength),
+      randomDate(),
+      'tinyllama:latest'
+    );
   }
 }
 

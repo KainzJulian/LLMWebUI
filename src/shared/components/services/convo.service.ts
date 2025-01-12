@@ -17,7 +17,7 @@ export class ConvoService {
     for (let i = 0; i < length; i++) {
       help.push(
         new Convo({
-          role: i % 2 == 0 ? 'assistant' : 'user',
+          role: i % 2 == 1 ? 'assistant' : 'user',
           content: randomText(200),
         })
       );
