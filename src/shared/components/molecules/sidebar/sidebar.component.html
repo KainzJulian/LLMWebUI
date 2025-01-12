@@ -3,7 +3,12 @@
     <img
       src="/icons/close-light.svg"
       (click)="closeSidebar()"
-      class="sidebarButton icon"
+      class="button icon"
+    />
+    <img
+      (click)="openSearch()"
+      src="/icons/search-light.svg"
+      class="button icon"
     />
   </div>
 
@@ -30,5 +35,11 @@
     }
   </div>
 
-  <button (click)="openOptions()" class="optionsButton">options</button>
+  <div class="optionsBar">
+    <img
+      (click)="openOptions()"
+      src="/icons/options-light.svg"
+      class="button icon"
+    />
+  </div>
 </div>

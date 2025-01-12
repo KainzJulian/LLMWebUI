@@ -50,18 +50,10 @@ div > div {
   }
 }
 
-.sidebarButton  {
-  @extend .button;
-}
-
-.optionsButton {
-  @extend .button;
-  height: 50px;
-  margin-top: auto;
-
-}
-
 .menuBar {
   margin-bottom: 8px;
 }
 
+.optionsBar {
+  margin-top: auto;
+}

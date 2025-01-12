@@ -1,6 +1,4 @@
-@if(stateService.isOpen()) {
-
-<div class="container">
+<div *ngIf="stateService.isOptionsOpen()" class="container">
   <img (click)="close()" src="/icons/close-light.svg" class="icon" />
 
   <div class="listItem">
@@ -12,4 +10,3 @@
     <button (click)="deleteAllChats()">Alle löschen</button>
   </div>
 </div>
-}

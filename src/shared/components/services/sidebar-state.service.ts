@@ -5,13 +5,13 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class SidebarStateService {
-  isOpen = signal(false);
+  public isOptionsOpen = signal(false);
 
   toggleState() {
-    this.isOpen.update((current) => !current);
+    this.isOptionsOpen.update((current) => !current);
   }
 
   setState(state: boolean) {
-    this.isOpen.set(state);
+    this.isOptionsOpen.set(state);
   }
 }
