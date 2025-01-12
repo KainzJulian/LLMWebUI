@@ -14,6 +14,7 @@
   ></textarea>
   <div class="menuBar">
     <img
+      *ngIf="input.value !== ''"
       (click)="modelService.sendRequest(input.value); this.clearInput()"
       src="/icons/send-light.svg"
       class="icon"
