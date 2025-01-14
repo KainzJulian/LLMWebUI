@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, model, ViewChild } from '@angular/core';
+import { Component, effect, ElementRef, model, ViewChild } from '@angular/core';
 import { ENV } from '../../../../environments/environment';
 import { ChatService } from '../../services/chat.service';
 import { Convo, ConvoResponse } from '../../services/convo.service';
@@ -28,7 +28,17 @@ export class InputFieldComponent {
     public modelService: ModelService,
     public llmService: LLMRequestService,
     public subService: SubscriptionService
-  ) {}
+  ) {
+    effect(() => {
+      if (this.llmService.isProcessingRequest()) {
+        this.changeIcon('close-light.svg');
+        this.buttonState = 'cancelRequest';
+      } else {
+        this.changeIcon('send-light.svg');
+        this.buttonState = 'sendRequest';
+      }
+    });
+  }
 
   processInput(input: string) {
     if (this.buttonState == 'cancelRequest') {
@@ -57,6 +67,10 @@ export class InputFieldComponent {
 
       this.buttonState = 'cancelRequest';
     }
+  }
+
+  changeIcon(icon: string) {
+    this.sendButton.nativeElement.src = '/icons/' + icon;
   }
 
   clearInput() {

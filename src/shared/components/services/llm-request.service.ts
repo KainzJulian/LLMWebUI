@@ -13,19 +13,13 @@ import { SubscriptionService } from './subscription.service';
 })
 export class LLMRequestService implements OnDestroy {
   private sub: Subscription | null = null;
+  public isProcessingRequest = signal(false);
 
-  public isProcessingRequest = (): boolean => {
-    if (this.sub == undefined) return false;
-    return !this.sub.closed;
-  };
-
-  constructor(
-    private http: HttpClient,
-    private subService: SubscriptionService
-  ) {}
+  constructor(private http: HttpClient) {}
 
   public cancelRequest() {
     console.warn('Canceled Request');
+    this.isProcessingRequest.set(false);
     this.sub?.unsubscribe();
   }
 
@@ -55,12 +49,14 @@ export class LLMRequestService implements OnDestroy {
       currentChat.modelName
     }", "messages": ${JSON.stringify(convo)}, "stream": false}`;
 
+    this.isProcessingRequest.set(true);
     this.sub = this.http
       .post<ConvoResponse>(ENV.generateURL, body)
       .subscribe((resolve) => {
         this.sub?.unsubscribe();
         currentChat?.addNewConvo(new Convo(resolve.message));
         console.log(resolve);
+        this.isProcessingRequest.set(false);
         onResolve();
       });
 
