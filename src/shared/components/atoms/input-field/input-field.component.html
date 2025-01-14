@@ -2,20 +2,17 @@
   <textarea
     #input
     (ngModel)="(inputText)"
-    (input)="changePosition()"
     placeholder="Input text..."
     class="input"
     name="input"
     id="input"
     autofocus
-    (keydown.control.enter)="
-      modelService.sendRequest(input.value); this.clearInput()
-    "
+    (keydown.control.enter)="processInput(input.value)"
   ></textarea>
   <div class="menuBar">
     <img
-      *ngIf="input.value !== ''"
-      (click)="modelService.sendRequest(input.value); this.clearInput()"
+      #sendButton
+      (click)="processInput(input.value)"
       src="/icons/send-light.svg"
       class="icon"
       id="send"

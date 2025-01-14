@@ -1,65 +1,30 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable, model, OnInit, Signal, signal } from '@angular/core';
 import { ENV } from '../../../environments/environment';
-import { map } from 'rxjs';
+import { map, Subscription } from 'rxjs';
 import { ChatService } from './chat.service';
 import { Convo, ConvoResponse } from './convo.service';
+import { LlmRequestService } from './llm-request.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ModelService {
-  public models: Model[] = [];
-  private modelListURL = ENV.modelList;
+  public modelArray = signal(new ModelArray());
 
-  constructor(private http: HttpClient, public chatService: ChatService) {
+  constructor(private http: HttpClient) {
     console.log('test');
-
-    this.getModelData();
+    this.updateModelData();
   }
 
-  getModelData() {
-    return this.http.get<ModelArray>(this.modelListURL).subscribe((value) => {
-      this.models = value.models;
+  updateModelData() {
+    this.http.get<ModelArray>(ENV.modelList).subscribe((value) => {
+      this.modelArray?.set(value);
     });
-  }
-
-  sendRequest(text: string = '', hasSessionMemory: boolean = true) {
-    if (this.chatService.currentChat == undefined) return;
-
-    console.log(text);
-    const model = this.chatService.currentChat.modelName;
-
-    const newConvo = new Convo({ role: 'user', content: text });
-    this.chatService.currentChat.addNewConvo(newConvo);
-
-    let convo: Convo[] = [];
-
-    if (hasSessionMemory) convo = this.chatService.currentChat.convo;
-    else convo.push(newConvo);
-
-    console.log(
-      `{"model": "${model}", "messages": ${JSON.stringify(
-        convo
-      )}, "stream": false}`
-    );
-
-    this.http
-      .post<ConvoResponse>(
-        ENV.generateURL,
-        `{"model": "${model}", "messages": ${JSON.stringify(
-          convo
-        )}, "stream": false}`
-      )
-      .subscribe((value) => {
-        console.log(value);
-
-        this.chatService.currentChat?.addNewConvo(new Convo(value.message));
-      });
   }
 }
 
-class ModelArray {
+export class ModelArray {
   models: Model[];
 
   constructor(data: Partial<ModelArray> = {}) {

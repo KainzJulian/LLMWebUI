@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { randomText } from '../../../app/tools';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'any',
 })
 export class ConvoService {
   public convo: Convo[];

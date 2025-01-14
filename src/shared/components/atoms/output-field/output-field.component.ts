@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ModelService } from '../../services/model.service';
 import { ChatService } from '../../services/chat.service';
 import { CommonModule } from '@angular/common';
+import { LlmRequestService } from '../../services/llm-request.service';
 
 @Component({
   selector: 'app-output-field',
@@ -18,7 +19,8 @@ export class OutputFieldComponent {
 
   constructor(
     private modelService: ModelService,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private llmService: LlmRequestService
   ) {}
 
   public copyText(text: string) {
@@ -26,7 +28,7 @@ export class OutputFieldComponent {
   }
 
   regenerateResponse() {
-    if (this.chatService.currentChat == undefined) return;
+    if (this.chatService.currentChat == null) return;
 
     const size = this.chatService.currentChat.convo.length;
     const convo = this.chatService.currentChat.convo[size - 2];
@@ -34,6 +36,6 @@ export class OutputFieldComponent {
     this.chatService.currentChat.convo.pop();
     this.chatService.currentChat.convo.pop();
 
-    this.modelService.sendRequest(convo?.content);
+    this.llmService.sendRequest(this.chatService.currentChat, convo?.content);
   }
 }

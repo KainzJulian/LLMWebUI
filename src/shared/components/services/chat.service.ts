@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Convo, ConvoService } from './convo.service';
 import { randomDate, randomText } from '../../../app/tools';
+import { LlmRequestService } from './llm-request.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'any',
 })
 export class ChatService {
   public convoService = new ConvoService();
   public chatList: Chat[] = [];
 
-  public currentChat?: Chat;
+  public currentChat: Chat | null = null;
 
   delete(index: number): Chat {
     const help = this.chatList[index];
@@ -17,7 +18,7 @@ export class ChatService {
     const deletedChat = this.chatList.splice(index, 1);
 
     if (this.currentChat == deletedChat[0]) {
-      this.currentChat = undefined;
+      this.currentChat = null;
     }
 
     return help;
@@ -32,9 +33,12 @@ export class ChatService {
   }
 
   public setCurrentChat(index: number): void {
+    if (this.currentChat != this.chatList[index])
+      this.llmService.cancelRequest();
+
     this.currentChat = this.chatList[index];
 
-    console.info('Current Chat: ' + this.currentChat.date);
+    console.info('Current Chat: ' + this.currentChat);
   }
 
   private sortChat(): void {
@@ -51,7 +55,7 @@ export class ChatService {
     return this.chatList[index] == this.currentChat;
   }
 
-  constructor() {
+  constructor(private llmService: LlmRequestService) {
     for (let index = 0; index < 20; index++) {
       this.chatList.push(this.createNewChat(20, 20));
     }
@@ -77,6 +81,8 @@ export class ChatService {
 }
 
 export class Chat {
+  private nameSet = false;
+
   constructor(
     public name: string = '',
     public convo: Convo[] = [],
@@ -86,14 +92,18 @@ export class Chat {
 
   public addNewConvo(convo: Convo) {
     this.convo.push(convo);
+
+    if (!this.nameSet) {
+      this.setName(this.convo[0].content.substring(0, 30));
+      this.nameSet = true;
+    }
+  }
+
+  public setName(newName: string) {
+    this.name = newName;
   }
 
   public printChat(): void {
     console.log(this.name);
-    return;
-  }
-
-  public isUndefined(): boolean {
-    return this.name == '';
   }
 }
