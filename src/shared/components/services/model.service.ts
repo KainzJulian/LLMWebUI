@@ -4,7 +4,7 @@ import { ENV } from '../../../environments/environment';
 import { map, Subscription } from 'rxjs';
 import { ChatService } from './chat.service';
 import { Convo, ConvoResponse } from './convo.service';
-import { LlmRequestService } from './llm-request.service';
+import { LLMRequestService } from './llm-request.service';
 
 @Injectable({
   providedIn: 'root',

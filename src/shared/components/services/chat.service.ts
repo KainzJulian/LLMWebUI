@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Convo, ConvoService } from './convo.service';
 import { randomDate, randomText } from '../../../app/tools';
-import { LlmRequestService } from './llm-request.service';
+import { LLMRequestService } from './llm-request.service';
 
 @Injectable({
   providedIn: 'any',
@@ -55,7 +55,7 @@ export class ChatService {
     return this.chatList[index] == this.currentChat;
   }
 
-  constructor(private llmService: LlmRequestService) {
+  constructor(private llmService: LLMRequestService) {
     for (let index = 0; index < 20; index++) {
       this.chatList.push(this.createNewChat(20, 20));
     }

@@ -5,35 +5,44 @@ import { ModelArray, ModelService } from './model.service';
 import { ENV } from '../../../environments/environment';
 import { Observable, Subscription, tap } from 'rxjs';
 import { Convo, ConvoResponse } from './convo.service';
+import { SubscriptionService } from './subscription.service';
 
-//TODO: alle model request und response von modelservice und chatService hier verarbeiten
+//TODO: alle Subscriptions in ein service geben und funktionen dort verwenden
 @Injectable({
   providedIn: 'root',
 })
-export class LlmRequestService implements OnDestroy {
-  private controller?: AbortController;
+export class LLMRequestService implements OnDestroy {
+  private sub: Subscription | null = null;
 
   public isProcessingRequest = (): boolean => {
-    return this.controller != null;
+    if (this.sub == undefined) return false;
+    return !this.sub.closed;
   };
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private subService: SubscriptionService
+  ) {}
 
   public cancelRequest() {
     console.warn('Canceled Request');
-    this.controller?.abort();
+    this.sub?.unsubscribe();
   }
 
   public sendRequest(
     currentChat: Chat | null,
     text: string = '',
-    hasSessionMemory: boolean = true
-  ): Observable<ConvoResponse> | null {
-    if (currentChat == null || this.isProcessingRequest()) return null;
+    hasSessionMemory: boolean = true,
+    onResolve: Function = Function
+  ): boolean {
+    console.log('current Chat:' + currentChat);
+    console.log('processing: ' + this.isProcessingRequest());
+
+    if (currentChat == null || this.isProcessingRequest()) return false;
 
     const model = currentChat.modelName;
-
     const newConvo = new Convo({ role: 'user', content: text });
+
     currentChat.addNewConvo(newConvo);
 
     let convo: Convo[] = [];
@@ -42,19 +51,20 @@ export class LlmRequestService implements OnDestroy {
 
     console.log(convo);
 
-    const body = `{"model": "${model}", "messages": ${JSON.stringify(
-      convo
-    )}, "stream": false}`;
+    const body = `{"model": "${
+      currentChat.modelName
+    }", "messages": ${JSON.stringify(convo)}, "stream": false}`;
 
-    this.controller = new AbortController();
-
-    return this.http.post<ConvoResponse>(ENV.generateURL, body).pipe(
-      tap((resolve) => {
-        this.controller?.signal;
+    this.sub = this.http
+      .post<ConvoResponse>(ENV.generateURL, body)
+      .subscribe((resolve) => {
+        this.sub?.unsubscribe();
         currentChat?.addNewConvo(new Convo(resolve.message));
         console.log(resolve);
-      })
-    );
+        onResolve();
+      });
+
+    return true;
   }
 
   ngOnDestroy(): void {

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ModelService } from '../../services/model.service';
 import { ChatService } from '../../services/chat.service';
 import { CommonModule } from '@angular/common';
-import { LlmRequestService } from '../../services/llm-request.service';
+import { LLMRequestService } from '../../services/llm-request.service';
 
 @Component({
   selector: 'app-output-field',
@@ -20,7 +20,7 @@ export class OutputFieldComponent {
   constructor(
     private modelService: ModelService,
     private chatService: ChatService,
-    private llmService: LlmRequestService
+    private llmService: LLMRequestService
   ) {}
 
   public copyText(text: string) {
@@ -37,5 +37,9 @@ export class OutputFieldComponent {
     this.chatService.currentChat.convo.pop();
 
     this.llmService.sendRequest(this.chatService.currentChat, convo?.content);
+  }
+
+  isAiText(): boolean {
+    return this.textStyle == 'aiText';
   }
 }

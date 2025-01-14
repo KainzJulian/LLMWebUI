@@ -1,6 +1,5 @@
-@if (chatService.currentChat != null) {
-<div>
-  @for (item of chatService.currentChat.convo; track item.content) {
+<div *ngIf="chatService.currentChat != null">
+  @for (item of chatService.currentChat.convo; track $index) {
   <app-output-field
     [isLastElement]="$last"
     [text]="item.content"
@@ -8,4 +7,3 @@
   ></app-output-field>
   }
 </div>
-}

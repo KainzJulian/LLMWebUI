@@ -2,13 +2,14 @@
   <p #output [innerText]="text" class="outputText"></p>
   @if(textStyle == "aiText") {
   <img
+    *ngIf="isAiText()"
     (click)="copyText(output.innerText)"
     src="/icons/copy-light.svg"
     alt="copy"
     class="icon"
   />
   <img
-    *ngIf="isLastElement"
+    *ngIf="isLastElement && isAiText()"
     (click)="regenerateResponse()"
     src="/icons/repeat-light.svg"
     alt="repeat"

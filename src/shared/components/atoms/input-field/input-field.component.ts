@@ -5,7 +5,8 @@ import { ChatService } from '../../services/chat.service';
 import { Convo, ConvoResponse } from '../../services/convo.service';
 import { ModelService } from '../../services/model.service';
 import { CommonModule } from '@angular/common';
-import { LlmRequestService } from '../../services/llm-request.service';
+import { LLMRequestService } from '../../services/llm-request.service';
+import { SubscriptionService } from '../../services/subscription.service';
 
 @Component({
   selector: 'app-input-field',
@@ -25,32 +26,37 @@ export class InputFieldComponent {
     private http: HttpClient,
     public chatService: ChatService,
     public modelService: ModelService,
-    public llmService: LlmRequestService
+    public llmService: LLMRequestService,
+    public subService: SubscriptionService
   ) {}
 
   processInput(input: string) {
-    // if (this.buttonState == 'cancelRequest') {
-    //   this.llmService.cancelRequest();
-    //   this.buttonState = 'sendRequest';
-    //   this.sendButton.nativeElement.src = '/icons/send-light.svg';
-    // }
+    if (this.buttonState == 'cancelRequest') {
+      this.llmService.cancelRequest();
+      this.buttonState = 'sendRequest';
+      this.sendButton.nativeElement.src = '/icons/send-light.svg';
+    }
 
     if (input == '') return;
 
     this.clearInput();
 
-    this.llmService
-      .sendRequest(this.chatService.currentChat, input)
-      ?.subscribe((value) => {
-        console.log(value);
-      });
+    const res = this.llmService.sendRequest(
+      this.chatService.currentChat,
+      input,
+      true,
+      () => {
+        this.sendButton.nativeElement.src = '/icons/send-light.svg';
+        this.buttonState = 'sendRequest';
+      }
+    );
 
-    // if (worked && this.buttonState == 'sendRequest') {
-    //   this.sendButton.nativeElement.src = '/icons/close-light.svg';
-    //   this.clearInput();
+    if (res && this.buttonState == 'sendRequest') {
+      this.sendButton.nativeElement.src = '/icons/close-light.svg';
+      this.clearInput();
 
-    //   this.buttonState = 'cancelRequest';
-    // }
+      this.buttonState = 'cancelRequest';
+    }
   }
 
   clearInput() {
