@@ -1,6 +1,7 @@
-const baseURL = 'http://localhost:11434/api/';
+const baseURL = 'http://127.0.0.1:8000/';
+const modelURL = baseURL + 'models/';
 
 export const ENV = {
-  modelList: baseURL + 'tags',
-  generateURL: baseURL + 'chat',
+  modelList: modelURL,
+  generateURL: modelURL + 'generate',
 };
