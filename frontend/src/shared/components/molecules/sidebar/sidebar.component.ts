@@ -1,8 +1,8 @@
 import { Component, Input, model, signal } from '@angular/core';
 import { ButtonComponent } from '../../atoms/button/button.component';
 import { SidebarStateService } from '../../services/sidebar-state.service';
-import { Chat, ChatService } from '../../services/chat.service';
-import { Model, ModelService } from '../../services/model.service';
+import { ChatService } from '../../services/chat.service';
+import { ModelService } from '../../services/model.service';
 import { CommonModule } from '@angular/common';
 
 @Component({

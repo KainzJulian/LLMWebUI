@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { OutputFieldComponent } from '../../atoms/output-field/output-field.component';
-import { Chat, ChatService } from '../../services/chat.service';
+import { ChatService } from '../../services/chat.service';
 import { CommonModule } from '@angular/common';
 
 @Component({

@@ -6,7 +6,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { Chat, ChatService } from '../../services/chat.service';
+import { ChatService } from '../../services/chat.service';
 import { CommonModule } from '@angular/common';
 
 @Component({

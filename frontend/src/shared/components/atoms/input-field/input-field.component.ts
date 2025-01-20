@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Component, effect, ElementRef, model, ViewChild } from '@angular/core';
 import { ENV } from '../../../../environments/environment';
 import { ChatService } from '../../services/chat.service';
-import { Convo, ConvoResponse } from '../../services/convo.service';
 import { ModelService } from '../../services/model.service';
 import { CommonModule } from '@angular/common';
 import { LLMRequestService } from '../../services/llm-request.service';

@@ -1,11 +1,9 @@
 import { Injectable, OnDestroy, OnInit, signal } from '@angular/core';
-import { Chat, ChatService } from './chat.service';
 import { HttpClient } from '@angular/common/http';
-import { ModelArray, ModelService } from './model.service';
 import { ENV } from '../../../environments/environment';
-import { Observable, Subscription, tap } from 'rxjs';
-import { Convo, ConvoResponse } from './convo.service';
-import { SubscriptionService } from './subscription.service';
+import { Subscription, tap } from 'rxjs';
+import { Chat } from '../../types/chat';
+import { Convo, ConvoResponse } from '../../types/convo';
 
 //TODO: alle Subscriptions in ein service geben und funktionen dort verwenden
 @Injectable({
@@ -54,7 +52,7 @@ export class LLMRequestService implements OnDestroy {
       .post<ConvoResponse>(ENV.generateURL, body)
       .subscribe((resolve) => {
         this.sub?.unsubscribe();
-        currentChat?.addNewConvo(new Convo(resolve.message));
+        currentChat?.addNewConvo(new Convo(resolve.response));
         console.log(resolve);
         this.isProcessingRequest.set(false);
         onResolve();
