@@ -40,15 +40,15 @@ export class InputFieldComponent {
   }
 
   processInput(input: string) {
-    if (this.buttonState == 'cancelRequest') {
-      this.llmService.cancelRequest();
-      this.buttonState = 'sendRequest';
-      this.sendButton.nativeElement.src = '/icons/send-light.svg';
-    }
+    // if (this.buttonState == 'cancelRequest') {
+    //   this.llmService.cancelRequest();
+    //   this.buttonState = 'sendRequest';
+    //   this.sendButton.nativeElement.src = '/icons/send-light.svg';
+    // }
 
-    if (input == '') return;
+    // if (input == '') return;
 
-    this.clearInput();
+    // this.clearInput();
 
     const res = this.llmService.sendRequest(
       this.chatService.currentChat,
@@ -60,12 +60,12 @@ export class InputFieldComponent {
       }
     );
 
-    if (res && this.buttonState == 'sendRequest') {
-      this.sendButton.nativeElement.src = '/icons/close-light.svg';
-      this.clearInput();
+    // if (res && this.buttonState == 'sendRequest') {
+    //   this.sendButton.nativeElement.src = '/icons/close-light.svg';
+    //   this.clearInput();
 
-      this.buttonState = 'cancelRequest';
-    }
+    //   this.buttonState = 'cancelRequest';
+    // }
   }
 
   changeIcon(icon: string) {

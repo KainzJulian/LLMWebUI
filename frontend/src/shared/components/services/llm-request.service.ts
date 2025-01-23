@@ -43,16 +43,14 @@ export class LLMRequestService implements OnDestroy {
 
     console.log(convo);
 
-    const body = `{"model": "${
-      currentChat.modelName
-    }", "messages": ${JSON.stringify(convo)}, "stream": false}`;
+    const body = { currentChat: currentChat, sessionMemory: hasSessionMemory };
 
     this.isProcessingRequest.set(true);
     this.sub = this.http
       .post<ConvoResponse>(ENV.generateURL, body)
       .subscribe((resolve) => {
         this.sub?.unsubscribe();
-        currentChat?.addNewConvo(new Convo(resolve.response));
+        currentChat?.addNewConvo(new Convo(resolve?.response));
         console.log(resolve);
         this.isProcessingRequest.set(false);
         onResolve();

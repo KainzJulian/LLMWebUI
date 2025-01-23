@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { ENV } from '../../../environments/environment';
-import { ModelArray } from '../../types/model';
+import { Model, ModelArray } from '../../types/model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ModelService {
-  public modelArray = signal(new ModelArray());
+  public modelArray: Model[] = [];
 
   constructor(private http: HttpClient) {
     console.log('test');
@@ -15,9 +15,10 @@ export class ModelService {
   }
 
   updateModelData() {
-    this.http.get<ModelArray>(ENV.modelList).subscribe((value) => {
-      this.modelArray?.set(value);
-      console.log(this.modelArray());
+    this.http.get<Model[]>(ENV.modelList).subscribe((value) => {
+      this.modelArray = value;
+      console.log(value);
+      console.log(this.modelArray);
     });
   }
 }

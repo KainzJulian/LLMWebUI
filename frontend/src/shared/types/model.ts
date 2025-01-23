@@ -8,23 +8,17 @@ export class ModelArray {
 
 export class Model {
   model: string;
-  name: string;
   modified_at: Date;
   size: number;
   digest: string;
   details: ModelDetails;
-  expires_at: Date;
-  size_vram: number;
 
   constructor(data: Partial<Model> = {}) {
     this.model = data.model || '';
-    this.name = data.name || '';
     this.modified_at = data.modified_at || new Date();
     this.size = data.size || 0;
     this.digest = data.digest || '';
     this.details = new ModelDetails(data.details) || null;
-    this.size_vram = data.size_vram || 0;
-    this.expires_at = data.expires_at || new Date(0);
   }
 }
 

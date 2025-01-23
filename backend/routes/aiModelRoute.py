@@ -1,28 +1,48 @@
+import json
 from typing import Optional, Sequence
 from fastapi import *
 import ollama
+from pydantic import BaseModel
+from database import client, modelCollection
+
+from classes.model import Model, ModelDetails, buildModel
+from classes.chat import Chat
+from classes.convo import Convo
 
 aiModelRouter = APIRouter(prefix="/models")
 
-@aiModelRouter.get("/")
-def getModels() -> ollama.ProcessResponse:
-
+@aiModelRouter.post("/update")
+def updateModels():
   try:
-    modelList = ollama.list()
+
+    models = ollama.list()
+
+    for help in models.models:
+      modelCollection.update_one({"model": help.model}, {"$set":buildModel(help).model_dump()}, upsert=True)
+
+    return True
+
+  except Exception as e:
+    return e
+
+
+@aiModelRouter.get("")
+def getModels() -> list[Model]:
+    modelList = list()
+
+    for modelItem in modelCollection.find({}):
+      modelList.append(modelItem)
+
     return modelList
 
-  except ollama.ResponseError as e:
-    print(e)
-
 @aiModelRouter.post("/generate")
-def generate(data:  Request) -> ollama.GenerateResponse:
+def generate(currentChat: Chat, sessionMemory:bool) -> bool:
   try:
-    chunk = ollama.generate(data)
-    return chunk
+    print(currentChat)
+  #   chunk = ollama.generate(data)
+  #   return chunk
+  #   print(e)
+    return True
   except Exception as e:
-    print(e)
-
-class Request:
-  model: Optional[str]
-  messages: Optional[Sequence[str]]
+    return False
 
