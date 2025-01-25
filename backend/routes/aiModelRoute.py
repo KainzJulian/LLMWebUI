@@ -1,6 +1,8 @@
+import asyncio
 import json
-from typing import Optional, Sequence
+from typing import Literal, Optional, Sequence
 from fastapi import *
+from fastapi.responses import StreamingResponse
 import ollama
 from pydantic import BaseModel
 from database import client, modelCollection
@@ -36,13 +38,26 @@ def getModels() -> list[Model]:
     return modelList
 
 @aiModelRouter.post("/generate")
-def generate(currentChat: Chat, sessionMemory:bool) -> bool:
+async def generate(convo: list[Convo], modelName:str):
   try:
-    print(currentChat)
-  #   chunk = ollama.generate(data)
-  #   return chunk
-  #   print(e)
-    return True
-  except Exception as e:
-    return False
+    print(convo)
+    print(modelName)
 
+    return StreamingResponse(generateChatResponse(convo, modelName), media_type="text/plain")
+
+  except Exception as e:
+    print(e)
+    return e
+
+
+async def generateChatResponse(convoList: list[Convo], modelName: str):
+  message = []
+
+  for convo in convoList:
+    message.append({"role": convo.role, "content": convo.content})
+
+  response: ollama.ChatResponse
+
+  async for response in await ollama.AsyncClient().chat(modelName, message, stream=True):
+    print(response)
+    yield response.message.content
