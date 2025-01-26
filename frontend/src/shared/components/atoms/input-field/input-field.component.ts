@@ -50,7 +50,7 @@ export class InputFieldComponent {
 
     // this.clearInput();
 
-    const res = this.llmService.sendRequest(
+    this.llmService.sendRequest(
       this.chatService.currentChat,
       input,
       true,

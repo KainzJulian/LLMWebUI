@@ -15,7 +15,7 @@ export class ModelService {
   }
 
   updateModelData() {
-    this.http.get<Model[]>(ENV.modelList).subscribe((value) => {
+    this.http.get<Model[]>(ENV.modelList.href).subscribe((value) => {
       this.modelArray = value;
       console.log(value);
       console.log(this.modelArray);

@@ -4,6 +4,7 @@ import { ENV } from '../../../environments/environment';
 import { Subscription, tap } from 'rxjs';
 import { Chat } from '../../types/chat';
 import { Convo, ConvoResponse } from '../../types/convo';
+import { ChatService } from './chat.service';
 
 //TODO: alle Subscriptions in ein service geben und funktionen dort verwenden
 @Injectable({
@@ -13,7 +14,7 @@ export class LLMRequestService implements OnDestroy {
   private sub: Subscription | null = null;
   public isProcessingRequest = signal(false);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private chatService: ChatService) {}
 
   public cancelRequest() {
     console.warn('Canceled Request');
@@ -27,66 +28,44 @@ export class LLMRequestService implements OnDestroy {
     hasSessionMemory: boolean = true,
     onResolve: Function = Function
   ) {
-    // console.log('current Chat:' + currentChat);
-    // console.log('processing: ' + this.isProcessingRequest());
+    if (currentChat == null) return;
 
-    // if (currentChat == null || this.isProcessingRequest()) return false;
+    const newConvo = new Convo({ role: 'user', content: text });
 
-    // const newConvo = new Convo({ role: 'user', content: text });
+    currentChat.addNewConvo(newConvo);
 
-    // currentChat.addNewConvo(newConvo);
+    const convo = currentChat.convo;
 
-    // let convo: Convo[] = [];
-    // if (hasSessionMemory) convo = currentChat.convo;
-    // else convo.push(newConvo);
+    let url = ENV.generateURL;
+    url.searchParams.set('modelName', currentChat.modelName);
 
-    // console.log(convo);
+    return fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(convo),
+    })
+      .then((response) => response.body?.getReader())
+      .then(async (reader) => {
+        const decoder = new TextDecoder();
+        let chunkbuilder = '';
 
-    // const convoList = convo;
+        if (reader == null) return;
 
-    // this.isProcessingRequest.set(true);
+        currentChat.addNewConvo({
+          content: '',
+          role: 'assistant',
+        });
 
-    // let url = ENV.generateURL;
-    // url.searchParams.set('modelName', currentChat.modelName);
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
 
-    // await fetch(url, { method: 'post', body: JSON.stringify(convoList) })
-    //   .then(async (response) => {
-    //     const reader = response.body?.getReader();
-    //     const decoder = new TextDecoder();
-
-    //     if (!reader) throw new Error('No Reader');
-
-    //     let test = '';
-
-    //     while (true) {
-    //       const { done, value } = await reader?.read();
-
-    //       if (done) break;
-
-    //       const chunk = decoder.decode(value, { stream: true });
-
-    //       test += chunk;
-
-    //       console.log(chunk);
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     throw error;
-    //   });
-
-    // this.sub = this.http
-    //   .post<any>(ENV.generateURL.href, convoList)
-    //   .subscribe((resolve) => {
-    //     resolve;
-
-    //     this.sub?.unsubscribe();
-    //     currentChat?.addNewConvo(new Convo(resolve?.response));
-    //     console.log(resolve);
-    //     this.isProcessingRequest.set(false);
-    //     onResolve();
-    //   });
-
-    return true;
+          const chunk = decoder.decode(value, { stream: true });
+          currentChat?.addContent(chunk);
+        }
+      });
   }
 
   ngOnDestroy(): void {

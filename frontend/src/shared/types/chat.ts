@@ -19,6 +19,11 @@ export class Chat {
     }
   }
 
+  public addContent(content: string) {
+    this.convo[this.convo.length - 1].content += content;
+    console.log(this.convo[this.convo.length - 1].content);
+  }
+
   public setName(newName: string) {
     this.name = newName;
   }

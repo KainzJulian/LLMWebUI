@@ -29,16 +29,23 @@ export class ChatService {
     const chat = new Chat(name, [], new Date(), name);
     this.chatList.push(chat);
     this.currentChat = chat;
+    console.log('current: Chat' + this.currentChat);
 
     this.sortChat();
   }
 
+  getCurrentChat(): Chat | null {
+    for (let i = 0; i < this.chatList.length; i++) {
+      if (this.isCurrentChat(i)) return this.chatList[i];
+    }
+
+    return null;
+  }
+
   public setCurrentChat(index: number): void {
-    if (this.currentChat != this.chatList[index])
-      this.llmService.cancelRequest();
-
+    // if (this.currentChat != this.chatList[index])
+    //   this.llmService.cancelRequest();
     this.currentChat = this.chatList[index];
-
     console.info('Current Chat: ' + this.currentChat);
   }
 
@@ -56,7 +63,7 @@ export class ChatService {
     return this.chatList[index] == this.currentChat;
   }
 
-  constructor(private llmService: LLMRequestService) {
+  constructor() {
     for (let index = 0; index < 20; index++) {
       this.chatList.push(this.createNewChat(20, 20));
     }

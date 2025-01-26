@@ -49,9 +49,10 @@ async def generate(convo: list[Convo], modelName:str):
     print(e)
     return e
 
-
 async def generateChatResponse(convoList: list[Convo], modelName: str):
   message = []
+
+  print(modelName)
 
   for convo in convoList:
     message.append({"role": convo.role, "content": convo.content})
@@ -59,5 +60,5 @@ async def generateChatResponse(convoList: list[Convo], modelName: str):
   response: ollama.ChatResponse
 
   async for response in await ollama.AsyncClient().chat(modelName, message, stream=True):
-    print(response)
+    print(response.message.content)
     yield response.message.content
