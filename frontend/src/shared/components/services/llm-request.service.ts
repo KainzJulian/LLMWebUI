@@ -21,40 +21,70 @@ export class LLMRequestService implements OnDestroy {
     this.sub?.unsubscribe();
   }
 
-  public sendRequest(
+  public async sendRequest(
     currentChat: Chat | null,
     text: string = '',
     hasSessionMemory: boolean = true,
     onResolve: Function = Function
-  ): boolean {
-    console.log('current Chat:' + currentChat);
-    console.log('processing: ' + this.isProcessingRequest());
+  ) {
+    // console.log('current Chat:' + currentChat);
+    // console.log('processing: ' + this.isProcessingRequest());
 
-    if (currentChat == null || this.isProcessingRequest()) return false;
+    // if (currentChat == null || this.isProcessingRequest()) return false;
 
-    const model = currentChat.modelName;
-    const newConvo = new Convo({ role: 'user', content: text });
+    // const newConvo = new Convo({ role: 'user', content: text });
 
-    currentChat.addNewConvo(newConvo);
+    // currentChat.addNewConvo(newConvo);
 
-    let convo: Convo[] = [];
-    if (hasSessionMemory) convo = currentChat.convo;
-    else convo.push(newConvo);
+    // let convo: Convo[] = [];
+    // if (hasSessionMemory) convo = currentChat.convo;
+    // else convo.push(newConvo);
 
-    console.log(convo);
+    // console.log(convo);
 
-    const body = { currentChat: currentChat, sessionMemory: hasSessionMemory };
+    // const convoList = convo;
 
-    this.isProcessingRequest.set(true);
-    this.sub = this.http
-      .post<ConvoResponse>(ENV.generateURL, body)
-      .subscribe((resolve) => {
-        this.sub?.unsubscribe();
-        currentChat?.addNewConvo(new Convo(resolve?.response));
-        console.log(resolve);
-        this.isProcessingRequest.set(false);
-        onResolve();
-      });
+    // this.isProcessingRequest.set(true);
+
+    // let url = ENV.generateURL;
+    // url.searchParams.set('modelName', currentChat.modelName);
+
+    // await fetch(url, { method: 'post', body: JSON.stringify(convoList) })
+    //   .then(async (response) => {
+    //     const reader = response.body?.getReader();
+    //     const decoder = new TextDecoder();
+
+    //     if (!reader) throw new Error('No Reader');
+
+    //     let test = '';
+
+    //     while (true) {
+    //       const { done, value } = await reader?.read();
+
+    //       if (done) break;
+
+    //       const chunk = decoder.decode(value, { stream: true });
+
+    //       test += chunk;
+
+    //       console.log(chunk);
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     throw error;
+    //   });
+
+    // this.sub = this.http
+    //   .post<any>(ENV.generateURL.href, convoList)
+    //   .subscribe((resolve) => {
+    //     resolve;
+
+    //     this.sub?.unsubscribe();
+    //     currentChat?.addNewConvo(new Convo(resolve?.response));
+    //     console.log(resolve);
+    //     this.isProcessingRequest.set(false);
+    //     onResolve();
+    //   });
 
     return true;
   }
