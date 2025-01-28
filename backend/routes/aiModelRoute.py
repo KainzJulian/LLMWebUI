@@ -1,6 +1,7 @@
 import asyncio
 import json
 from typing import Literal, Optional, Sequence
+from bson import ObjectId
 from fastapi import *
 from fastapi.responses import StreamingResponse
 import ollama
@@ -26,6 +27,21 @@ def updateModels():
 
   except Exception as e:
     return e
+
+@aiModelRouter.get("/model/{id}")
+def getModelByID(id: str) -> Model:
+
+  try:
+    objID = ObjectId(id)
+  except Exception as e:
+    raise HTTPException(status_code=400, detail="Invalid Id Format ID: " + id)
+
+  document = modelCollection.find_one({"_id": objID})
+
+  if document is None:
+    raise HTTPException(status_code=404, detail="no document found with id: " + id)
+
+  return document
 
 
 @aiModelRouter.get("")

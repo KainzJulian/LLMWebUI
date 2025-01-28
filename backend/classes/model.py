@@ -2,9 +2,10 @@ import json
 from sqlite3 import Date
 from typing import Optional
 
+from bson import ObjectId
 from ollama import ListResponse
 import ollama
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 import pymongo
 
 class ModelDetails(BaseModel):

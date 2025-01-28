@@ -7,6 +7,7 @@ export class ModelArray {
 }
 
 export class Model {
+  id: string;
   model: string;
   modified_at: Date;
   size: number;
@@ -14,6 +15,7 @@ export class Model {
   details: ModelDetails;
 
   constructor(data: Partial<Model> = {}) {
+    this.id = data.id || '';
     this.model = data.model || '';
     this.modified_at = data.modified_at || new Date();
     this.size = data.size || 0;
