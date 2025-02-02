@@ -6,7 +6,11 @@ from classes.chat import Chat
 from database import chatCollection
 
 
-chatRouter = APIRouter(prefix="/chat")
+chatRouter = APIRouter(prefix="/chats")
+
+@chatRouter.get("/")
+def getAllChats() -> list[Chat]:
+  return chatCollection.find({})
 
 @chatRouter.get("/{id}")
 def getChatByID(id: str) -> Chat:

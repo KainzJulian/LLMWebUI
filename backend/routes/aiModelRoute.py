@@ -28,7 +28,7 @@ def updateModels():
   except Exception as e:
     return e
 
-@aiModelRouter.get("/model/{id}")
+@aiModelRouter.get("/{id}")
 def getModelByID(id: str) -> Model:
 
   try:
