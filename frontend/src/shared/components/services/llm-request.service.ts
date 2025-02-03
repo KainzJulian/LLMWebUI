@@ -32,7 +32,9 @@ export class LLMRequestService implements OnDestroy {
 
     const newConvo = new Convo({ role: 'user', content: text });
 
-    currentChat.addNewConvo(newConvo);
+    console.log(currentChat.convo);
+
+    currentChat.convo.push(newConvo);
 
     const convo = currentChat.convo;
 
@@ -53,7 +55,7 @@ export class LLMRequestService implements OnDestroy {
 
         if (reader == null) return;
 
-        currentChat.addNewConvo({
+        currentChat.convo.push({
           content: '',
           role: 'assistant',
         });
@@ -65,6 +67,12 @@ export class LLMRequestService implements OnDestroy {
           const chunk = decoder.decode(value, { stream: true });
           currentChat?.addContent(chunk);
         }
+      })
+      .then(() => {
+        const convo = currentChat.convo.at(-1);
+
+        if (convo == undefined) return;
+        this.chatService.addConvo(convo, currentChat.id);
       });
   }
 

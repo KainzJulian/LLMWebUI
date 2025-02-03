@@ -28,18 +28,13 @@ def updateModels():
   except Exception as e:
     return e
 
-@aiModelRouter.get("/{id}")
-def getModelByID(id: str) -> Model:
+@aiModelRouter.get("/{name}")
+def getModelByName(name: str) -> Model:
 
-  try:
-    objID = ObjectId(id)
-  except Exception as e:
-    raise HTTPException(status_code=400, detail="Invalid Id Format ID: " + id)
-
-  document = modelCollection.find_one({"_id": objID})
+  document = modelCollection.find_one({"model": name})
 
   if document is None:
-    raise HTTPException(status_code=404, detail="no document found with id: " + id)
+    raise HTTPException(status_code=404, detail="no document found with name: " + name)
 
   return document
 

@@ -4,10 +4,11 @@ export class Chat {
   private nameSet = false;
 
   constructor(
+    public id: string = '',
+    public modelName: string = '',
     public name: string = '',
     public convo: Convo[] = [],
-    public date: Date = new Date(),
-    public modelName: string = ''
+    public date: Date = new Date()
   ) {}
 
   public addNewConvo(convo: Convo) {

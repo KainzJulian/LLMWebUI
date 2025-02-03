@@ -8,7 +8,8 @@ from classes.convo import Convo
 
 
 class Chat(BaseModel):
-  modelID: str
+  id: str
+  modelName: str
 
   name: Optional[str]
   convo: Optional[list[Convo]]

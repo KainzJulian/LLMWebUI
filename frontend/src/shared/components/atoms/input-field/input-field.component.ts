@@ -60,6 +60,12 @@ export class InputFieldComponent {
       }
     );
 
+    const convo = this.chatService.currentChat?.convo.at(-1);
+
+    if (this.chatService.currentChat == undefined || convo == undefined) return;
+
+    this.chatService.addConvo(convo, this.chatService.currentChat.id);
+
     // if (res && this.buttonState == 'sendRequest') {
     //   this.sendButton.nativeElement.src = '/icons/close-light.svg';
     //   this.clearInput();
