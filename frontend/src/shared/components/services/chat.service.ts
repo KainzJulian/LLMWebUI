@@ -1,7 +1,5 @@
 import { Injectable, model } from '@angular/core';
 import { ConvoService } from './convo.service';
-import { randomDate, randomText } from '../../../app/tools';
-import { LLMRequestService } from './llm-request.service';
 import { Chat } from '../../types/chat';
 import { ENV, METHOD } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
@@ -47,6 +45,8 @@ export class ChatService {
       this.currentChat = null;
     }
 
+    this.sortChat();
+
     return help;
   }
 
@@ -59,7 +59,7 @@ export class ChatService {
       this.chatList.push(chat);
       this.currentChat = chat;
 
-      // this.sortChat();
+      this.sortChat();
     });
   }
 
@@ -78,14 +78,18 @@ export class ChatService {
     console.info('Current Chat: ' + this.currentChat);
   }
 
-  // private sortChat(): void {
-  //   this.chatList.sort((a, b) => {
-  //     return b.date.getTime() - a.date.getTime();
-  //   });
-  // }
+  private sortChat(): void {
+    this.chatList.sort((a, b) => {
+      return b.date.getTime() - a.date.getTime();
+    });
+  }
 
   deleteAll() {
     this.chatList.splice(0, this.chatList.length);
+
+    this.http.delete(ENV.chatURL.href).subscribe(() => {
+      console.log('Deleted all Chats: ');
+    });
   }
 
   public isCurrentChat(index: number): boolean {
@@ -98,9 +102,17 @@ export class ChatService {
 
       res.forEach((chat) => {
         this.chatList.push(
-          new Chat(chat.id, chat.modelName, chat.name, chat.convo, chat.date)
+          new Chat(
+            chat.id,
+            chat.modelName,
+            chat.name,
+            chat.convo,
+            new Date(chat.date)
+          )
         );
       });
+
+      this.sortChat();
     });
   }
 
