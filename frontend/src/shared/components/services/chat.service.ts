@@ -86,6 +86,7 @@ export class ChatService {
 
   deleteAll() {
     this.chatList.splice(0, this.chatList.length);
+    this.currentChat = null;
 
     this.http.delete(ENV.chatURL.href).subscribe(() => {
       console.log('Deleted all Chats: ');
