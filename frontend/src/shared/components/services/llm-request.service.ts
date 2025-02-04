@@ -12,23 +12,31 @@ import { ChatService } from './chat.service';
 })
 export class LLMRequestService implements OnDestroy {
   private sub: Subscription | null = null;
-  public isProcessingRequest = signal(false);
+
+  private abortController: AbortController | null = null;
 
   constructor(private http: HttpClient, private chatService: ChatService) {}
 
   public cancelRequest() {
-    console.warn('Canceled Request');
-    this.isProcessingRequest.set(false);
-    this.sub?.unsubscribe();
+    if (this.abortController == null) return;
+
+    try {
+      this.abortController.abort('Cancelled Request to LLM');
+      this.abortController = null;
+    } catch (error) {
+      console.log('Request canceled: ' + error);
+    }
   }
 
   public async sendRequest(
     currentChat: Chat | null,
     text: string = '',
-    hasSessionMemory: boolean = true,
     onResolve: Function = Function
   ) {
     if (currentChat == null) return;
+
+    const abortController = new AbortController();
+    const signal = abortController.signal;
 
     const newConvo = new Convo({ role: 'user', content: text });
 
@@ -40,18 +48,17 @@ export class LLMRequestService implements OnDestroy {
 
     let url = ENV.generateURL;
     url.searchParams.set('modelName', currentChat.modelName);
-
-    return fetch(url, {
+    fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(convo),
+      signal: signal,
     })
       .then((response) => response.body?.getReader())
       .then(async (reader) => {
         const decoder = new TextDecoder();
-        let chunkbuilder = '';
 
         if (reader == null) return;
 
@@ -70,10 +77,13 @@ export class LLMRequestService implements OnDestroy {
       })
       .then(() => {
         const convo = currentChat.convo.at(-1);
-
         if (convo == undefined) return;
+
         this.chatService.addConvo(convo, currentChat.id);
-      });
+      })
+      .catch((error) => console.warn(error));
+
+    this.abortController = abortController;
   }
 
   ngOnDestroy(): void {

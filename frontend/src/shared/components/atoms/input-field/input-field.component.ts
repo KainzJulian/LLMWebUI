@@ -1,11 +1,17 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, effect, ElementRef, model, ViewChild } from '@angular/core';
+import {
+  Component,
+  effect,
+  ElementRef,
+  model,
+  signal,
+  ViewChild,
+} from '@angular/core';
 import { ENV } from '../../../../environments/environment';
 import { ChatService } from '../../services/chat.service';
 import { ModelService } from '../../services/model.service';
 import { CommonModule } from '@angular/common';
 import { LLMRequestService } from '../../services/llm-request.service';
-import { SubscriptionService } from '../../services/subscription.service';
 
 @Component({
   selector: 'app-input-field',
@@ -19,59 +25,45 @@ export class InputFieldComponent {
   @ViewChild('input') input!: ElementRef;
   @ViewChild('sendButton') sendButton!: ElementRef;
 
-  buttonState: 'cancelRequest' | 'sendRequest' = 'sendRequest';
+  public isLoading = signal(false);
 
   constructor(
     private http: HttpClient,
     public chatService: ChatService,
     public modelService: ModelService,
-    public llmService: LLMRequestService,
-    public subService: SubscriptionService
+    public llmService: LLMRequestService
   ) {
     effect(() => {
-      if (this.llmService.isProcessingRequest()) {
+      console.warn('is Loading: ' + this.isLoading());
+
+      if (this.isLoading()) {
         this.changeIcon('close-light.svg');
-        this.buttonState = 'cancelRequest';
       } else {
         this.changeIcon('send-light.svg');
-        this.buttonState = 'sendRequest';
       }
     });
   }
 
-  processInput(input: string) {
-    // if (this.buttonState == 'cancelRequest') {
-    //   this.llmService.cancelRequest();
-    //   this.buttonState = 'sendRequest';
-    //   this.sendButton.nativeElement.src = '/icons/send-light.svg';
-    // }
+  sendRequest(input: string) {
+    if (input == '') return;
 
-    // if (input == '') return;
+    this.clearInput();
+    this.isLoading.set(true);
 
-    // this.clearInput();
+    this.llmService.sendRequest(this.chatService.currentChat, input);
 
-    this.llmService.sendRequest(
-      this.chatService.currentChat,
-      input,
-      true,
-      () => {
-        this.sendButton.nativeElement.src = '/icons/send-light.svg';
-        this.buttonState = 'sendRequest';
-      }
-    );
+    console.log(this.chatService.currentChat?.convo);
 
-    const convo = this.chatService.currentChat?.convo.at(-1);
+    const lastConvo = this.chatService.currentChat?.convo.at(-1);
+    if (this.chatService.currentChat == null || lastConvo == undefined) return;
 
-    if (this.chatService.currentChat == undefined || convo == undefined) return;
+    this.chatService.addConvo(lastConvo, this.chatService.currentChat.id);
+  }
 
-    this.chatService.addConvo(convo, this.chatService.currentChat.id);
+  cancelRequest() {
+    this.isLoading.set(false);
 
-    // if (res && this.buttonState == 'sendRequest') {
-    //   this.sendButton.nativeElement.src = '/icons/close-light.svg';
-    //   this.clearInput();
-
-    //   this.buttonState = 'cancelRequest';
-    // }
+    this.llmService.cancelRequest();
   }
 
   changeIcon(icon: string) {

@@ -14,6 +14,11 @@ def getAllChats() -> list[Chat]:
     return chatCollection.find({})
 
 
+@chatRouter.delete("/")
+def deleteAllChats():
+    chatCollection.delete_many({})
+
+
 @chatRouter.delete("/{id}")
 def deleteChat(id: str) -> bool:
 
