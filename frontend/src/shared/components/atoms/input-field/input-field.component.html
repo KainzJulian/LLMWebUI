@@ -1,0 +1,32 @@
+<div class="container">
+  <textarea
+    #input
+    (ngModel)="(inputText)"
+    placeholder="Input text..."
+    class="input"
+    name="input"
+    id="input"
+    autofocus
+    (keydown.control.enter)="sendButton.click()"
+  ></textarea>
+  <div class="menuBar">
+    <button #sendButton>
+      <ng-container *ngIf="this.isLoading(); else defaultButton">
+        <img
+          (click)="cancelRequest()"
+          src="/icons/close-light.svg"
+          class="icon"
+          id="send"
+        />
+      </ng-container>
+      <ng-template #defaultButton>
+        <img
+          (click)="sendRequest(input.value)"
+          src="/icons/send-light.svg"
+          class="icon"
+          id="send"
+        />
+      </ng-template>
+    </button>
+  </div>
+</div>
