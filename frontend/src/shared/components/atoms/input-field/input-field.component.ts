@@ -61,9 +61,13 @@ export class InputFieldComponent {
   }
 
   cancelRequest() {
+    this.llmService.cancelRequest();
     this.isLoading.set(false);
 
-    this.llmService.cancelRequest();
+    const lastConvo = this.chatService.currentChat?.convo.at(-1);
+    if (this.chatService.currentChat == null || lastConvo == undefined) return;
+
+    this.chatService.addConvo(lastConvo, this.chatService.currentChat.id);
   }
 
   changeIcon(icon: string) {
