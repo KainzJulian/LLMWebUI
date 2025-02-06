@@ -7,7 +7,7 @@
     name="input"
     id="input"
     autofocus
-    (keydown.control.enter)="sendButton.click()"
+    (keydown.control.enter)="this.sendRequest(input.value)"
   ></textarea>
   <div class="menuBar">
     <button #sendButton>

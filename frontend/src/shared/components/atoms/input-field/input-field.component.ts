@@ -32,20 +32,10 @@ export class InputFieldComponent {
     public chatService: ChatService,
     public modelService: ModelService,
     public llmService: LLMRequestService
-  ) {
-    effect(() => {
-      console.warn('is Loading: ' + this.isLoading());
-
-      if (this.isLoading()) {
-        this.changeIcon('close-light.svg');
-      } else {
-        this.changeIcon('send-light.svg');
-      }
-    });
-  }
+  ) {}
 
   sendRequest(input: string) {
-    if (input == '') return;
+    if (input == '' || this.isLoading()) return;
 
     this.clearInput();
     this.isLoading.set(true);
@@ -70,10 +60,6 @@ export class InputFieldComponent {
     if (this.chatService.currentChat == null || lastConvo == undefined) return;
 
     this.chatService.addConvo(lastConvo, this.chatService.currentChat.id);
-  }
-
-  changeIcon(icon: string) {
-    this.sendButton.nativeElement.src = '/icons/' + icon;
   }
 
   clearInput() {
