@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 })
 export class SidebarComponent {
   constructor(
-    private sidebarService: SidebarStateService,
+    public sidebarService: SidebarStateService,
     public modelService: ModelService,
     public chatService: ChatService
   ) {}
@@ -23,8 +23,12 @@ export class SidebarComponent {
     throw new Error('Method not implemented.');
   }
 
+  openSidebar() {
+    this.sidebarService.isSidebarOpen.set(true);
+  }
+
   closeSidebar() {
-    throw new Error('Method not implemented.');
+    this.sidebarService.isSidebarOpen.set(false);
   }
 
   openOptions() {

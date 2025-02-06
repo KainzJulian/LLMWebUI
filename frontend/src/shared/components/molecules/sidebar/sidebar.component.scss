@@ -24,6 +24,10 @@ div > div {
   width: 100%;
 }
 
+.closedSidebarButtonGroup {
+  position: absolute;
+  padding: $small-padding;
+}
 
 .aiModelGroup {
   margin-bottom: 32px;

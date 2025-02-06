@@ -1,4 +1,15 @@
-<div class="container">
+<div
+  *ngIf="!this.sidebarService.isSidebarOpen()"
+  class="closedSidebarButtonGroup"
+>
+  <img
+    src="/icons/close-light.svg"
+    (click)="openSidebar()"
+    class="button icon"
+  />
+</div>
+
+<div *ngIf="this.sidebarService.isSidebarOpen()" class="container">
   <div class="menuBarTop">
     <img
       src="/icons/close-light.svg"

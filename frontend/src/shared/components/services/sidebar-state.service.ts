@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class SidebarStateService {
+  public isSidebarOpen = signal(true);
   public isOptionsOpen = signal(false);
 
   toggleState() {
