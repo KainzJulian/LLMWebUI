@@ -81,6 +81,7 @@ export class LLMRequestService implements OnDestroy {
 
         this.chatService.addConvo(convo, currentChat.id);
       })
+      .then(() => onResolve())
       .catch((error) => console.warn(error));
 
     this.abortController = abortController;

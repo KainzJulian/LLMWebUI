@@ -50,7 +50,9 @@ export class InputFieldComponent {
     this.clearInput();
     this.isLoading.set(true);
 
-    this.llmService.sendRequest(this.chatService.currentChat, input);
+    this.llmService.sendRequest(this.chatService.currentChat, input, () =>
+      this.isLoading.set(false)
+    );
 
     console.log(this.chatService.currentChat?.convo);
 
