@@ -14,6 +14,8 @@ export class ChatService {
 
   public currentChat: Chat | null = null;
 
+  public favouriteChats: string[] = [];
+
   constructor(private http: HttpClient) {
     this.setChats();
 
@@ -25,6 +27,25 @@ export class ChatService {
     for (const element in this.chatList) {
       console.log(this.chatList[element]);
     }
+  }
+
+  addCurrentChatToFavourite() {
+    if (this.currentChat == null) return;
+
+    console.log(this.currentChat.id);
+
+    this.currentChat.isFavourite = !this.currentChat.isFavourite;
+
+    const body = this.currentChat;
+
+    this.http
+      .post<boolean>(
+        ENV.chatURL + '/' + this.currentChat.id + '/switchFavourite',
+        body
+      )
+      .subscribe((res) => {
+        console.log(res);
+      });
   }
 
   delete(index: number): Chat {
@@ -63,19 +84,12 @@ export class ChatService {
     });
   }
 
-  getCurrentChat(): Chat | null {
-    for (let i = 0; i < this.chatList.length; i++) {
-      if (this.isCurrentChat(i)) return this.chatList[i];
-    }
-
-    return null;
-  }
-
   public setCurrentChat(index: number): void {
     // if (this.currentChat != this.chatList[index])
     //   this.llmService.cancelRequest();
     this.currentChat = this.chatList[index];
     console.info('Current Chat: ' + this.currentChat);
+    console.info('Current Chat: ' + this.currentChat.isFavourite);
   }
 
   private sortChat(): void {
@@ -108,7 +122,8 @@ export class ChatService {
             chat.modelName,
             chat.name,
             chat.convo,
-            new Date(chat.date)
+            new Date(chat.date),
+            chat.isFavourite
           )
         );
       });

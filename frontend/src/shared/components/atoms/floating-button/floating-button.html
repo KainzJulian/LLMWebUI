@@ -1,0 +1,23 @@
+<div
+  [ngStyle]="{
+    top: this.config.top + 'px',
+    left: this.config.left + 'px',
+    right: this.config.right + 'px',
+    bottom: this.config.bottom + 'px'
+  }"
+>
+  <button (click)="this.onClick.emit()">
+    <ng-container *ngIf="this.config.iconName != ''; else textField">
+      <img
+        class="icon"
+        [src]="'icons/' + this.config.iconName + '.svg'"
+        *ngIf="this.config.iconName != ''"
+        alt=""
+      />
+    </ng-container>
+
+    <ng-template #textField>
+      <p class="icon no-select">test</p>
+    </ng-template>
+  </button>
+</div>

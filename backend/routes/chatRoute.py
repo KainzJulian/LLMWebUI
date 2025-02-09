@@ -72,6 +72,15 @@ def addConvo(convo: Convo, id: str) -> bool:
     return True
 
 
+@chatRouter.post("/{id}/switchFavourite")
+def changeFavourite(body: Chat, id: str) -> bool:
+
+    chatCollection.update_one(
+        {"_id": getIDFromString(id)}, {"$set": {"isFavourite": body.isFavourite}}
+    )
+    return True
+
+
 def getIDFromString(id: str) -> ObjectId:
     try:
         return ObjectId(id)

@@ -62,3 +62,12 @@ textarea {
   }
 }
 
+.no-select {
+  user-select: none;
+  cursor: default;
+}
+
+button {
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
+}

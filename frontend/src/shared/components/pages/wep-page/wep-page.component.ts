@@ -7,6 +7,7 @@ import { SidebarComponent } from '../../molecules/sidebar/sidebar.component';
 import { FloatingPanelComponent } from '../../atoms/floating-panel/floating-panel.component';
 import { ChatService } from '../../services/chat.service';
 import { CommonModule } from '@angular/common';
+import { FloatingButton } from '../../atoms/floating-button/floating-button';
 
 @Component({
   selector: 'app-wep-page',
@@ -17,6 +18,7 @@ import { CommonModule } from '@angular/common';
     SidebarComponent,
     FloatingPanelComponent,
     CommonModule,
+    FloatingButton,
   ],
   templateUrl: './wep-page.component.html',
   styleUrl: './wep-page.component.scss',

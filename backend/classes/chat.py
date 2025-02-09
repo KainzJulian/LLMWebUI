@@ -1,4 +1,3 @@
-
 from sqlite3 import Date
 from typing import Optional
 import ollama
@@ -8,9 +7,10 @@ from classes.convo import Convo
 
 
 class Chat(BaseModel):
-  id: str
-  modelName: str
+    id: str
+    modelName: str
 
-  name: Optional[str]
-  convo: Optional[list[Convo]]
-  date: Optional[str]
+    name: Optional[str]
+    convo: Optional[list[Convo]]
+    date: Optional[str]
+    isFavourite: Optional[bool]

@@ -1,5 +1,17 @@
 <div class="container">
   <app-sidebar></app-sidebar>
+  <ng-container *ngIf="this.chatService.currentChat != null">
+    <floating-button
+      [config]="{
+        iconName: this.chatService.currentChat.isFavourite
+          ? 'bookmark-light-filled'
+          : 'bookmark-light',
+        right: 8,
+        top: 8
+      }"
+      (onClick)="this.chatService.addCurrentChatToFavourite()"
+    ></floating-button>
+  </ng-container>
 
   <div class="convoGroup">
     <app-convo-list></app-convo-list>

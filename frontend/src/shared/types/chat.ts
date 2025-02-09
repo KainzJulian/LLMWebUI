@@ -8,7 +8,8 @@ export class Chat {
     public modelName: string = '',
     public name: string = '',
     public convo: Convo[] = [],
-    public date: Date = new Date()
+    public date: Date = new Date(),
+    public isFavourite: boolean = false
   ) {}
 
   public addNewConvo(convo: Convo) {

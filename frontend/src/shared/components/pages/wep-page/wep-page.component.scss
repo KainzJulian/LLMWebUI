@@ -47,3 +47,10 @@ app-input-field {
   margin-left: auto;
   margin-right: auto;
 }
+
+.menuBar {
+  position: absolute;
+  display: flex;
+  right: 0px;
+  padding: $small-padding;
+}
