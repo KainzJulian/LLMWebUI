@@ -10,21 +10,17 @@ import { Convo } from '../../types/convo';
 })
 export class ChatService {
   public convoService = new ConvoService();
+
   public chatList: Chat[] = [];
+  public favouriteChats: Chat[] = [];
 
   public currentChat: Chat | null = null;
-
-  public favouriteChats: string[] = [];
 
   constructor(private http: HttpClient) {
     this.setChats();
 
     console.log(this.chatList.length);
     console.log(this.chatList);
-  }
-
-  getFavouriteList(): Chat[] {
-    return this.chatList.filter((val) => this.favouriteChats.includes(val.id));
   }
 
   switchFavouriteState() {
@@ -36,17 +32,27 @@ export class ChatService {
 
     const body = this.currentChat;
     const id = this.currentChat.id;
-    const index = this.favouriteChats.findIndex((val) => val == id);
+    const index = this.favouriteChats.findIndex((val) => val.id == id);
 
-    if (this.currentChat.isFavourite) this.favouriteChats.push(id);
-    else this.favouriteChats.splice(index, 1);
+    const newChat = new Chat(
+      this.currentChat.id,
+      this.currentChat.modelName,
+      this.currentChat.name,
+      this.currentChat.convo,
+      this.currentChat.date,
+      this.currentChat.isFavourite
+    );
+
+    if (this.currentChat.isFavourite) this.favouriteChats.push(newChat);
+    else {
+      this.currentChat = null;
+      this.favouriteChats.splice(index, 1);
+    }
 
     this.http
-      .post<boolean>(
-        ENV.chatURL + '/' + this.currentChat.id + '/switchFavourite',
-        body
-      )
+      .post<boolean>(ENV.chatURL + '/' + id + '/switchFavourite', body)
       .subscribe((res) => {
+        if (!res) this.currentChat = null;
         console.log(res);
       });
   }
@@ -92,10 +98,7 @@ export class ChatService {
       (chatListItem) => chatListItem.id == chat.id
     );
 
-    this.currentChat =
-      newChat == undefined || newChat.id == this.currentChat?.id
-        ? null
-        : newChat;
+    this.currentChat = chat;
 
     console.info('Current Chat: ' + this.currentChat);
     console.info('Current Chat: ' + this.currentChat?.isFavourite);
@@ -116,8 +119,8 @@ export class ChatService {
     });
   }
 
-  public isCurrentChat(chat: Chat): boolean {
-    return this.chatList.find((val) => val.id == chat.id) == this.currentChat;
+  public isCurrentChat(chat: Chat, chatList: Chat[]): boolean {
+    return chatList.find((val) => val.id == chat.id) == this.currentChat;
   }
 
   setChats(): void {
@@ -125,7 +128,7 @@ export class ChatService {
       console.log(res);
 
       res.forEach((chat) => {
-        if (chat.isFavourite) this.favouriteChats.push(chat.id);
+        if (chat.isFavourite) this.favouriteChats.push(chat);
 
         this.chatList.push(
           new Chat(

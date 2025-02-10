@@ -35,13 +35,15 @@
   </div>
 
   <div class="chatGroup">
-    @for(chat of chatService.getFavouriteList(); track $index; let i = $index) {
+    @for(chat of chatService.favouriteChats; track $index; let i = $index) {
     <app-button
       (clickButton)="this.chatService.setCurrentChat(chat)"
       (clickIcon)="this.chatService.setCurrentChat(chat)"
       iconName="add-light"
       [text]="chat.name"
-      [isSelected]="this.chatService.isCurrentChat(chat)"
+      [isSelected]="
+        this.chatService.isCurrentChat(chat, chatService.favouriteChats)
+      "
     ></app-button>
     }
   </div>
@@ -53,7 +55,7 @@
       (clickIcon)="this.chatService.delete(i)"
       iconName="delete-light"
       [text]="chat.name"
-      [isSelected]="this.chatService.isCurrentChat(chat)"
+      [isSelected]="this.chatService.isCurrentChat(chat, chatService.chatList)"
     ></app-button>
     }
   </div>
