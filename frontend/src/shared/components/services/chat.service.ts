@@ -98,7 +98,7 @@ export class ChatService {
       (chatListItem) => chatListItem.id == chat.id
     );
 
-    this.currentChat = chat;
+    this.currentChat = this.currentChat?.id == chat.id ? null : chat;
 
     console.info('Current Chat: ' + this.currentChat);
     console.info('Current Chat: ' + this.currentChat?.isFavourite);
