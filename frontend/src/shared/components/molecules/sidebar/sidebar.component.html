@@ -35,13 +35,25 @@
   </div>
 
   <div class="chatGroup">
-    @for(item of chatService.chatList; track $index; let i = $index ) {
+    @for(chat of chatService.getFavouriteList(); track $index; let i = $index) {
     <app-button
-      (clickButton)="this.chatService.setCurrentChat(i)"
+      (clickButton)="this.chatService.setCurrentChat(chat)"
+      (clickIcon)="this.chatService.setCurrentChat(chat)"
+      iconName="add-light"
+      [text]="chat.name"
+      [isSelected]="this.chatService.isCurrentChat(chat)"
+    ></app-button>
+    }
+  </div>
+
+  <div class="chatGroup">
+    @for(chat of chatService.chatList; track $index; let i = $index ) {
+    <app-button
+      (clickButton)="this.chatService.setCurrentChat(chat)"
       (clickIcon)="this.chatService.delete(i)"
       iconName="delete-light"
-      [text]="item.name"
-      [isSelected]="this.chatService.isCurrentChat(i)"
+      [text]="chat.name"
+      [isSelected]="this.chatService.isCurrentChat(chat)"
     ></app-button>
     }
   </div>

@@ -19,17 +19,15 @@ export class ChatService {
   constructor(private http: HttpClient) {
     this.setChats();
 
-    // this.currentChat = this.chatList[0];
     console.log(this.chatList.length);
-
-    // this.sortChat();
-
-    for (const element in this.chatList) {
-      console.log(this.chatList[element]);
-    }
+    console.log(this.chatList);
   }
 
-  addCurrentChatToFavourite() {
+  getFavouriteList(): Chat[] {
+    return this.chatList.filter((val) => this.favouriteChats.includes(val.id));
+  }
+
+  switchFavouriteState() {
     if (this.currentChat == null) return;
 
     console.log(this.currentChat.id);
@@ -37,6 +35,11 @@ export class ChatService {
     this.currentChat.isFavourite = !this.currentChat.isFavourite;
 
     const body = this.currentChat;
+    const id = this.currentChat.id;
+    const index = this.favouriteChats.findIndex((val) => val == id);
+
+    if (this.currentChat.isFavourite) this.favouriteChats.push(id);
+    else this.favouriteChats.splice(index, 1);
 
     this.http
       .post<boolean>(
@@ -84,12 +87,18 @@ export class ChatService {
     });
   }
 
-  public setCurrentChat(index: number): void {
-    // if (this.currentChat != this.chatList[index])
-    //   this.llmService.cancelRequest();
-    this.currentChat = this.chatList[index];
+  public setCurrentChat(chat: Chat): void {
+    const newChat = this.chatList.find(
+      (chatListItem) => chatListItem.id == chat.id
+    );
+
+    this.currentChat =
+      newChat == undefined || newChat.id == this.currentChat?.id
+        ? null
+        : newChat;
+
     console.info('Current Chat: ' + this.currentChat);
-    console.info('Current Chat: ' + this.currentChat.isFavourite);
+    console.info('Current Chat: ' + this.currentChat?.isFavourite);
   }
 
   private sortChat(): void {
@@ -107,8 +116,8 @@ export class ChatService {
     });
   }
 
-  public isCurrentChat(index: number): boolean {
-    return this.chatList[index] == this.currentChat;
+  public isCurrentChat(chat: Chat): boolean {
+    return this.chatList.find((val) => val.id == chat.id) == this.currentChat;
   }
 
   setChats(): void {
@@ -116,6 +125,8 @@ export class ChatService {
       console.log(res);
 
       res.forEach((chat) => {
+        if (chat.isFavourite) this.favouriteChats.push(chat.id);
+
         this.chatList.push(
           new Chat(
             chat.id,
