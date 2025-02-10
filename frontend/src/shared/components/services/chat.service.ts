@@ -94,10 +94,6 @@ export class ChatService {
   }
 
   public setCurrentChat(chat: Chat): void {
-    const newChat = this.chatList.find(
-      (chatListItem) => chatListItem.id == chat.id
-    );
-
     this.currentChat = this.currentChat?.id == chat.id ? null : chat;
 
     console.info('Current Chat: ' + this.currentChat);
@@ -154,13 +150,4 @@ export class ChatService {
         console.log('Status of addConvo: ' + res);
       });
   }
-
-  // createNewChat(textLength: number, convoLength: number): Chat {
-  //   return new Chat(
-  //     randomText(textLength),
-  //     this.convoService.buildConvo(convoLength),
-  //     randomDate(),
-  //     'tinyllama:latest'
-  //   );
-  // }
 }
