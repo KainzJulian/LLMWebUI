@@ -29,7 +29,7 @@ button {
   text-overflow: ellipsis;
 
   &:hover {
-    background-color: $primary-light-color;
+    background-color: $primary-color-light;
   }
 
   // background: rgb(255,255,255);
@@ -37,7 +37,7 @@ button {
 }
 
 .selected {
-  background-color: $primary-light-color;
+  background-color: $primary-color-light;
   border-radius: $small-radius;
 }
 

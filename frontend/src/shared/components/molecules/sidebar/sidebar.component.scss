@@ -32,15 +32,31 @@ div > div {
 .aiModelGroup {
   margin-bottom: 32px;
   overflow-y: auto;
-  max-height: 30%;
+  max-height: 20%;
+  min-height: 20%;
 }
 
 .chatGroup {
-  max-height: 70%;
+  max-height: 40%;
   overflow-y: auto;
-  margin-bottom: 8px;
+  margin-bottom: 32px;
 }
 
+.favouriteGroup {
+  overflow-y: auto;
+  max-height: 15%;
+  // min-height: 15%;
+  height: fit-content;
+  margin-bottom: 16px;
+}
+
+.listTitle {
+  margin: 0px;
+  padding-left: $small-padding;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
 
 .button {
 
@@ -50,7 +66,7 @@ div > div {
   border-radius: $small-radius;
 
   &:hover {
-    background-color: $accent-light-color;
+    background-color: $accent-color-light;
     color: $text_color-dark;
   }
 }
