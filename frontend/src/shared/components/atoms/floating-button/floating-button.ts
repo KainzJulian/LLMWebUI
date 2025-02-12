@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { BaseButton } from '../base-button/base-button';
 
 @Component({
   selector: 'floating-button',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, BaseButton],
   templateUrl: './floating-button.html',
   styleUrl: './floating-button.scss',
 })

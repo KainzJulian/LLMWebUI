@@ -24,6 +24,7 @@ export class ChatService {
   }
 
   switchFavouriteState() {
+    console.log('hi');
     if (this.currentChat == null) return;
 
     console.log(this.currentChat.id);

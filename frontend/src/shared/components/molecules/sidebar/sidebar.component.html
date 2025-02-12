@@ -2,25 +2,23 @@
   *ngIf="!this.sidebarService.isSidebarOpen()"
   class="closedSidebarButtonGroup"
 >
-  <img
-    src="/icons/sidebar-light.svg"
-    (click)="openSidebar()"
-    class="button icon"
-  />
+  <base-button
+    [config]="{ buttonType: 'icon', iconName: 'sidebar-light' }"
+    (onClick)="openSidebar()"
+  ></base-button>
 </div>
 
 <div *ngIf="this.sidebarService.isSidebarOpen()" class="container">
   <div class="menuBarTop">
-    <img
-      src="/icons/close-light.svg"
-      (click)="closeSidebar()"
-      class="button icon"
-    />
-    <img
-      (click)="openSearch()"
-      src="/icons/search-light.svg"
-      class="button icon"
-    />
+    <base-button
+      [config]="{ buttonType: 'icon', iconName: 'close-light' }"
+      (onClick)="closeSidebar()"
+    ></base-button>
+
+    <base-button
+      [config]="{ buttonType: 'icon', iconName: 'search-light' }"
+      (onClick)="openSearch()"
+    ></base-button>
   </div>
 
   <ng-container *ngIf="modelService.modelArray.length">
@@ -72,10 +70,9 @@
   </ng-container>
 
   <div class="menuBarBottom">
-    <img
-      (click)="openOptions()"
-      src="/icons/options-light.svg"
-      class="button icon"
-    />
+    <base-button
+      [config]="{ buttonType: 'icon', iconName: 'options-light' }"
+      (onClick)="openOptions()"
+    ></base-button>
   </div>
 </div>

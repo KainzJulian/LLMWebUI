@@ -10,23 +10,17 @@
     (keydown.control.enter)="this.sendRequest(input.value)"
   ></textarea>
   <div class="menuBar">
-    <button #sendButton>
-      <ng-container *ngIf="this.isLoading(); else defaultButton">
-        <img
-          (click)="cancelRequest()"
-          src="/icons/close-light.svg"
-          class="icon test"
-          id="send"
-        />
-      </ng-container>
-      <ng-template #defaultButton>
-        <img
-          (click)="sendRequest(input.value)"
-          src="/icons/send-light.svg"
-          class="icon"
-          id="send"
-        />
-      </ng-template>
-    </button>
+    <base-button
+      *ngIf="this.isLoading(); else defaultButton"
+      [config]="{ buttonType: 'icon', iconName: 'close-light' }"
+      (onClick)="cancelRequest()"
+    ></base-button>
+
+    <ng-template #defaultButton>
+      <base-button
+        [config]="{ buttonType: 'icon', iconName: 'send-light' }"
+        (onClick)="sendRequest(input.value)"
+      ></base-button>
+    </ng-template>
   </div>
 </div>
