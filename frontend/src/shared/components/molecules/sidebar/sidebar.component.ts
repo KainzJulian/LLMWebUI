@@ -4,11 +4,12 @@ import { SidebarStateService } from '../../services/sidebar-state.service';
 import { ChatService } from '../../services/chat.service';
 import { ModelService } from '../../services/model.service';
 import { CommonModule } from '@angular/common';
+import { BaseButton } from '../../atoms/base-button/base-button';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [ButtonComponent, CommonModule],
+  imports: [ButtonComponent, CommonModule, BaseButton],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
 })

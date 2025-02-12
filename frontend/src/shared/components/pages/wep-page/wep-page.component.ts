@@ -8,6 +8,7 @@ import { FloatingPanelComponent } from '../../atoms/floating-panel/floating-pane
 import { ChatService } from '../../services/chat.service';
 import { CommonModule } from '@angular/common';
 import { FloatingButton } from '../../atoms/floating-button/floating-button';
+import { BaseButton } from '../../atoms/base-button/base-button';
 
 @Component({
   selector: 'app-wep-page',
@@ -19,6 +20,7 @@ import { FloatingButton } from '../../atoms/floating-button/floating-button';
     FloatingPanelComponent,
     CommonModule,
     FloatingButton,
+    BaseButton,
   ],
   templateUrl: './wep-page.component.html',
   styleUrl: './wep-page.component.scss',

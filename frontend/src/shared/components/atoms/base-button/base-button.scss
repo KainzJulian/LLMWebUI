@@ -1,0 +1,40 @@
+@import "@styles";
+
+.button-text {
+  margin: 0px;
+}
+
+@mixin button-style($hover-color) {
+  border: none;
+  background-color: $no-background;
+  box-sizing: content-box;
+
+  border-radius: $small-radius;
+  color: $text_color-light;
+
+  &:hover {
+    background-color: $hover-color;
+  }
+}
+
+.icon-button {
+  @include button-style($accent-color-light);
+
+  width: 25px;
+  height: 25px;
+  padding: $v_small-padding;
+
+}
+
+.text-button {
+  @include button-style($accent-color-light);
+}
+
+.list-button {
+  @include button-style($accent-color-light);
+
+  &:hover {
+    background-color: $accent-color-light;
+    color: $text_color-dark;
+  }
+}
