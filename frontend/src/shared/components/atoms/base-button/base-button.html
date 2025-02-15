@@ -8,6 +8,6 @@
     <img class="icon" [src]="'/icons/' + this.config.iconName + '.svg'" />
   </ng-container>
   <ng-template #buttonTextElement>
-    <p class="button-text no-select">hi wie gehts</p>
+    <p [innerHTML]="this.config.buttonText" class="button-text no-select"></p>
   </ng-template>
 </button>
