@@ -1,0 +1,14 @@
+<div
+  (mouseleave)="this.isHovering = false"
+  (mouseenter)="this.isHovering = true"
+  [classList]="this.isSelected == true ? 'selected' : ''"
+>
+  <button (click)="onClickButton.emit()" [innerText]="this.text"></button>
+
+  <img
+    *ngIf="this.isHovering == true && this.iconName != ''"
+    (click)="onClickIcon.emit()"
+    [src]="'/icons/' + this.iconName + '.svg'"
+    class="icon"
+  />
+</div>

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { OutputFieldComponent } from '../../atoms/output-field/output-field.component';
+import { OutputFieldComponent } from '../output-field/output-field.component';
 import { ChatService } from '../../services/chat.service';
 import { CommonModule } from '@angular/common';
 

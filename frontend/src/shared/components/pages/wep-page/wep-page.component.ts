@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { InputFieldComponent } from '../../atoms/input-field/input-field.component';
-import { OutputFieldComponent } from '../../atoms/output-field/output-field.component';
+import { OutputFieldComponent } from '../../molecules/output-field/output-field.component';
 import { ConvoListComponent } from '../../molecules/convo-list/convo-list.component';
-import { ButtonComponent } from '../../atoms/button/button.component';
 import { SidebarComponent } from '../../molecules/sidebar/sidebar.component';
 import { FloatingPanelComponent } from '../../atoms/floating-panel/floating-panel.component';
 import { ChatService } from '../../services/chat.service';
@@ -20,7 +19,6 @@ import { BaseButton } from '../../atoms/base-button/base-button';
     FloatingPanelComponent,
     CommonModule,
     FloatingButton,
-    BaseButton,
   ],
   templateUrl: './wep-page.component.html',
   styleUrl: './wep-page.component.scss',

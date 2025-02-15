@@ -8,8 +8,9 @@ div {
   flex-direction: row;
 }
 
-* {
-  color: white;
+.selected {
+  background-color: $primary-color-light;
+  border-radius: $small-radius;
 }
 
 button {
@@ -31,17 +32,16 @@ button {
   &:hover {
     background-color: $primary-color-light;
   }
-
-  // background: rgb(255,255,255);
-  // background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(88,88,88,1) 100%);
-}
-
-.selected {
-  background-color: $primary-color-light;
-  border-radius: $small-radius;
 }
 
 img {
   margin-left: auto;
-}
 
+  width: 25px;
+  height: 25px;
+  padding: $v_small-padding;
+
+  &:hover {
+    background-color: $accent-color-light;
+  }
+}

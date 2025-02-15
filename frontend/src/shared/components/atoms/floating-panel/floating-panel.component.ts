@@ -1,6 +1,5 @@
 import { Component, ElementRef, HostListener, Input } from '@angular/core';
 import { SidebarStateService } from '../../services/sidebar-state.service';
-import { ButtonComponent } from '../button/button.component';
 import { ChatService } from '../../services/chat.service';
 import { InputFieldComponent } from '../input-field/input-field.component';
 import { CommonModule } from '@angular/common';
