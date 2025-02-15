@@ -25,12 +25,12 @@
     <p class="listTitle">AI Models</p>
     <div class="aiModelGroup">
       @for(item of modelService.modelArray; track item.model) {
-      <app-button
-        (clickButton)="this.chatService.createChat(item.model)"
-        (clickIcon)="this.chatService.createChat(item.model)"
-        iconName="add-light"
+      <list-button
+        (onClickButton)="this.chatService.createChat(item.model)"
+        (onClickIcon)="this.chatService.createChat(item.model)"
         [text]="item.model"
-      ></app-button>
+        iconName="add-light"
+      ></list-button>
       }
     </div>
   </ng-container>
@@ -39,15 +39,15 @@
     <p class="listTitle">Favourite Chats</p>
     <div class="favouriteGroup">
       @for(chat of chatService.favouriteChats; track $index; let i = $index) {
-      <app-button
-        (clickButton)="this.chatService.setCurrentChat(chat)"
-        (clickIcon)="this.chatService.setCurrentChat(chat)"
-        iconName="add-light"
+      <list-button
+        (onClickButton)="this.chatService.setCurrentChat(chat)"
+        (onClickIcon)="this.chatService.setCurrentChat(chat)"
         [text]="chat.name"
+        iconName="add-light"
         [isSelected]="
           this.chatService.isCurrentChat(chat, chatService.favouriteChats)
         "
-      ></app-button>
+      ></list-button>
       }
     </div>
   </ng-container>
@@ -56,15 +56,15 @@
     <p class="listTitle">Chats</p>
     <div class="chatGroup">
       @for(chat of chatService.chatList; track $index; let i = $index ) {
-      <app-button
-        (clickButton)="this.chatService.setCurrentChat(chat)"
-        (clickIcon)="this.chatService.delete(i)"
-        iconName="delete-light"
+      <list-button
+        (onClickButton)="this.chatService.setCurrentChat(chat)"
+        (onClickIcon)="this.chatService.delete(i)"
         [text]="chat.name"
+        iconName="delete-light"
         [isSelected]="
           this.chatService.isCurrentChat(chat, chatService.chatList)
         "
-      ></app-button>
+      ></list-button>
       }
     </div>
   </ng-container>

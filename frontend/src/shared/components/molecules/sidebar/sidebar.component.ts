@@ -1,15 +1,15 @@
 import { Component, Input, model, signal } from '@angular/core';
-import { ButtonComponent } from '../../atoms/button/button.component';
 import { SidebarStateService } from '../../services/sidebar-state.service';
 import { ChatService } from '../../services/chat.service';
 import { ModelService } from '../../services/model.service';
 import { CommonModule } from '@angular/common';
 import { BaseButton } from '../../atoms/base-button/base-button';
+import { ListButton } from '../list-button/list-button';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [ButtonComponent, CommonModule, BaseButton],
+  imports: [CommonModule, BaseButton, ListButton],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
 })
