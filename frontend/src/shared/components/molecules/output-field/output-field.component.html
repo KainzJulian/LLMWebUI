@@ -1,0 +1,15 @@
+<div [classList]="textStyle">
+  <p #output [innerText]="text" class="outputText"></p>
+  <ng-container *ngIf="isAiText()">
+    <base-button
+      [config]="{ buttonType: 'icon', iconName: 'copy-light' }"
+      (onClick)="copyText(output.innerText)"
+    ></base-button>
+
+    <base-button
+      *ngIf="isLastElement && isAiText()"
+      [config]="{ buttonType: 'icon', iconName: 'repeat-light' }"
+      (onClick)="regenerateResponse()"
+    ></base-button>
+  </ng-container>
+</div>
