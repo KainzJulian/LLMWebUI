@@ -30,11 +30,17 @@
   @include button-style($accent-color-light);
 }
 
-.list-button {
-  @include button-style($accent-color-light);
+.no_hover-button {
+  text-align: start;
 
-  &:hover {
-    background-color: $accent-color-light;
-    color: $text_color-dark;
-  }
+  display: inline-block;
+
+  padding: $small-padding;
+
+  width: 100%;
+
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+
+  @include button-style($primary-color-light);
 }
