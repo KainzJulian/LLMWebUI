@@ -13,7 +13,7 @@
 
 
 .input {
-  background-color: $accent-color;
+  background-color: $color-accent;
   border: none;
   outline: none;
   resize: none;
@@ -26,10 +26,10 @@
   padding-top: 0px;
   padding-bottom: 0px;
 
-  padding-right: $big-padding;
-  padding-left: $big-padding;
+  padding-right: $padding--big;
+  padding-left: $padding--big;
 
-  color: $text_color-light;
+  color: $text-color--light;
 }
 
 .menuBar {

@@ -2,27 +2,27 @@
 
 div {
   width: 100%;
-  background-color: $no-background;
+  background-color: $color;
 
   display: flex;
   flex-direction: row;
 }
 
 .selected {
-  background-color: $primary-color-light;
-  border-radius: $small-radius;
+  background-color: $color-primary--light;
+  border-radius: $radius--small;
 }
 
 button {
-  background-color: $no-background;
+  background-color: $color;
   border: none;
   display: inline-block;
 
   text-align: start;
 
-  border-radius: $small-radius;
+  border-radius: $radius--small;
 
-  padding: $small-padding;
+  padding: $padding--small;
 
   width: 100%;
 
@@ -30,7 +30,7 @@ button {
   text-overflow: ellipsis;
 
   &:hover {
-    background-color: $primary-color-light;
+    background-color: $color-primary--light;
   }
 }
 
@@ -39,9 +39,9 @@ img {
 
   width: 25px;
   height: 25px;
-  padding: $v_small-padding;
+  padding: $padding--vsmall;
 
   &:hover {
-    background-color: $accent-color-light;
+    background-color: $color-accent--light;
   }
 }

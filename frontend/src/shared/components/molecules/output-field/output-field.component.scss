@@ -8,26 +8,26 @@ div {
   height: auto;
   margin-bottom: 20px;
 
-  border-radius: $mid-radius;
-  color: $text_color-light;
+  border-radius: $radius--mid;
+  color: $text-color--light;
 }
 
 .outputText {
   margin: 0;
-  padding-top: $mid-padding;
-  padding-bottom: $mid-padding;
-  padding-left: $big-padding;
-  padding-right: $big-padding;
+  padding-top: $padding--mid;
+  padding-bottom: $padding--mid;
+  padding-left: $padding--big;
+  padding-right: $padding--big;
 
   overflow-wrap: anywhere;
 }
 
 .aiText {
-  background-color: $no-background;
+  background-color: $color;
   float: left;
 }
 
 .humanText {
-  background-color: $accent-color;
+  background-color: $color-accent;
   float: right;
 }

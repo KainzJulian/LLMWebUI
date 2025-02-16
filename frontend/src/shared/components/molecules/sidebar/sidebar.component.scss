@@ -4,7 +4,7 @@
   height: 100%;
   width: 250px;
 
-  background-color: $secondary-color;
+  background-color: $color-secondary;
 
   display: flex;
   flex-direction: column;
@@ -12,11 +12,11 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 
-  padding-top: $small-padding;
-  padding-bottom: $small-padding;
+  padding-top: $padding--small;
+  padding-bottom: $padding--small;
 
-  padding-left: $small-padding;
-  padding-right: $small-padding;
+  padding-left: $padding--small;
+  padding-right: $padding--small;
 
 }
 
@@ -26,7 +26,7 @@ div > div {
 
 .closedSidebarButtonGroup {
   position: absolute;
-  padding: $small-padding;
+  padding: $padding--small;
 }
 
 .aiModelGroup {
@@ -52,7 +52,7 @@ div > div {
 
 .listTitle {
   margin: 0px;
-  padding-left: $small-padding;
+  padding-left: $padding--small;
   font-size: 12px;
   font-weight: 600;
   margin-bottom: 4px;
@@ -61,13 +61,13 @@ div > div {
 .button {
 
   border: none;
-  background-color: $no-background;
-  color: $text_color-light;
-  border-radius: $small-radius;
+  background-color: $color;
+  color: $text-color--light;
+  border-radius: $radius--small;
 
   &:hover {
-    background-color: $accent-color-light;
-    color: $text_color-dark;
+    background-color: $color-accent--light;
+    color: $text-color--dark;
   }
 }
 

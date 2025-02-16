@@ -2,7 +2,7 @@
 
 .container {
   position: absolute;
-  background-color: $accent-color;
+  background-color: $color-accent;
   width: 50%;
 
   height: fit-content;
@@ -15,7 +15,7 @@
 
   border-radius: 16px;
 
-  padding: $big-padding;
+  padding: $padding--big;
   color: white;
 
   display: flex;

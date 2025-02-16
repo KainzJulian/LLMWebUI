@@ -4,30 +4,30 @@
   margin: 0px;
 }
 
-@mixin button-style($hover-color) {
+@mixin button-style($color-hover) {
   border: none;
-  background-color: $no-background;
+  background-color: $color;
   box-sizing: content-box;
 
-  border-radius: $small-radius;
-  color: $text_color-light;
+  border-radius: $radius--small;
+  color: $text_color--light;
 
   &:hover {
-    background-color: $hover-color;
+    background-color: $color-hover;
   }
 }
 
 .icon-button {
-  @include button-style($accent-color-light);
+  @include button-style($color-accent--light);
 
   width: 25px;
   height: 25px;
-  padding: $v_small-padding;
+  padding: $padding--vsmall;
 
 }
 
 .text-button {
-  @include button-style($accent-color-light);
+  @include button-style($color-accent--light);
 }
 
 .no_hover-button {
@@ -35,12 +35,12 @@
 
   display: inline-block;
 
-  padding: $small-padding;
+  padding: $padding--small;
 
   width: 100%;
 
   overflow-x: hidden;
   text-overflow: ellipsis;
 
-  @include button-style($primary-color-light);
+  @include button-style($color-primary--light);
 }
