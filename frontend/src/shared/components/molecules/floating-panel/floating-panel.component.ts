@@ -3,7 +3,7 @@ import { SidebarStateService } from '../../services/sidebar-state.service';
 import { ChatService } from '../../services/chat.service';
 import { InputFieldComponent } from '../input-field/input-field.component';
 import { CommonModule } from '@angular/common';
-import { BaseButton } from '../base-button/base-button';
+import { BaseButton } from '../../atoms/base-button/base-button';
 
 //TODO: make the floating panel more reusable
 

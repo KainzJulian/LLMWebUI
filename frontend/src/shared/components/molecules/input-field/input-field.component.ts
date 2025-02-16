@@ -12,7 +12,7 @@ import { ChatService } from '../../services/chat.service';
 import { ModelService } from '../../services/model.service';
 import { CommonModule } from '@angular/common';
 import { LLMRequestService } from '../../services/llm-request.service';
-import { BaseButton } from '../base-button/base-button';
+import { BaseButton } from '../../atoms/base-button/base-button';
 
 @Component({
   selector: 'app-input-field',
