@@ -4,7 +4,7 @@ import { ChatService } from '../../services/chat.service';
 import { ModelService } from '../../services/model.service';
 import { CommonModule } from '@angular/common';
 import { BaseButton } from '../../atoms/base-button/base-button';
-import { ListButton } from '../list-button/list-button';
+import { ListButton } from '../../atoms/list-button/list-button';
 
 @Component({
   selector: 'app-sidebar',

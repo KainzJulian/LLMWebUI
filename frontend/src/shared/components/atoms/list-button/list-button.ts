@@ -5,7 +5,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { BaseButton } from '../../atoms/base-button/base-button';
+import { BaseButton } from '../base-button/base-button';
 import { CommonModule } from '@angular/common';
 
 @Component({

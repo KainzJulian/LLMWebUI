@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { BaseButton } from '../base-button/base-button';
+import { BaseButton } from '../../atoms/base-button/base-button';
 
 @Component({
   selector: 'floating-button',
