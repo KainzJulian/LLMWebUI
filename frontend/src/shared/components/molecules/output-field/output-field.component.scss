@@ -12,7 +12,7 @@ div {
   color: $text-color--light;
 }
 
-.outputText {
+.output__text {
   margin: 0;
   padding-top: $padding--mid;
   padding-bottom: $padding--mid;
@@ -22,12 +22,12 @@ div {
   overflow-wrap: anywhere;
 }
 
-.aiText {
+.text--ai {
   background-color: $color;
   float: left;
 }
 
-.humanText {
+.text--user {
   background-color: $color-accent;
   float: right;
 }

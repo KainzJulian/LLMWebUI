@@ -1,7 +1,4 @@
-<div
-  *ngIf="!this.sidebarService.isSidebarOpen()"
-  class="closedSidebarButtonGroup"
->
+<div *ngIf="!this.sidebarService.isSidebarOpen()" class="button-group">
   <base-button
     buttonType="icon"
     iconName="sidebar-light"
@@ -10,7 +7,7 @@
 </div>
 
 <div *ngIf="this.sidebarService.isSidebarOpen()" class="container">
-  <div class="menuBarTop">
+  <div class="menu-bar--top">
     <base-button
       buttonType="icon"
       iconName="close-light"
@@ -25,8 +22,8 @@
   </div>
 
   <ng-container *ngIf="modelService.modelArray.length">
-    <p class="listTitle">AI Models</p>
-    <div class="aiModelGroup">
+    <p class="group__title">AI Models</p>
+    <div class="group--aimodel">
       @for(item of modelService.modelArray; track item.model) {
       <list-button
         (onClickButton)="this.chatService.createChat(item.model)"
@@ -39,8 +36,8 @@
   </ng-container>
 
   <ng-container *ngIf="chatService.favouriteChats.length">
-    <p class="listTitle">Favourite Chats</p>
-    <div class="favouriteGroup">
+    <p class="group__title">Favourite Chats</p>
+    <div class="group--favourite">
       @for(chat of chatService.favouriteChats; track $index; let i = $index) {
       <list-button
         (onClickButton)="this.chatService.setCurrentChat(chat)"
@@ -56,8 +53,8 @@
   </ng-container>
 
   <ng-container *ngIf="chatService.chatList.length">
-    <p class="listTitle">Chats</p>
-    <div class="chatGroup">
+    <p class="group__title">Chats</p>
+    <div class="group--chat">
       @for(chat of chatService.chatList; track $index; let i = $index ) {
       <list-button
         (onClickButton)="this.chatService.setCurrentChat(chat)"
@@ -72,7 +69,7 @@
     </div>
   </ng-container>
 
-  <div class="menuBarBottom">
+  <div class="menu-bar--bottom">
     <base-button
       buttonType="icon"
       iconName="options-light"

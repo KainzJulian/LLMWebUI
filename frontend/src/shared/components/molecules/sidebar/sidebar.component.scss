@@ -24,25 +24,25 @@ div > div {
   width: 100%;
 }
 
-.closedSidebarButtonGroup {
+.button-group {
   position: absolute;
   padding: $padding--small;
 }
 
-.aiModelGroup {
+.group--aimodel {
   margin-bottom: 32px;
   overflow-y: auto;
   max-height: 20%;
   min-height: 20%;
 }
 
-.chatGroup {
+.group--chat {
   max-height: 40%;
   overflow-y: auto;
   margin-bottom: 32px;
 }
 
-.favouriteGroup {
+.group--favourite {
   overflow-y: auto;
   max-height: 15%;
   // min-height: 15%;
@@ -50,7 +50,7 @@ div > div {
   margin-bottom: 16px;
 }
 
-.listTitle {
+.group__title {
   margin: 0px;
   padding-left: $padding--small;
   font-size: 12px;
@@ -71,13 +71,13 @@ div > div {
   }
 }
 
-.menuBarTop {
+.menu-bar--top {
   margin-bottom: 8px;
   height: fit-content;
   display: flex;
 }
 
-.menuBarBottom {
+.menu-bar--bottom {
   margin-top: 8px;
   height: fit-content;
   display: flex;

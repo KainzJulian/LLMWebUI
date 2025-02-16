@@ -3,7 +3,7 @@
   <app-output-field
     [isLastElement]="$last"
     [text]="item.content"
-    [textStyle]="item.role == 'assistant' ? 'aiText' : 'humanText'"
+    [textStyle]="item.role == 'assistant' ? 'text--ai' : 'text--human'"
   ></app-output-field>
   }
 </div>

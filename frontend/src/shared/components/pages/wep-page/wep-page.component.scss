@@ -9,7 +9,7 @@
   flex-direction: row;
 }
 
-.convoGroup {
+.group--convo {
   margin-left: auto;
   margin-right: auto;
 
@@ -21,15 +21,6 @@
 
   box-sizing: border-box;
   padding: $padding--small;
-}
-
-.ln-block {
-  display: inline-block;
-}
-
-.convoGroup {
-  margin-left: auto;
-  margin-right: auto;
 }
 
 app-convo-list {
@@ -46,11 +37,4 @@ app-input-field {
 
   margin-left: auto;
   margin-right: auto;
-}
-
-.menuBar {
-  position: absolute;
-  display: flex;
-  right: 0px;
-  padding: $padding--small;
 }

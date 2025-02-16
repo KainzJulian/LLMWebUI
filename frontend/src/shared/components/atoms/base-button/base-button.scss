@@ -1,6 +1,6 @@
 @import "@styles";
 
-.button-text {
+.button__text {
   margin: 0px;
 }
 
@@ -17,7 +17,7 @@
   }
 }
 
-.icon-button {
+.button--icon {
   @include button-style($color-accent--light);
 
   width: 25px;
@@ -26,11 +26,11 @@
 
 }
 
-.text-button {
+.button--text {
   @include button-style($color-accent--light);
 }
 
-.no_hover-button {
+.button--no_hover {
   text-align: start;
 
   display: inline-block;

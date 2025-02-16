@@ -22,19 +22,19 @@
   flex-direction: column;
 }
 
-.listItem {
+.list-item {
   width: 50%;
   display: flex;
   align-items: center;
 }
 
-.close-button {
+.button--close {
   position: absolute;
   right: 8px;
   top: 8px;
 }
 
-.options-button {
+.list-item__button {
   height: 100%;
   width: 120px;
   margin-left: auto;

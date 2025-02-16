@@ -14,7 +14,7 @@ import { BaseButton } from '../../atoms/base-button/base-button';
 })
 export class OutputFieldComponent {
   @Input() text: string = '';
-  @Input() textStyle: 'humanText' | 'aiText' = 'aiText';
+  @Input() textStyle: 'text--human' | 'text--ai' = 'text--ai';
 
   @Input() isLastElement: boolean = false;
 
@@ -41,6 +41,6 @@ export class OutputFieldComponent {
   }
 
   isAiText(): boolean {
-    return this.textStyle == 'aiText';
+    return this.textStyle == 'text--ai';
   }
 }
