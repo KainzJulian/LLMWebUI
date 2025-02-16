@@ -12,18 +12,18 @@ import { ChatService } from '../../services/chat.service';
 import { ModelService } from '../../services/model.service';
 import { CommonModule } from '@angular/common';
 import { LLMRequestService } from '../../services/llm-request.service';
+import { BaseButton } from '../../atoms/base-button/base-button';
 
 @Component({
   selector: 'app-input-field',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, BaseButton],
   templateUrl: './input-field.component.html',
   styleUrl: './input-field.component.scss',
 })
 export class InputFieldComponent {
   inputText: string = '';
   @ViewChild('input') input!: ElementRef;
-  @ViewChild('sendButton') sendButton!: ElementRef;
 
   public isLoading = signal(false);
 

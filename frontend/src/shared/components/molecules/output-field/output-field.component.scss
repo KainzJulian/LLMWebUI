@@ -1,0 +1,33 @@
+@import "@styles";
+
+div {
+  width: auto;
+  max-width: 70%;
+  min-width: auto;
+
+  height: auto;
+  margin-bottom: 20px;
+
+  border-radius: $radius--mid;
+  color: $text-color--light;
+}
+
+.output__text {
+  margin: 0;
+  padding-top: $padding--mid;
+  padding-bottom: $padding--mid;
+  padding-left: $padding--big;
+  padding-right: $padding--big;
+
+  overflow-wrap: anywhere;
+}
+
+.text--ai {
+  background-color: $color;
+  float: left;
+}
+
+.text--user {
+  background-color: $color-accent;
+  float: right;
+}

@@ -3,17 +3,18 @@ import { ModelService } from '../../services/model.service';
 import { ChatService } from '../../services/chat.service';
 import { CommonModule } from '@angular/common';
 import { LLMRequestService } from '../../services/llm-request.service';
+import { BaseButton } from '../../atoms/base-button/base-button';
 
 @Component({
   selector: 'app-output-field',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, BaseButton],
   templateUrl: './output-field.component.html',
   styleUrl: './output-field.component.scss',
 })
 export class OutputFieldComponent {
   @Input() text: string = '';
-  @Input() textStyle: 'humanText' | 'aiText' = 'aiText';
+  @Input() textStyle: 'text--human' | 'text--ai' = 'text--ai';
 
   @Input() isLastElement: boolean = false;
 
@@ -40,6 +41,6 @@ export class OutputFieldComponent {
   }
 
   isAiText(): boolean {
-    return this.textStyle == 'aiText';
+    return this.textStyle == 'text--ai';
   }
 }

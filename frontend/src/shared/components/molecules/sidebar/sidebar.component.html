@@ -1,81 +1,79 @@
-<div
-  *ngIf="!this.sidebarService.isSidebarOpen()"
-  class="closedSidebarButtonGroup"
->
-  <img
-    src="/icons/sidebar-light.svg"
-    (click)="openSidebar()"
-    class="button icon"
-  />
+<div *ngIf="!this.sidebarService.isSidebarOpen()" class="button-group">
+  <base-button
+    buttonType="icon"
+    iconName="sidebar-light"
+    (onClick)="openSidebar()"
+  ></base-button>
 </div>
 
 <div *ngIf="this.sidebarService.isSidebarOpen()" class="container">
-  <div class="menuBarTop">
-    <img
-      src="/icons/close-light.svg"
-      (click)="closeSidebar()"
-      class="button icon"
-    />
-    <img
-      (click)="openSearch()"
-      src="/icons/search-light.svg"
-      class="button icon"
-    />
+  <div class="menu-bar--top">
+    <base-button
+      buttonType="icon"
+      iconName="close-light"
+      (onClick)="closeSidebar()"
+    ></base-button>
+
+    <base-button
+      buttonType="icon"
+      iconName="search-light"
+      (onClick)="openSearch()"
+    ></base-button>
   </div>
 
   <ng-container *ngIf="modelService.modelArray.length">
-    <p class="listTitle">AI Models</p>
-    <div class="aiModelGroup">
+    <p class="group__title">AI Models</p>
+    <div class="group--aimodel">
       @for(item of modelService.modelArray; track item.model) {
-      <app-button
-        (clickButton)="this.chatService.createChat(item.model)"
-        (clickIcon)="this.chatService.createChat(item.model)"
-        iconName="add-light"
+      <list-button
+        (onClickButton)="this.chatService.createChat(item.model)"
+        (onClickIcon)="this.chatService.createChat(item.model)"
         [text]="item.model"
-      ></app-button>
+        iconName="add-light"
+      ></list-button>
       }
     </div>
   </ng-container>
 
   <ng-container *ngIf="chatService.favouriteChats.length">
-    <p class="listTitle">Favourite Chats</p>
-    <div class="favouriteGroup">
+    <p class="group__title">Favourite Chats</p>
+    <div class="group--favourite">
       @for(chat of chatService.favouriteChats; track $index; let i = $index) {
-      <app-button
-        (clickButton)="this.chatService.setCurrentChat(chat)"
-        (clickIcon)="this.chatService.setCurrentChat(chat)"
-        iconName="add-light"
+      <list-button
+        (onClickButton)="this.chatService.setCurrentChat(chat)"
+        (onClickIcon)="this.chatService.setCurrentChat(chat)"
         [text]="chat.name"
+        iconName="add-light"
         [isSelected]="
           this.chatService.isCurrentChat(chat, chatService.favouriteChats)
         "
-      ></app-button>
+      ></list-button>
       }
     </div>
   </ng-container>
 
   <ng-container *ngIf="chatService.chatList.length">
-    <p class="listTitle">Chats</p>
-    <div class="chatGroup">
+    <p class="group__title">Chats</p>
+    <div class="group--chat">
       @for(chat of chatService.chatList; track $index; let i = $index ) {
-      <app-button
-        (clickButton)="this.chatService.setCurrentChat(chat)"
-        (clickIcon)="this.chatService.delete(i)"
-        iconName="delete-light"
+      <list-button
+        (onClickButton)="this.chatService.setCurrentChat(chat)"
+        (onClickIcon)="this.chatService.delete(i)"
         [text]="chat.name"
+        iconName="delete-light"
         [isSelected]="
           this.chatService.isCurrentChat(chat, chatService.chatList)
         "
-      ></app-button>
+      ></list-button>
       }
     </div>
   </ng-container>
 
-  <div class="menuBarBottom">
-    <img
-      (click)="openOptions()"
-      src="/icons/options-light.svg"
-      class="button icon"
-    />
+  <div class="menu-bar--bottom">
+    <base-button
+      buttonType="icon"
+      iconName="options-light"
+      (onClick)="openOptions()"
+    ></base-button>
   </div>
 </div>

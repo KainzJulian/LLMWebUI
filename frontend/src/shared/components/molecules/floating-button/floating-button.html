@@ -1,0 +1,14 @@
+<div
+  [ngStyle]="{
+    top: this.config.top + 'px',
+    left: this.config.left + 'px',
+    right: this.config.right + 'px',
+    bottom: this.config.bottom + 'px'
+  }"
+>
+  <base-button
+    buttonType="icon"
+    [iconName]="this.config.iconName"
+    (onClick)="onClick.emit()"
+  ></base-button>
+</div>

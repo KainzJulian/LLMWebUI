@@ -1,0 +1,47 @@
+@import "@styles";
+
+div {
+  width: 100%;
+  background-color: $color;
+
+  display: flex;
+  flex-direction: row;
+}
+
+.selected {
+  background-color: $color-primary--light;
+  border-radius: $radius--small;
+}
+
+button {
+  background-color: $color;
+  border: none;
+  display: inline-block;
+
+  text-align: start;
+
+  border-radius: $radius--small;
+
+  padding: $padding--small;
+
+  width: 100%;
+
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+
+  &:hover {
+    background-color: $color-primary--light;
+  }
+}
+
+img {
+  margin-left: auto;
+
+  width: 25px;
+  height: 25px;
+  padding: $padding--vsmall;
+
+  &:hover {
+    background-color: $color-accent--light;
+  }
+}

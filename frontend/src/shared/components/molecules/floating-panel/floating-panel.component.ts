@@ -1,9 +1,9 @@
 import { Component, ElementRef, HostListener, Input } from '@angular/core';
 import { SidebarStateService } from '../../services/sidebar-state.service';
-import { ButtonComponent } from '../button/button.component';
 import { ChatService } from '../../services/chat.service';
 import { InputFieldComponent } from '../input-field/input-field.component';
 import { CommonModule } from '@angular/common';
+import { BaseButton } from '../../atoms/base-button/base-button';
 
 //TODO: make the floating panel more reusable
 
@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   templateUrl: './floating-panel.component.html',
   styleUrl: './floating-panel.component.scss',
-  imports: [CommonModule],
+  imports: [CommonModule, BaseButton],
 })
 export class FloatingPanelComponent {
   constructor(

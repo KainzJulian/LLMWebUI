@@ -4,7 +4,7 @@
   height: 100%;
   width: 250px;
 
-  background-color: $secondary-color;
+  background-color: $color-secondary;
 
   display: flex;
   flex-direction: column;
@@ -12,11 +12,11 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 
-  padding-top: $small-padding;
-  padding-bottom: $small-padding;
+  padding-top: $padding--small;
+  padding-bottom: $padding--small;
 
-  padding-left: $small-padding;
-  padding-right: $small-padding;
+  padding-left: $padding--small;
+  padding-right: $padding--small;
 
 }
 
@@ -24,25 +24,25 @@ div > div {
   width: 100%;
 }
 
-.closedSidebarButtonGroup {
+.button-group {
   position: absolute;
-  padding: $small-padding;
+  padding: $padding--small;
 }
 
-.aiModelGroup {
+.group--aimodel {
   margin-bottom: 32px;
   overflow-y: auto;
   max-height: 20%;
   min-height: 20%;
 }
 
-.chatGroup {
+.group--chat {
   max-height: 40%;
   overflow-y: auto;
   margin-bottom: 32px;
 }
 
-.favouriteGroup {
+.group--favourite {
   overflow-y: auto;
   max-height: 15%;
   // min-height: 15%;
@@ -50,9 +50,9 @@ div > div {
   margin-bottom: 16px;
 }
 
-.listTitle {
+.group__title {
   margin: 0px;
-  padding-left: $small-padding;
+  padding-left: $padding--small;
   font-size: 12px;
   font-weight: 600;
   margin-bottom: 4px;
@@ -61,23 +61,23 @@ div > div {
 .button {
 
   border: none;
-  background-color: $no-background;
-  color: $text_color-light;
-  border-radius: $small-radius;
+  background-color: $color;
+  color: $text-color--light;
+  border-radius: $radius--small;
 
   &:hover {
-    background-color: $accent-color-light;
-    color: $text_color-dark;
+    background-color: $color-accent--light;
+    color: $text-color--dark;
   }
 }
 
-.menuBarTop {
+.menu-bar--top {
   margin-bottom: 8px;
   height: fit-content;
   display: flex;
 }
 
-.menuBarBottom {
+.menu-bar--bottom {
   margin-top: 8px;
   height: fit-content;
   display: flex;

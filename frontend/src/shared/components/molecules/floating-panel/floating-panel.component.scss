@@ -2,7 +2,7 @@
 
 .container {
   position: absolute;
-  background-color: $accent-color;
+  background-color: $color-accent;
   width: 50%;
 
   height: fit-content;
@@ -15,25 +15,27 @@
 
   border-radius: 16px;
 
-  padding: $big-padding;
+  padding: $padding--big;
   color: white;
 
   display: flex;
   flex-direction: column;
 }
 
-div.listItem > button {
-  margin-left: auto;
-  width: 120px;
-}
-
-.listItem {
-  display: flex;
+.list-item {
   width: 50%;
+  display: flex;
+  align-items: center;
 }
 
-img {
+.button--close {
   position: absolute;
   right: 8px;
   top: 8px;
+}
+
+.list-item__button {
+  height: 100%;
+  width: 120px;
+  margin-left: auto;
 }
