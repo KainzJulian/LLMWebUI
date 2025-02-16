@@ -1,13 +1,8 @@
-<button
-  (click)="this.onClick.emit()"
-  [ngClass]="this.config.buttonType + '-button'"
->
-  <ng-container
-    *ngIf="this.config.buttonType == 'icon'; else buttonTextElement"
-  >
-    <img class="icon" [src]="'/icons/' + this.config.iconName + '.svg'" />
+<button (click)="this.onClick.emit()" [ngClass]="this.buttonType + '-button'">
+  <ng-container *ngIf="this.buttonType == 'icon'; else buttonTextElement">
+    <img class="icon" [src]="'/icons/' + this.iconName + '.svg'" />
   </ng-container>
   <ng-template #buttonTextElement>
-    <p [innerHTML]="this.config.buttonText" class="button-text no-select"></p>
+    <p [innerHTML]="this.buttonText" class="button-text no-select"></p>
   </ng-template>
 </button>
