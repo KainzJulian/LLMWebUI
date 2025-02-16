@@ -12,13 +12,15 @@
   <div class="menuBar">
     <base-button
       *ngIf="this.isLoading(); else defaultButton"
-      [config]="{ buttonType: 'icon', iconName: 'close-light' }"
+      buttonType="icon"
+      iconName="close-light"
       (onClick)="cancelRequest()"
     ></base-button>
 
     <ng-template #defaultButton>
       <base-button
-        [config]="{ buttonType: 'icon', iconName: 'send-light' }"
+        buttonType="icon"
+        iconName="send-light"
         (onClick)="sendRequest(input.value)"
       ></base-button>
     </ng-template>

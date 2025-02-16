@@ -9,19 +9,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrl: './base-button.scss',
 })
 export class BaseButton {
-  @Input() config: Partial<BaseButtonConfig> = {
-    iconName: '',
-    buttonText: '',
-    buttonType: 'icon',
-    buttonClasses: ['base-button'],
-  };
+  @Input() iconName?: string = '';
+  @Input() buttonText?: string = '';
+  @Input() buttonType: string = 'text';
+  @Input() buttonClasses?: string[] = [];
 
   @Output() onClick = new EventEmitter<void>();
-}
-
-interface BaseButtonConfig {
-  iconName?: string;
-  buttonText?: string;
-  buttonType: string;
-  buttonClasses?: string[];
 }

@@ -1,12 +1,27 @@
 <div *ngIf="stateService.isOptionsOpen()" class="container">
-  <img (click)="close()" src="/icons/close-light.svg" class="icon" />
+  <base-button
+    class="close-button"
+    (onClick)="close()"
+    iconName="close-light"
+    buttonType="icon"
+  ></base-button>
 
   <div class="listItem">
     <p>Alle Chats archivieren</p>
-    <button (click)="archiveAllChats()">Alle archivieren</button>
+    <base-button
+      class="options-button"
+      buttonType="text"
+      (onClick)="archiveAllChats()"
+      buttonText="Alle archivieren"
+    ></base-button>
   </div>
   <div class="listItem">
     <p>Alle Chats löschen</p>
-    <button (click)="deleteAllChats()">Alle löschen</button>
+    <base-button
+      class="options-button"
+      buttonText="Alle Chats löschen"
+      (onClick)="deleteAllChats()"
+      buttonType="text"
+    ></base-button>
   </div>
 </div>

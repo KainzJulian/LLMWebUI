@@ -7,7 +7,8 @@
   }"
 >
   <base-button
-    [config]="{'buttonType': 'icon', 'iconName': this.config.iconName}"
+    buttonType="icon"
+    [iconName]="this.config.iconName"
     (onClick)="onClick.emit()"
   ></base-button>
 </div>

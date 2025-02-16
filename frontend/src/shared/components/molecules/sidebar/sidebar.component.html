@@ -3,7 +3,8 @@
   class="closedSidebarButtonGroup"
 >
   <base-button
-    [config]="{ buttonType: 'icon', iconName: 'sidebar-light' }"
+    buttonType="icon"
+    iconName="sidebar-light"
     (onClick)="openSidebar()"
   ></base-button>
 </div>
@@ -11,12 +12,14 @@
 <div *ngIf="this.sidebarService.isSidebarOpen()" class="container">
   <div class="menuBarTop">
     <base-button
-      [config]="{ buttonType: 'icon', iconName: 'close-light' }"
+      buttonType="icon"
+      iconName="close-light"
       (onClick)="closeSidebar()"
     ></base-button>
 
     <base-button
-      [config]="{ buttonType: 'icon', iconName: 'search-light' }"
+      buttonType="icon"
+      iconName="search-light"
       (onClick)="openSearch()"
     ></base-button>
   </div>
@@ -71,7 +74,8 @@
 
   <div class="menuBarBottom">
     <base-button
-      [config]="{ buttonType: 'icon', iconName: 'options-light' }"
+      buttonType="icon"
+      iconName="options-light"
       (onClick)="openOptions()"
     ></base-button>
   </div>

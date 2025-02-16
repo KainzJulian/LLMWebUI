@@ -22,18 +22,20 @@
   flex-direction: column;
 }
 
-div.listItem > button {
-  margin-left: auto;
-  width: 120px;
-}
-
 .listItem {
-  display: flex;
   width: 50%;
+  display: flex;
+  align-items: center;
 }
 
-img {
+.close-button {
   position: absolute;
   right: 8px;
   top: 8px;
+}
+
+.options-button {
+  height: 100%;
+  width: 120px;
+  margin-left: auto;
 }
