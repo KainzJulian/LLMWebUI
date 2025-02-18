@@ -21,53 +21,61 @@
     ></base-button>
   </div>
 
-  <ng-container *ngIf="modelService.modelArray.length">
-    <p class="group__title">AI Models</p>
-    <div class="group--aimodel">
-      @for(item of modelService.modelArray; track item.model) {
-      <list-button
-        (onClickButton)="this.chatService.createChat(item.model)"
-        (onClickIcon)="this.chatService.createChat(item.model)"
-        [text]="item.model"
-        iconName="add-light"
-      ></list-button>
-      }
+  <div class="group">
+    <div class="group__container">
+      <ng-container *ngIf="modelService.modelArray.length">
+        <div class="group__title">
+          <p>AI Models</p>
+        </div>
+        @for(item of modelService.modelArray; track item.model) {
+        <list-button
+          (onClickButton)="this.chatService.createChat(item.model)"
+          (onClickIcon)="this.chatService.createChat(item.model)"
+          [text]="item.model"
+          iconName="add-light"
+        ></list-button>
+        }
+      </ng-container>
     </div>
-  </ng-container>
 
-  <ng-container *ngIf="chatService.favouriteChats.length">
-    <p class="group__title">Favourite Chats</p>
-    <div class="group--favourite">
-      @for(chat of chatService.favouriteChats; track $index; let i = $index) {
-      <list-button
-        (onClickButton)="this.chatService.setCurrentChat(chat)"
-        [openOptionsOnIconClick]="true"
-        [text]="chat.name"
-        iconName="add-light"
-        [isSelected]="
-          this.chatService.isCurrentChat(chat, chatService.favouriteChats)
-        "
-      ></list-button>
-      }
+    <div class="group__container">
+      <ng-container *ngIf="chatService.favouriteChats.length">
+        <div class="group__title">
+          <p>Favourite Chats</p>
+        </div>
+        @for(chat of chatService.favouriteChats; track $index; let i = $index) {
+        <list-button
+          (onClickButton)="this.chatService.setCurrentChat(chat)"
+          (onClickIcon)="this.chatService.setCurrentChat(chat)"
+          [text]="chat.name"
+          iconName="add-light"
+          [isSelected]="
+            this.chatService.isCurrentChat(chat, chatService.favouriteChats)
+          "
+        ></list-button>
+        }
+      </ng-container>
     </div>
-  </ng-container>
 
-  <ng-container *ngIf="chatService.chatList.length">
-    <p class="group__title">Chats</p>
-    <div class="group--chat">
-      @for(chat of chatService.chatList; track $index; let i = $index ) {
-      <list-button
-        (onClickButton)="this.chatService.setCurrentChat(chat)"
-        (onClickIcon)="this.chatService.delete(i)"
-        [text]="chat.name"
-        iconName="delete-light"
-        [isSelected]="
-          this.chatService.isCurrentChat(chat, chatService.chatList)
-        "
-      ></list-button>
-      }
+    <div class="group__container">
+      <ng-container class="group--chat" *ngIf="chatService.chatList.length">
+        <div class="group__title">
+          <p>Chats</p>
+        </div>
+        @for(chat of chatService.chatList; track $index; let i = $index ) {
+        <list-button
+          (onClickButton)="this.chatService.setCurrentChat(chat)"
+          (onClickIcon)="this.chatService.delete(i)"
+          [text]="chat.name"
+          iconName="delete-light"
+          [isSelected]="
+            this.chatService.isCurrentChat(chat, chatService.chatList)
+          "
+        ></list-button>
+        }
+      </ng-container>
     </div>
-  </ng-container>
+  </div>
 
   <div class="menu-bar--bottom">
     <base-button

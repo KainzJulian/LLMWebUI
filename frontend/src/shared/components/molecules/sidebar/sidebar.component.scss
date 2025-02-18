@@ -17,7 +17,6 @@
 
   padding-left: $padding--small;
   padding-right: $padding--small;
-
 }
 
 div > div {
@@ -29,45 +28,28 @@ div > div {
   padding: $padding--small;
 }
 
-.group--aimodel {
-  margin-bottom: 32px;
+.group {
   overflow-y: auto;
-  max-height: 20%;
-  min-height: 20%;
-}
-
-.group--chat {
-  max-height: 40%;
-  overflow-y: auto;
-  margin-bottom: 32px;
-}
-
-.group--favourite {
-  overflow-y: auto;
-  max-height: 15%;
-  // min-height: 15%;
-  height: fit-content;
-  margin-bottom: 16px;
+  margin-bottom: $padding--small;
 }
 
 .group__title {
-  margin: 0px;
+  position: sticky;
+  position: -webkit-sticky;
+
+  background-color: $color-secondary;
+
+  top: 0px;
+
+  padding-bottom: $padding--mid;
   padding-left: $padding--small;
-  font-size: 12px;
-  font-weight: 600;
-  margin-bottom: 4px;
 }
 
-.button {
+.group__container {
+  margin-top: 32px;
 
-  border: none;
-  background-color: $color;
-  color: $text-color--light;
-  border-radius: $radius--small;
-
-  &:hover {
-    background-color: $color-accent--light;
-    color: $text-color--dark;
+  &:first-child {
+    margin-top: 0px;
   }
 }
 
@@ -82,4 +64,12 @@ div > div {
   height: fit-content;
   display: flex;
   margin-top: auto;
+}
+
+p {
+  font-size: 12px;
+  font-weight: 600;
+
+  margin: 0px;
+  padding: 0px;
 }

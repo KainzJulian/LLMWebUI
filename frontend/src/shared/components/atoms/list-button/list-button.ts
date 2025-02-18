@@ -38,7 +38,7 @@ export class ListButton {
     // if (this.openOptionsOnIconClick) {
     //   this.optionsClass = this.optionsClass == 'closed' ? 'open' : 'closed';
     // } else {
-    //   this.onClickIcon.emit();
+    this.onClickIcon.emit();
     // }
   }
 
