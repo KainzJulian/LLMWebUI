@@ -1,9 +1,13 @@
 @import "@styles";
 
-div {
+.container {
   width: 100%;
-  background-color: $color;
+  height: auto;
 
+  background-color: $color;
+}
+
+.button--group {
   display: flex;
   flex-direction: row;
 }
@@ -13,7 +17,7 @@ div {
   border-radius: $radius--small;
 }
 
-button {
+.button {
   background-color: $color;
   border: none;
   display: inline-block;
@@ -44,4 +48,20 @@ img {
   &:hover {
     background-color: $color-accent--light;
   }
+}
+
+.options {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+
+  background-color: $color-primary--light;
+}
+
+.open {
+  display: inline-block;
+}
+
+.closed {
+  display: none;
 }

@@ -41,7 +41,7 @@
       @for(chat of chatService.favouriteChats; track $index; let i = $index) {
       <list-button
         (onClickButton)="this.chatService.setCurrentChat(chat)"
-        (onClickIcon)="this.chatService.setCurrentChat(chat)"
+        [openOptionsOnIconClick]="true"
         [text]="chat.name"
         iconName="add-light"
         [isSelected]="

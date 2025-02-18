@@ -1,14 +1,27 @@
 <div
+  class="container"
   (mouseleave)="this.isHovering = false"
   (mouseenter)="this.isHovering = true"
   [classList]="this.isSelected == true ? 'selected' : ''"
 >
-  <button (click)="onClickButton.emit()" [innerText]="this.text"></button>
+  <div class="button--group">
+    <button
+      class="button"
+      (click)="onClickButton.emit()"
+      [innerText]="this.text"
+    ></button>
 
-  <img
-    *ngIf="this.isHovering == true && this.iconName != ''"
-    (click)="onClickIcon.emit()"
-    [src]="'/icons/' + this.iconName + '.svg'"
-    class="icon"
-  />
+    <img
+      *ngIf="this.isHovering == true && this.iconName != ''"
+      (click)="this.clickIcon()"
+      [src]="'/icons/' + this.iconName + '.svg'"
+      class="icon"
+    />
+  </div>
+
+  <div #options [ngClass]="this.optionsClass" class="options">
+    <base-button buttonType="icon" iconName="copy-light"></base-button>
+    <base-button buttonType="icon" iconName="copy-light"></base-button>
+    <base-button buttonType="icon" iconName="copy-light"></base-button>
+  </div>
 </div>
