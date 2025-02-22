@@ -9,10 +9,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrl: './base-button.scss',
 })
 export class BaseButton {
-  @Input() iconName?: string = '';
-  @Input() buttonText?: string = '';
-  @Input() buttonType: string = 'text';
-  @Input() buttonClasses?: string[] = [];
+  @Input() buttonClass: string = 'hover--icon';
 
   @Output() onClick = new EventEmitter<void>();
+
+  constructor() {}
 }

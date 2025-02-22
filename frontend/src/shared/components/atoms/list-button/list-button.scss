@@ -13,41 +13,25 @@
 }
 
 .selected {
-  background-color: $color-primary--light;
+  background-color: $color-primary;
   border-radius: $radius--small;
 }
 
-.button {
+.button__text {
   background-color: $color;
   border: none;
+  border-radius: $radius--small;
   display: inline-block;
 
   text-align: start;
-
-  border-radius: $radius--small;
-
-  padding: $padding--small;
-
   width: 100%;
 
   overflow-x: hidden;
   text-overflow: ellipsis;
-
-  &:hover {
-    background-color: $color-primary--light;
-  }
 }
 
-img {
+.button__icon {
   margin-left: auto;
-
-  width: 25px;
-  height: 25px;
-  padding: $padding--vsmall;
-
-  &:hover {
-    background-color: $color-accent--light;
-  }
 }
 
 .options {
@@ -64,4 +48,9 @@ img {
 
 .closed {
   display: none;
+}
+
+p {
+  overflow-x: hidden;
+  text-overflow: ellipsis;
 }

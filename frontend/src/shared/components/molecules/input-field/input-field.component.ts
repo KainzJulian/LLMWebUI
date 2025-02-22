@@ -1,23 +1,16 @@
 import { HttpClient } from '@angular/common/http';
-import {
-  Component,
-  effect,
-  ElementRef,
-  model,
-  signal,
-  ViewChild,
-} from '@angular/core';
-import { ENV } from '../../../../environments/environment';
+import { Component, ElementRef, signal, ViewChild } from '@angular/core';
 import { ChatService } from '../../services/chat.service';
 import { ModelService } from '../../services/model.service';
 import { CommonModule } from '@angular/common';
 import { LLMRequestService } from '../../services/llm-request.service';
 import { BaseButton } from '../../atoms/base-button/base-button';
+import { Icon } from '../../atoms/icon/icon';
 
 @Component({
   selector: 'app-input-field',
   standalone: true,
-  imports: [CommonModule, BaseButton],
+  imports: [CommonModule, BaseButton, Icon],
   templateUrl: './input-field.component.html',
   styleUrl: './input-field.component.scss',
 })

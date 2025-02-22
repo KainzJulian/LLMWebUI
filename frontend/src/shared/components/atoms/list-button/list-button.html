@@ -5,23 +5,32 @@
   [classList]="this.isSelected == true ? 'selected' : ''"
 >
   <div class="button--group">
-    <button
-      class="button"
-      (click)="onClickButton.emit()"
-      [innerText]="this.text"
-    ></button>
+    <base-button
+      (onClick)="onClickButton.emit()"
+      buttonClass="hover--text width--100"
+      class="button__text"
+    >
+      <p>{{this.text}}</p>
+    </base-button>
 
-    <img
-      *ngIf="this.isHovering == true && this.iconName != ''"
-      (click)="this.clickIcon()"
-      [src]="'/icons/' + this.iconName + '.svg'"
-      class="icon"
-    />
+    <base-button
+      class="button__icon"
+      *ngIf="this.isHovering && this.iconName != ''"
+      (onClick)="this.clickIcon()"
+    >
+      <icon [iconName]="this.iconName" />
+    </base-button>
   </div>
-
+  <!--
   <div #options [ngClass]="this.optionsClass" class="options">
-    <base-button buttonType="icon" iconName="copy-light"></base-button>
-    <base-button buttonType="icon" iconName="copy-light"></base-button>
-    <base-button buttonType="icon" iconName="copy-light"></base-button>
-  </div>
+    <base-button>
+      <icon iconName="copy-light" />
+    </base-button>
+    <base-button>
+      <icon iconName="copy-light" />
+    </base-button>
+    <base-button>
+      <icon iconName="copy-light" />
+    </base-button>
+  </div> -->
 </div>

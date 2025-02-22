@@ -4,6 +4,7 @@ import { ChatService } from '../../services/chat.service';
 import { InputFieldComponent } from '../input-field/input-field.component';
 import { CommonModule } from '@angular/common';
 import { BaseButton } from '../../atoms/base-button/base-button';
+import { Icon } from '../../atoms/icon/icon';
 
 //TODO: make the floating panel more reusable
 

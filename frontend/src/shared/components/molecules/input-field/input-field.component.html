@@ -12,17 +12,15 @@
   <div class="toolbar">
     <base-button
       *ngIf="this.isLoading(); else defaultButton"
-      buttonType="icon"
-      iconName="close-light"
       (onClick)="cancelRequest()"
-    ></base-button>
+    >
+      <icon iconName="close-light" />
+    </base-button>
 
     <ng-template #defaultButton>
-      <base-button
-        buttonType="icon"
-        iconName="send-light"
-        (onClick)="sendRequest(input.value)"
-      ></base-button>
+      <base-button (onClick)="sendRequest(input.value)">
+        <icon iconName="send-light" />
+      </base-button>
     </ng-template>
   </div>
 </div>

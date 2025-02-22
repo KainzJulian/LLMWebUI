@@ -8,6 +8,7 @@ import { ChatService } from '../../services/chat.service';
 import { CommonModule } from '@angular/common';
 import { FloatingButton } from '../../molecules/floating-button/floating-button';
 import { BaseButton } from '../../atoms/base-button/base-button';
+import { Icon } from '../../atoms/icon/icon';
 
 @Component({
   selector: 'app-wep-page',

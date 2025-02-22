@@ -4,17 +4,18 @@ import { ChatService } from '../../services/chat.service';
 import { CommonModule } from '@angular/common';
 import { LLMRequestService } from '../../services/llm-request.service';
 import { BaseButton } from '../../atoms/base-button/base-button';
+import { Icon } from '../../atoms/icon/icon';
 
 @Component({
   selector: 'app-output-field',
   standalone: true,
-  imports: [CommonModule, BaseButton],
+  imports: [CommonModule, BaseButton, Icon],
   templateUrl: './output-field.component.html',
   styleUrl: './output-field.component.scss',
 })
 export class OutputFieldComponent {
   @Input() text: string = '';
-  @Input() textStyle: 'text--human' | 'text--ai' = 'text--ai';
+  @Input() textStyle: 'text--user' | 'text--ai' = 'text--ai';
 
   @Input() isLastElement: boolean = false;
 

@@ -59,6 +59,7 @@ textarea {
   height: 25px;
 
   color: $text-color--dark;
+  background-color: $color;
 
   border-radius: $radius--small;
 }
@@ -66,4 +67,8 @@ textarea {
 .no-select {
   user-select: none;
   cursor: default;
+}
+
+p {
+  margin: 0px;
 }

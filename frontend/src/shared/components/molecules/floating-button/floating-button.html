@@ -6,9 +6,7 @@
     bottom: this.config.bottom + 'px'
   }"
 >
-  <base-button
-    buttonType="icon"
-    [iconName]="this.config.iconName"
-    (onClick)="onClick.emit()"
-  ></base-button>
+  <base-button (onClick)="onClick.emit()">
+    <icon [iconName]="this.iconName" />
+  </base-button>
 </div>

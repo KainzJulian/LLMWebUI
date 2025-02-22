@@ -1,24 +1,18 @@
 <div *ngIf="!this.sidebarService.isSidebarOpen()" class="button-group">
-  <base-button
-    buttonType="icon"
-    iconName="sidebar-light"
-    (onClick)="openSidebar()"
-  ></base-button>
+  <base-button (onClick)="openSidebar()">
+    <icon iconName="sidebar-light" />
+  </base-button>
 </div>
 
 <div *ngIf="this.sidebarService.isSidebarOpen()" class="container">
   <div class="menu-bar--top">
-    <base-button
-      buttonType="icon"
-      iconName="close-light"
-      (onClick)="closeSidebar()"
-    ></base-button>
+    <base-button (onClick)="closeSidebar()">
+      <icon iconName="close-light" />
+    </base-button>
 
-    <base-button
-      buttonType="icon"
-      iconName="search-light"
-      (onClick)="openSearch()"
-    ></base-button>
+    <base-button (onClick)="openSearch()">
+      <icon iconName="search-light" />
+    </base-button>
   </div>
 
   <div class="group">
@@ -78,10 +72,8 @@
   </div>
 
   <div class="menu-bar--bottom">
-    <base-button
-      buttonType="icon"
-      iconName="options-light"
-      (onClick)="openOptions()"
-    ></base-button>
+    <base-button (onClick)="openOptions()">
+      <icon iconName="options-light" />
+    </base-button>
   </div>
 </div>

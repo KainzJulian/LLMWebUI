@@ -1,14 +1,18 @@
 <div class="container">
   <app-sidebar></app-sidebar>
+
   <ng-container *ngIf="this.chatService.currentChat != null">
     <floating-button
       [config]="{
-        iconName: this.chatService.currentChat.isFavourite
-          ? 'bookmark-light-filled'
-          : 'bookmark-light',
         right: 8,
         top: 8
       }"
+      ,
+      [iconName]="
+        this.chatService.currentChat.isFavourite
+          ? 'bookmark-light-filled'
+          : 'bookmark-light'
+      "
       (onClick)="this.chatService.switchFavouriteState()"
     ></floating-button>
   </ng-container>

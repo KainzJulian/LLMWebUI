@@ -1,10 +1,6 @@
 @import "@styles";
 
-.button__text {
-  margin: 0px;
-}
-
-@mixin button-style($color-hover) {
+button {
   border: none;
   background-color: $color;
   box-sizing: content-box;
@@ -12,35 +8,31 @@
   border-radius: $radius--small;
   color: $text_color--light;
 
+  height: 25px;
+  width: auto;
+
+  padding: $padding--vsmall;
+}
+
+@mixin hover($color--hover, $color--active) {
   &:hover {
-    background-color: $color-hover;
+    background-color: $color--hover;
+  }
+
+  &:active {
+    background-color: $color--active;
   }
 }
 
-.button--icon {
-  @include button-style($color-accent--light);
-
-  width: 25px;
-  height: 25px;
-  padding: $padding--vsmall;
-
+.hover--icon {
+  @include hover($color-accent--light, $color-secondary--light);
 }
 
-.button--text {
-  @include button-style($color-accent--light);
+.hover--text {
+  @include hover($color-primary, $color-primary);
 }
 
-.button--no_hover {
+.width--100 {
   text-align: start;
-
-  display: inline-block;
-
-  padding: $padding--small;
-
   width: 100%;
-
-  overflow-x: hidden;
-  text-overflow: ellipsis;
-
-  @include button-style($color-primary--light);
 }
