@@ -9,8 +9,7 @@ describe('ListButton', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ListButton]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ListButton);
     component = fixture.componentInstance;

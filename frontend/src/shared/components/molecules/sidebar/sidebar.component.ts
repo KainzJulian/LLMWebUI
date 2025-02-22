@@ -12,7 +12,7 @@ import { Icon } from '../../atoms/icon/icon';
   standalone: true,
   imports: [CommonModule, BaseButton, ListButton, Icon],
   templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.scss',
+  styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent {
   constructor(

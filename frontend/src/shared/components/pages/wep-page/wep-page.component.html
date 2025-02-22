@@ -7,11 +7,8 @@
         right: 8,
         top: 8
       }"
-      ,
       [iconName]="
-        this.chatService.currentChat.isFavourite
-          ? 'bookmark-light-filled'
-          : 'bookmark-light'
+        this.chatService.currentChat.isFavourite ? 'bookmark-light-filled' : 'bookmark-light'
       "
       (onClick)="this.chatService.switchFavouriteState()"
     ></floating-button>
@@ -19,9 +16,7 @@
 
   <div class="group--convo">
     <app-convo-list></app-convo-list>
-    <app-input-field
-      *ngIf="chatService.currentChat != undefined"
-    ></app-input-field>
+    <app-input-field *ngIf="chatService.currentChat != undefined"></app-input-field>
   </div>
 
   <app-floating-panel></app-floating-panel>

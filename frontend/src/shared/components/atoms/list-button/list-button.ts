@@ -6,7 +6,7 @@ import {
   HostListener,
   Input,
   Output,
-  ViewChild,
+  ViewChild
 } from '@angular/core';
 import { BaseButton } from '../base-button/base-button';
 import { CommonModule } from '@angular/common';
@@ -17,7 +17,7 @@ import { Icon } from '../icon/icon';
   standalone: true,
   imports: [CommonModule, BaseButton, Icon],
   templateUrl: './list-button.html',
-  styleUrl: './list-button.scss',
+  styleUrl: './list-button.scss'
 })
 export class ListButton {
   @Input() text: string = '';

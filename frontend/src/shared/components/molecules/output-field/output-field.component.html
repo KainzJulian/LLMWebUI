@@ -5,10 +5,7 @@
       <icon iconName="copy-light" />
     </base-button>
 
-    <base-button
-      *ngIf="isLastElement && isAiText()"
-      (onClick)="regenerateResponse()"
-    >
+    <base-button *ngIf="isLastElement && isAiText()" (onClick)="regenerateResponse()">
       <icon iconName="repeat-light" />
     </base-button>
   </ng-container>

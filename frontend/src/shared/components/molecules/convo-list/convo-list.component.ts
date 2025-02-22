@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [OutputFieldComponent, CommonModule],
   templateUrl: './convo-list.component.html',
-  styleUrl: './convo-list.component.scss',
+  styleUrl: './convo-list.component.scss'
 })
 export class ConvoListComponent {
   constructor(public chatService: ChatService) {}

@@ -9,8 +9,7 @@ describe('FloatingButton', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [FloatingButton]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FloatingButton);
     component = fixture.componentInstance;

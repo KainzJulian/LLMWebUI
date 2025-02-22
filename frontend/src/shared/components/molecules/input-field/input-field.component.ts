@@ -12,10 +12,9 @@ import { Icon } from '../../atoms/icon/icon';
   standalone: true,
   imports: [CommonModule, BaseButton, Icon],
   templateUrl: './input-field.component.html',
-  styleUrl: './input-field.component.scss',
+  styleUrl: './input-field.component.scss'
 })
 export class InputFieldComponent {
-  inputText: string = '';
   @ViewChild('input') input!: ElementRef;
 
   public isLoading = signal(false);

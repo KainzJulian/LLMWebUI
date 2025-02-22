@@ -4,7 +4,7 @@ import { ENV } from '../../../environments/environment';
 import { Model, ModelArray } from '../../types/model';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class ModelService {
   public modelArray: Model[] = [];

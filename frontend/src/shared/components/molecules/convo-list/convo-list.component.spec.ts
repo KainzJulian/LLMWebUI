@@ -9,8 +9,7 @@ describe('ConvoListComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ConvoListComponent]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ConvoListComponent);
     component = fixture.componentInstance;

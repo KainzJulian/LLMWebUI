@@ -5,7 +5,7 @@ import { Component, Input } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './icon.html',
-  styleUrl: './icon.scss',
+  styleUrl: './icon.scss'
 })
 export class Icon {
   @Input() iconName!: string;

@@ -13,7 +13,7 @@ import { Icon } from '../../atoms/icon/icon';
   standalone: true,
   templateUrl: './floating-panel.component.html',
   styleUrl: './floating-panel.component.scss',
-  imports: [CommonModule, BaseButton],
+  imports: [CommonModule, BaseButton]
 })
 export class FloatingPanelComponent {
   constructor(

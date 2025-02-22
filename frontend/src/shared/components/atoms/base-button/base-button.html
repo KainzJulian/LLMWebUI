@@ -1,7 +1,3 @@
-<button
-  class="hover--icon"
-  [classList]="this.buttonClass"
-  (click)="this.onClick.emit()"
->
+<button class="hover--icon" [classList]="this.buttonClass" (click)="this.onClick.emit()">
   <ng-content />
 </button>

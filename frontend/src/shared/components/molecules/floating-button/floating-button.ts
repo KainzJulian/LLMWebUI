@@ -8,14 +8,14 @@ import { Icon } from '../../atoms/icon/icon';
   standalone: true,
   imports: [CommonModule, BaseButton, Icon],
   templateUrl: './floating-button.html',
-  styleUrl: './floating-button.scss',
+  styleUrl: './floating-button.scss'
 })
 export class FloatingButton {
   @Input() config: FloatingButtonConfig = {
     top: 0,
     right: 0,
     bottom: 0,
-    left: 0,
+    left: 0
   };
 
   @Input() iconName: string = '';

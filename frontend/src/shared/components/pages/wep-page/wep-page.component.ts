@@ -19,10 +19,10 @@ import { Icon } from '../../atoms/icon/icon';
     SidebarComponent,
     FloatingPanelComponent,
     CommonModule,
-    FloatingButton,
+    FloatingButton
   ],
   templateUrl: './wep-page.component.html',
-  styleUrl: './wep-page.component.scss',
+  styleUrl: './wep-page.component.scss'
 })
 export class WepPageComponent {
   constructor(public chatService: ChatService) {}

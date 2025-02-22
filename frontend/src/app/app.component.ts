@@ -7,7 +7,7 @@ import { WepPageComponent } from '../shared/components/pages/wep-page/wep-page.c
   standalone: true,
   imports: [RouterOutlet, WepPageComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'LLMWebUI';

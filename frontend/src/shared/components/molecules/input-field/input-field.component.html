@@ -1,7 +1,6 @@
 <div class="container">
   <textarea
     #input
-    (ngModel)="(inputText)"
     placeholder="Input text..."
     class="input"
     name="input"
@@ -10,10 +9,7 @@
     (keydown.control.enter)="this.sendRequest(input.value)"
   ></textarea>
   <div class="toolbar">
-    <base-button
-      *ngIf="this.isLoading(); else defaultButton"
-      (onClick)="cancelRequest()"
-    >
+    <base-button *ngIf="this.isLoading(); else defaultButton" (onClick)="cancelRequest()">
       <icon iconName="close-light" />
     </base-button>
 

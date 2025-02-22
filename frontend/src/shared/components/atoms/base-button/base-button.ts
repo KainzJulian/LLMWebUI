@@ -6,7 +6,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './base-button.html',
-  styleUrl: './base-button.scss',
+  styleUrl: './base-button.scss'
 })
 export class BaseButton {
   @Input() buttonClass: string = 'hover--icon';

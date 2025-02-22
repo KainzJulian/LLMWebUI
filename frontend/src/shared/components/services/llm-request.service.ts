@@ -8,14 +8,17 @@ import { ChatService } from './chat.service';
 
 //TODO: alle Subscriptions in ein service geben und funktionen dort verwenden
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class LLMRequestService implements OnDestroy {
   private sub: Subscription | null = null;
 
   private abortController: AbortController | null = null;
 
-  constructor(private http: HttpClient, private chatService: ChatService) {}
+  constructor(
+    private http: HttpClient,
+    private chatService: ChatService
+  ) {}
 
   public cancelRequest() {
     if (this.abortController == null) return;
@@ -51,10 +54,10 @@ export class LLMRequestService implements OnDestroy {
     fetch(url, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(convo),
-      signal: signal,
+      signal: signal
     })
       .then((response) => response.body?.getReader())
       .then(async (reader) => {
@@ -64,7 +67,7 @@ export class LLMRequestService implements OnDestroy {
 
         currentChat.convo.push({
           content: '',
-          role: 'assistant',
+          role: 'assistant'
         });
 
         while (true) {

@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { Convo } from '../../types/convo';
 
 @Injectable({
-  providedIn: 'any',
+  providedIn: 'any'
 })
 export class ChatService {
   public convoService = new ConvoService();
@@ -50,12 +50,10 @@ export class ChatService {
       this.favouriteChats.splice(index, 1);
     }
 
-    this.http
-      .post<boolean>(ENV.chatURL + '/' + id + '/switchFavourite', body)
-      .subscribe((res) => {
-        if (!res) this.currentChat = null;
-        console.log(res);
-      });
+    this.http.post<boolean>(ENV.chatURL + '/' + id + '/switchFavourite', body).subscribe((res) => {
+      if (!res) this.currentChat = null;
+      console.log(res);
+    });
   }
 
   delete(index: number): Chat {
@@ -145,10 +143,8 @@ export class ChatService {
 
   public addConvo(convo: Convo, id: string) {
     const body = convo;
-    this.http
-      .post<boolean>(ENV.chatURL + '/add/' + id, body)
-      .subscribe((res) => {
-        console.log('Status of addConvo: ' + res);
-      });
+    this.http.post<boolean>(ENV.chatURL + '/add/' + id, body).subscribe((res) => {
+      console.log('Status of addConvo: ' + res);
+    });
   }
 }

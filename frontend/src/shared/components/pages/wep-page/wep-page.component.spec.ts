@@ -9,8 +9,7 @@ describe('WepPageComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [WepPageComponent]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(WepPageComponent);
     component = fixture.componentInstance;

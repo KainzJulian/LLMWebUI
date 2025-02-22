@@ -11,7 +11,7 @@ import { Icon } from '../../atoms/icon/icon';
   standalone: true,
   imports: [CommonModule, BaseButton, Icon],
   templateUrl: './output-field.component.html',
-  styleUrl: './output-field.component.scss',
+  styleUrl: './output-field.component.scss'
 })
 export class OutputFieldComponent {
   @Input() text: string = '';
