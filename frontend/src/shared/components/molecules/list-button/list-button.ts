@@ -8,9 +8,9 @@ import {
   Output,
   ViewChild
 } from '@angular/core';
-import { BaseButton } from '../base-button/base-button';
+import { BaseButton } from '../../atoms/base-button/base-button';
 import { CommonModule } from '@angular/common';
-import { Icon } from '../icon/icon';
+import { Icon } from '../../atoms/icon/icon';
 
 @Component({
   selector: 'list-button',

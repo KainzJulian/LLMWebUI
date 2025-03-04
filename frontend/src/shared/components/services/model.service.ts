@@ -10,7 +10,6 @@ export class ModelService {
   public modelArray: Model[] = [];
 
   constructor(private http: HttpClient) {
-    console.log('test');
     this.updateModelData();
   }
 

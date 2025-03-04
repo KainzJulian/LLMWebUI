@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { InputFieldComponent } from '../../molecules/input-field/input-field.component';
 import { OutputFieldComponent } from '../../molecules/output-field/output-field.component';
 import { ConvoListComponent } from '../../molecules/convo-list/convo-list.component';
-import { SidebarComponent } from '../../molecules/sidebar/sidebar.component';
+import { SidebarComponent } from '../../organisms/sidebar/sidebar.component';
 import { FloatingPanelComponent } from '../../molecules/floating-panel/floating-panel.component';
 import { ChatService } from '../../services/chat.service';
 import { CommonModule } from '@angular/common';

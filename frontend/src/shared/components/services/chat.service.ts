@@ -1,7 +1,6 @@
 import { Injectable, model } from '@angular/core';
-import { ConvoService } from './convo.service';
 import { Chat } from '../../types/chat';
-import { ENV, METHOD } from '../../../environments/environment';
+import { ENV } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Convo } from '../../types/convo';
 
@@ -9,8 +8,6 @@ import { Convo } from '../../types/convo';
   providedIn: 'any'
 })
 export class ChatService {
-  public convoService = new ConvoService();
-
   public chatList: Chat[] = [];
   public favouriteChats: Chat[] = [];
 
@@ -18,13 +15,9 @@ export class ChatService {
 
   constructor(private http: HttpClient) {
     this.setChats();
-
-    console.log(this.chatList.length);
-    console.log(this.chatList);
   }
 
   switchFavouriteState() {
-    console.log('hi');
     if (this.currentChat == null) return;
 
     console.log(this.currentChat.id);
@@ -79,7 +72,7 @@ export class ChatService {
     return help;
   }
 
-  createChat(name: string) {
+  createChat(name: string): Chat {
     const chatBody = new Chat('', name, name, [], new Date());
 
     this.http.post<string>(ENV.chatURL + '/new', chatBody).subscribe((res) => {
@@ -90,6 +83,8 @@ export class ChatService {
 
       this.sortChat();
     });
+
+    return chatBody;
   }
 
   public setCurrentChat(chat: Chat): void {
@@ -120,8 +115,6 @@ export class ChatService {
 
   setChats(): void {
     this.http.get<Chat[]>(ENV.chatURL.href).subscribe((res) => {
-      console.log(res);
-
       res.forEach((chat) => {
         if (chat.isFavourite) this.favouriteChats.push(chat);
 

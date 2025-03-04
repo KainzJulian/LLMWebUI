@@ -11,14 +11,9 @@ import { ChatService } from './chat.service';
   providedIn: 'root'
 })
 export class LLMRequestService implements OnDestroy {
-  private sub: Subscription | null = null;
+  protected abortController: AbortController | null = null;
 
-  private abortController: AbortController | null = null;
-
-  constructor(
-    private http: HttpClient,
-    private chatService: ChatService
-  ) {}
+  constructor(private chatService: ChatService) {}
 
   public cancelRequest() {
     if (this.abortController == null) return;
