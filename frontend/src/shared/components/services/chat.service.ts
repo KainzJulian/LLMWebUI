@@ -1,4 +1,4 @@
-import { Injectable, model } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Chat } from '../../types/chat';
 import { ENV } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
