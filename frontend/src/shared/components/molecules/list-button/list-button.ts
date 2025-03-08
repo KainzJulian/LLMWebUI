@@ -2,8 +2,6 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  HostBinding,
-  HostListener,
   Input,
   Output,
   ViewChild
@@ -36,18 +34,6 @@ export class ListButton {
   @Output() onClickIcon = new EventEmitter<void>();
 
   clickIcon() {
-    // if (this.openOptionsOnIconClick) {
-    //   this.optionsClass = this.optionsClass == 'closed' ? 'open' : 'closed';
-    // } else {
     this.onClickIcon.emit();
-    // }
   }
-
-  // @HostListener('document:click', ['$event'])
-  // onClickOutside(event: Event) {
-  //   console.log(this.options);
-
-  //   if (!this.options.nativeElement.contains(event.target))
-  //     this.optionsClass = 'closed';
-  // }
 }
