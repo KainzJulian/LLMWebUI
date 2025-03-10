@@ -1,4 +1,4 @@
-import { Component, Input, model, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { SidebarStateService } from '../../services/sidebar-state.service';
 import { ChatService } from '../../services/chat.service';
 import { ModelService } from '../../services/model.service';
@@ -36,17 +36,5 @@ export class SidebarComponent {
   openOptions() {
     console.log(this.sidebarService.isOptionsOpen);
     this.sidebarService.toggleState();
-  }
-
-  deleteChat(): void {
-    console.log('deleteChat');
-  }
-
-  createChat(): void {
-    console.log('createChat');
-  }
-
-  openChat(): void {
-    console.log('openChat');
   }
 }
