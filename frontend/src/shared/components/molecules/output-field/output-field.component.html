@@ -1,7 +1,7 @@
 <div [classList]="textStyle">
-  <p #output [innerText]="text" class="output__text"></p>
+  <p #output [innerHTML]="text" class="output__text"></p>
   <ng-container *ngIf="isAiText()">
-    <base-button (onClick)="copyText(output.innerText)">
+    <base-button (onClick)="copyText(output.innerHTML)">
       <icon iconName="copy-light" />
     </base-button>
 

@@ -21,7 +21,7 @@ describe('FloatingPanelComponent', () => {
     } as unknown as jest.Mocked<SidebarStateService>;
 
     chatMock = {
-      deleteAll: jest.fn(),
+      deleteAll: jest.fn()
     } as unknown as jest.Mocked<ChatService>;
 
     await TestBed.configureTestingModule({
@@ -50,7 +50,7 @@ describe('FloatingPanelComponent', () => {
   });
 
   it('should not render when the floating panel is closed', () => {
-    component.stateService.isOptionsOpen.set(false);
+    sidebarStateMock.isOptionsOpen.mockReturnValue(false);
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelector('.container')).toBeNull();
   });

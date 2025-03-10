@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WepPageComponent } from './wep-page.component';
+import { WebPageComponent } from './web-page.component';
 import { SidebarComponent } from '../../organisms/sidebar/sidebar.component';
 import { ConvoListComponent } from '../../molecules/convo-list/convo-list.component';
 import { FloatingPanelComponent } from '../../molecules/floating-panel/floating-panel.component';
@@ -14,13 +14,13 @@ import { By } from '@angular/platform-browser';
 import { Chat } from '../../../types/chat';
 
 describe('WepPageComponent', () => {
-  let component: WepPageComponent;
-  let fixture: ComponentFixture<WepPageComponent>;
+  let component: WebPageComponent;
+  let fixture: ComponentFixture<WebPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        WepPageComponent,
+        WebPageComponent,
         SidebarComponent,
         ConvoListComponent,
         FloatingPanelComponent,
@@ -38,7 +38,7 @@ describe('WepPageComponent', () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(WepPageComponent);
+    fixture = TestBed.createComponent(WebPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

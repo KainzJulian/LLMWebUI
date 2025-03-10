@@ -1,9 +1,7 @@
-import { Injectable, OnDestroy, OnInit, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Injectable, OnDestroy } from '@angular/core';
 import { ENV } from '../../../environments/environment';
-import { Subscription, tap } from 'rxjs';
 import { Chat } from '../../types/chat';
-import { Convo, ConvoResponse } from '../../types/convo';
+import { Convo } from '../../types/convo';
 import { ChatService } from './chat.service';
 
 //TODO: alle Subscriptions in ein service geben und funktionen dort verwenden
@@ -29,7 +27,7 @@ export class LLMRequestService implements OnDestroy {
   public async sendRequest(
     currentChat: Chat | null,
     text: string = '',
-    onResolve: Function = Function
+    onResolve: () => void = () => {}
   ) {
     if (currentChat == null) return;
 
@@ -44,7 +42,7 @@ export class LLMRequestService implements OnDestroy {
 
     const convo = currentChat.convo;
 
-    let url = ENV.generateURL;
+    const url = ENV.generateURL;
     url.searchParams.set('modelName', currentChat.modelName);
     fetch(url, {
       method: 'POST',

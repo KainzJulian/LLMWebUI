@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { WepPageComponent } from '../shared/components/pages/wep-page/wep-page.component';
+import { WebPageComponent } from '../shared/components/pages/web-page/web-page.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, WepPageComponent],
+  imports: [RouterOutlet, WebPageComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

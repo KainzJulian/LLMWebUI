@@ -17,8 +17,8 @@ describe('OutputFieldComponent', () => {
         { provide: 'ModelService', useValue: {} },
         { provide: 'ChatService', useValue: {} },
         { provide: 'LLMRequestService', useValue: {} },
-        provideHttpClient(),
-      ],
+        provideHttpClient()
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(OutputFieldComponent);
@@ -35,7 +35,7 @@ describe('OutputFieldComponent', () => {
     component.text = 'Test text';
     fixture.detectChanges();
     const textElement = debugElement.query(By.css('.output__text')).nativeElement;
-    expect(textElement.innerText).toBe('Test text');
+    expect(textElement.innerHTML).toBe('Test text');
   });
 
   it('should apply textStyle class', () => {
