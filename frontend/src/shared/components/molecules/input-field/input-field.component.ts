@@ -36,8 +36,6 @@ export class InputFieldComponent {
       this.isLoading.set(false)
     );
 
-    console.log(this.chatService.currentChat?.convo);
-
     const lastConvo = this.chatService.currentChat?.convo.at(-1);
     if (this.chatService.currentChat == null || lastConvo == undefined) return;
 
