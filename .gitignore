@@ -335,3 +335,5 @@ cython_debug/
 
 # ai models for huggingface
 models
+
+.angular
