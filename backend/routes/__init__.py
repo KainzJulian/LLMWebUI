@@ -1,3 +1,3 @@
-from .aiModelRoute import aiModelRouter
-from .chatRoute import chatRouter
-from .optionsRoute import optionsRouter
+from .aiModelRoute import *
+from .chatRoute import *
+from .optionsRoute import *

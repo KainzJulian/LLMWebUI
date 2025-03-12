@@ -3,7 +3,7 @@ from typing import Optional
 import ollama
 from pydantic import BaseModel, Field
 
-from classes.convo import Convo
+from convo import Convo
 
 
 class Chat(BaseModel):

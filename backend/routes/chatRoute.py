@@ -2,8 +2,8 @@ import json
 from bson import ObjectId
 from fastapi import APIRouter, HTTPException
 import ollama
-from classes.convo import Convo
-from classes.chat import Chat
+from POJOs.convo import Convo
+from POJOs.chat import Chat
 from database import chatCollection
 
 chatRouter = APIRouter(prefix="/chats")
