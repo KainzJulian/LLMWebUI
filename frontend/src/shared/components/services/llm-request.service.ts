@@ -86,4 +86,12 @@ export class LLMRequestService implements OnDestroy {
   ngOnDestroy(): void {
     this.cancelRequest();
   }
+
+  uploadFile() {
+    throw new Error('Method not implemented.');
+  }
+
+  generateImage() {
+    throw new Error('Method not implemented.');
+  }
 }

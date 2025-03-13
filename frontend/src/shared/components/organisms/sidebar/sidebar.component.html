@@ -6,8 +6,12 @@
 
 <div *ngIf="this.sidebarService.isSidebarOpen()" class="container">
   <div class="menu-bar--top">
-    <base-button (onClick)="closeSidebar()">
-      <icon iconName="close-light" />
+    <base-button id="close-sidebar" (onClick)="closeSidebar()">
+      <icon iconName="sidebar-light" />
+    </base-button>
+
+    <base-button (onClick)="createImage()">
+      <icon iconName="image-light" />
     </base-button>
 
     <base-button (onClick)="openSearch()">

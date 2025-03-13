@@ -14,9 +14,25 @@
     </base-button>
 
     <ng-template #defaultButton>
-      <base-button (onClick)="sendRequest(input.value)">
-        <icon iconName="send-light" />
-      </base-button>
+      <div class="toolbar__left">
+        <base-button (onClick)="listenUserInput()">
+          <icon #toggleVoiceInput iconName="mic-off-light" />
+        </base-button>
+
+        <base-button (onClick)="readAIOutput()">
+          <icon #toggleReadOutput iconName="speaker-off-light" />
+        </base-button>
+
+        <base-button (onClick)="uploadFile()">
+          <icon iconName="upload-light" />
+        </base-button>
+      </div>
+
+      <div class="toolbar__right">
+        <base-button (onClick)="sendRequest(input.value)">
+          <icon iconName="send-light" />
+        </base-button>
+      </div>
     </ng-template>
   </div>
 </div>

@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { BaseButton } from '../../atoms/base-button/base-button';
 import { ListButton } from '../../molecules/list-button/list-button';
 import { Icon } from '../../atoms/icon/icon';
+import { LLMRequestService } from '../../services/llm-request.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -18,7 +19,8 @@ export class SidebarComponent {
   constructor(
     public sidebarService: SidebarStateService,
     public modelService: ModelService,
-    public chatService: ChatService
+    public chatService: ChatService,
+    public llmService: LLMRequestService
   ) {}
 
   openSearch() {
@@ -36,5 +38,9 @@ export class SidebarComponent {
   openOptions() {
     console.log(this.sidebarService.isOptionsOpen);
     this.sidebarService.toggleState();
+  }
+
+  createImage() {
+    this.llmService.generateImage();
   }
 }

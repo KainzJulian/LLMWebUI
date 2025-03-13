@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, signal, ViewChild } from '@angular/core';
+import { Component, effect, ElementRef, signal, ViewChild } from '@angular/core';
 import { ChatService } from '../../services/chat.service';
 import { ModelService } from '../../services/model.service';
 import { CommonModule } from '@angular/common';
 import { LLMRequestService } from '../../services/llm-request.service';
 import { BaseButton } from '../../atoms/base-button/base-button';
 import { Icon } from '../../atoms/icon/icon';
+import { ReadListenStateService } from '../../services/readListen-state.service';
 
 @Component({
   selector: 'app-input-field',
@@ -19,12 +20,30 @@ export class InputFieldComponent {
 
   public isLoading = signal(false);
 
+  @ViewChild('toggleVoiceInput') toggleVoiceInput!: Icon;
+  @ViewChild('toggleReadOutput') toggleReadOutput!: Icon;
+
   constructor(
     private http: HttpClient,
     public chatService: ChatService,
     public modelService: ModelService,
-    public llmService: LLMRequestService
-  ) {}
+    public llmService: LLMRequestService,
+    public readListenStateService: ReadListenStateService
+  ) {
+    effect(() => {
+      if (this.readListenStateService.getListenState()) {
+        this.toggleVoiceInput.iconName = 'mic-on-light';
+      } else {
+        this.toggleVoiceInput.iconName = 'mic-off-light';
+      }
+
+      if (this.readListenStateService.getReadState()) {
+        this.toggleReadOutput.iconName = 'speaker-on-light';
+      } else {
+        this.toggleReadOutput.iconName = 'speaker-off-light';
+      }
+    });
+  }
 
   sendRequest(input: string) {
     if (input == '' || this.isLoading()) return;
@@ -54,5 +73,17 @@ export class InputFieldComponent {
 
   clearInput() {
     this.input.nativeElement.value = '';
+  }
+
+  uploadFile() {
+    this.llmService.uploadFile();
+  }
+
+  listenUserInput() {
+    this.readListenStateService.switchListenState();
+  }
+
+  readAIOutput() {
+    this.readListenStateService.switchReadState();
   }
 }
