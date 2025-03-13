@@ -4,15 +4,15 @@ import os
 
 
 class BaseService:
-    def __init__(self, model: str, task: str, device: str = "cpu"):
+    def __init__(self, modelName: str, task: str, device: str = "cpu"):
 
         self.task = task
-        self.model = model
+        self.model = modelName
         self.generator = None
         self.streamer = None
         self.device = device
 
-        self.tokenizer = AutoTokenizer.from_pretrained(model)
+        self.tokenizer = AutoTokenizer.from_pretrained(self.model)
 
     def generate(self, input) -> str:
         self.generator = pipeline(
