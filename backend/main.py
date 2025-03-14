@@ -1,12 +1,13 @@
+from dotenv import find_dotenv, load_dotenv
 from fastapi import *
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 import pymongo
 from routes import *
-
+import os
 
 app = FastAPI()
-print("http://127.0.0.1:8000/docs")
+print(os.getenv("DOCS_URL"))
 
 app.add_middleware(
     CORSMiddleware,
@@ -19,6 +20,4 @@ app.add_middleware(
 routes = [aiModelRouter, chatRouter, optionsRouter]
 
 for route in routes:
-  app.include_router(route)
-
-
+    app.include_router(route)

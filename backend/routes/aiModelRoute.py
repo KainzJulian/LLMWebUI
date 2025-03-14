@@ -2,12 +2,13 @@ import asyncio
 import json
 from typing import Literal, Optional, Sequence
 from bson import ObjectId
-from fastapi import *
+from fastapi import APIRouter, HTTPException
 from fastapi.responses import StreamingResponse
 import ollama
 from pydantic import BaseModel
 from database import client, modelCollection
 
+from POJOs.response import Response
 from POJOs.model import Model, ModelDetails, buildModel
 from POJOs.chat import Chat
 from POJOs.convo import Convo
@@ -16,7 +17,7 @@ aiModelRouter = APIRouter(prefix="/models")
 
 
 @aiModelRouter.post("/update")
-def updateModels():
+def updateModels() -> Response:
     try:
 
         models = ollama.list()
@@ -28,37 +29,53 @@ def updateModels():
                 upsert=True,
             )
 
-        return True
+        return Response(success=True, data=None, error=None)
 
     except Exception as e:
-        return e
+        return Response(success=False, data=None, error=str(e))
 
 
 @aiModelRouter.get("/{name}")
-def getModelByName(name: str) -> Model:
+def getModelByName(name: str) -> Response:
 
     document = modelCollection.find_one({"model": name})
 
     if document is None:
-        raise HTTPException(
-            status_code=404, detail="no document found with name: " + name
+        return Response(
+            success=False,
+            error="no document with the name {" + name + "} found",
         )
 
-    return document
+    document["_id"] = str(document["_id"])
+
+    return Response(success=True, data=document)
 
 
 @aiModelRouter.get("")
-def getModels() -> list[Model]:
+def getModels() -> Response:
+
+    try:
+        modelList = getModelList()
+    except Exception as e:
+        return Response(success=False, error=str(e))
+
+    return Response(success=True, data=modelList)
+
+
+def getModelList():
     modelList = list()
 
-    for modelItem in modelCollection.find({}):
+    collection = modelCollection.find({})
+
+    for modelItem in collection:
+        modelItem["_id"] = str(modelItem["_id"])
         modelList.append(modelItem)
 
     return modelList
 
 
 @aiModelRouter.post("/generate")
-async def generate(convo: list[Convo], modelName: str):
+async def generate(convo: list[Convo], modelName: str) -> Response:
     try:
         print(convo)
         print(modelName)
@@ -68,8 +85,7 @@ async def generate(convo: list[Convo], modelName: str):
         )
 
     except Exception as e:
-        print(e)
-        return e
+        return Response(success=False, error=str(e))
 
 
 async def generateChatResponse(convoList: list[Convo], modelName: str):
