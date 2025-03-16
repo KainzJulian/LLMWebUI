@@ -2,87 +2,88 @@ import json
 from bson import ObjectId
 from fastapi import APIRouter, HTTPException
 import ollama
-from POJOs.convo import Convo
 from POJOs.chat import Chat
+from POJOs.convo import Convo
+from POJOs.response import Response
 from database import chatCollection
+
+import pymongo
 
 chatRouter = APIRouter(prefix="/chats")
 
 
 @chatRouter.get("/")
-def getAllChats() -> list[Chat]:
-    return chatCollection.find({})
+def getAllChats() -> Response:
+    return Response(success=True, data=list(chatCollection.find({})))
 
 
 @chatRouter.delete("/")
 def deleteAllChats():
     chatCollection.delete_many({})
+    return Response(success=True)
 
 
 @chatRouter.delete("/{id}")
-def deleteChat(id: str) -> bool:
+def deleteChat(id: str) -> Response:
 
     print(id)
 
     try:
-        deleted = chatCollection.delete_one({"_id": getIDFromString(id)})
+        deleted = chatCollection.delete_one({"id": id})
         print(deleted)
-        return True
+        return Response(success=True, data=deleted)
 
     except Exception as e:
-        return False
+        return Response(success=False, error=str(e))
 
 
 @chatRouter.get("/{id}")
-def getChatByID(id: str) -> Chat:
-    document = chatCollection.find_one({"_id": getIDFromString(id)})
+def getChatByID(id: str) -> Response:
+    document = chatCollection.find_one({"id": id})
 
     if document is None:
-        raise HTTPException(status_code=404, detail="no document found")
+        return Response(
+            success=False, error="no document with the id {" + id + "} found"
+        )
 
-    return document
+    return Response(success=True, data=document)
 
 
 @chatRouter.post("/new")
-def createChat(chat: Chat) -> str:
+def createChat(chat: Chat) -> Response:
     try:
-        id = chatCollection.insert_one(chat.model_dump()).inserted_id
+        insertedRow = chatCollection.insert_one(chat.model_dump())
+        id = insertedRow.inserted_id
 
         chatCollection.update_one(
             {"_id": id},
-            {"$set": {"id": str(id)}},
+            {"$set": {"id": str(chat.id)}},
         )
 
-        return str(id)
+        return Response(success=True, data=insertedRow)
 
     except Exception as e:
-        raise HTTPException(
-            status_code=404, detail="Error while creating new Chat: " + e
-        )
+        return Response(success=False, error=str(e))
 
 
 @chatRouter.post("/add/{id}")
-def addConvo(convo: Convo, id: str) -> bool:
+def addConvo(convo: Convo, id: str) -> Response:
 
-    chatCollection.update_one(
-        {"_id": getIDFromString(id)},
+    updated = chatCollection.update_one(
+        {"id": id},
         {"$push": {"convo": {"content": convo.content, "role": convo.role}}},
     )
 
-    return True
+    return Response(success=True, data=updated)
 
 
 @chatRouter.post("/{id}/switchFavourite")
-def changeFavourite(body: Chat, id: str) -> bool:
+def changeFavourite(id: str) -> Response:
+
+    body = chatCollection.find_one({"id": id})
 
     chatCollection.update_one(
-        {"_id": getIDFromString(id)}, {"$set": {"isFavourite": body.isFavourite}}
+        {"id": id}, {"$set": {"isFavourite": body["isFavourite"]}}
     )
-    return True
 
-
-def getIDFromString(id: str) -> ObjectId:
-    try:
-        return ObjectId(id)
-    except Exception as e:
-        raise HTTPException(status_code=400, detail="Invalid ID: " + id)
+    return Response(success=True)

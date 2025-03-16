@@ -17,7 +17,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-routes = [aiModelRouter, chatRouter, optionsRouter]
+routes = [aiModelRouter, chatRouter]
 
 for route in routes:
     app.include_router(route)
