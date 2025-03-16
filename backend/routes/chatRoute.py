@@ -62,11 +62,12 @@ def getChatByID(id: str) -> Response:
 @chatRouter.post("/new")
 def createChat(chat: Chat) -> Response:
     try:
-        id = chatCollection.insert_one(chat.model_dump()).inserted_id
+        insertedRow = chatCollection.insert_one(chat.model_dump())
+        id = insertedRow.inserted_id
 
         chatCollection.update_one(
             {"_id": id},
-            {"$set": {"id": str(id)}},
+            {"$set": {"id": str(chat.id)}},
         )
 
         return Response(success=True, data=str(id))

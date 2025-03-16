@@ -1,9 +1,3 @@
-class Message:
-    role: str
-    content: str
-    images: list[str]
-
-
 from pydantic import BaseModel
 
 
