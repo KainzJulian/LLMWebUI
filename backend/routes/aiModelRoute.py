@@ -1,35 +1,30 @@
-import asyncio
-import json
-from typing import Literal, Optional, Sequence
-from bson import ObjectId
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter
 from fastapi.responses import StreamingResponse
 import ollama
-from pydantic import BaseModel
-from database import client, modelCollection
 
+import database
 from POJOs.response import Response
-from POJOs.model import Model, ModelDetails, buildModel
-from POJOs.chat import Chat
+from POJOs.model import buildModel
 from POJOs.convo import Convo
+
 
 aiModelRouter = APIRouter(prefix="/models")
 
 
 @aiModelRouter.post("/update")
 def updateModels() -> Response:
-    try:
 
+    try:
         models = ollama.list()
 
         for help in models.models:
-            modelCollection.update_one(
+            database.modelCollection.update_one(
                 {"model": help.model},
                 {"$set": buildModel(help).model_dump()},
                 upsert=True,
             )
 
-        return Response(success=True, data=None, error=None)
+        return Response(success=True, data=models, error=None)
 
     except Exception as e:
         return Response(success=False, data=None, error=str(e))
@@ -38,7 +33,7 @@ def updateModels() -> Response:
 @aiModelRouter.get("/{name}")
 def getModelByName(name: str) -> Response:
 
-    document = modelCollection.find_one({"model": name})
+    document = database.modelCollection.find_one({"model": name})
 
     if document is None:
         return Response(
@@ -65,7 +60,7 @@ def getModels() -> Response:
 def getModelList():
     modelList = list()
 
-    collection = modelCollection.find({})
+    collection = database.modelCollection.find({})
 
     for modelItem in collection:
         modelItem["_id"] = str(modelItem["_id"])

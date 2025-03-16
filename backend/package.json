@@ -2,7 +2,8 @@
   "name": "llmweb-ui",
   "version": "0.0.0",
   "scripts": {
-    "backend": "uvicorn main:app --reload"
+    "backend": "uvicorn main:app --reload",
+    "test": "pytest -s"
   },
   "private": true
 }
