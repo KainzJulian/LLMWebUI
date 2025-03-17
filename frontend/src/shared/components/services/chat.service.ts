@@ -3,6 +3,7 @@ import { Chat } from '../../types/chat';
 import { ENV } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Convo } from '../../types/convo';
+import { BackendResponse } from '../../types/response';
 
 @Injectable({
   providedIn: 'any'
@@ -75,8 +76,12 @@ export class ChatService {
   createChat(name: string): Chat {
     const chatBody = new Chat('', name, name, [], new Date());
 
-    this.http.post<string>(ENV.chatURL + '/new', chatBody).subscribe((res) => {
-      const chat = new Chat(res, name, name, [], new Date());
+    this.http.post<BackendResponse<string>>(ENV.chatURL + '/new', chatBody).subscribe((res) => {
+      if (res.data == null) return;
+
+      const chat = new Chat(res.data, name, name, [], new Date());
+
+      console.log(res);
 
       this.chatList.push(chat);
       this.currentChat = chat;
@@ -104,8 +109,9 @@ export class ChatService {
     this.chatList.splice(0, this.chatList.length);
     this.currentChat = null;
 
-    this.http.delete(ENV.chatURL.href).subscribe(() => {
+    this.http.delete<BackendResponse<boolean>>(ENV.chatURL.href).subscribe((res) => {
       console.log('Deleted all Chats: ');
+      console.log(res);
     });
   }
 
@@ -114,8 +120,12 @@ export class ChatService {
   }
 
   setChats(): void {
-    this.http.get<Chat[]>(ENV.chatURL.href).subscribe((res) => {
-      res.forEach((chat) => {
+    this.http.get<BackendResponse<Chat[]>>(ENV.chatURL.href).subscribe((res) => {
+      if (res.data == null) return;
+
+      console.log(res);
+
+      res.data.forEach((chat) => {
         if (chat.isFavourite) this.favouriteChats.push(chat);
 
         this.chatList.push(
@@ -136,7 +146,7 @@ export class ChatService {
 
   public addConvo(convo: Convo, id: string) {
     const body = convo;
-    this.http.post<boolean>(ENV.chatURL + '/add/' + id, body).subscribe((res) => {
+    this.http.post<BackendResponse<boolean>>(ENV.chatURL + '/add/' + id, body).subscribe((res) => {
       console.log('Status of addConvo: ' + res);
     });
   }

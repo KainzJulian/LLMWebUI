@@ -26,8 +26,12 @@ def getAllChats() -> Response:
 
 @chatRouter.delete("/")
 def deleteAllChats():
-    chatCollection.delete_many({})
-    return Response(success=True)
+    try:
+        chatCollection.delete_many({})
+    except Exception as e:
+        return Response(success=False, error=str(e))
+
+    return Response(success=True, data=True)
 
 
 @chatRouter.delete("/{id}")
@@ -36,9 +40,8 @@ def deleteChat(id: str) -> Response:
     print(id)
 
     try:
-        deleted = chatCollection.delete_one({"_id": getIDFromString(id)})
-        print(deleted)
-        return Response(success=True, data=deleted)
+        chatCollection.delete_one({"_id": getIDFromString(id)})
+        return Response(success=True, data=True)
 
     except Exception as e:
         return Response(success=False, error=str(e))
@@ -66,7 +69,7 @@ def createChat(chat: Chat) -> Response:
             {"$set": {"id": str(id)}},
         )
 
-        return Response(success=True, data=str(chat.id))
+        return Response(success=True, data=str(id))
 
     except Exception as e:
         return Response(success=False, error=str(e))
@@ -75,12 +78,15 @@ def createChat(chat: Chat) -> Response:
 @chatRouter.post("/add/{id}")
 def addConvo(convo: Convo, id: str) -> Response:
 
-    updated = chatCollection.update_one(
-        {"_id": getIDFromString(id)},
-        {"$push": {"convo": {"content": convo.content, "role": convo.role}}},
-    )
+    try:
+        chatCollection.update_one(
+            {"_id": getIDFromString(id)},
+            {"$push": {"convo": {"content": convo.content, "role": convo.role}}},
+        )
+    except Exception as e:
+        return Response(success=False, error=str(e))
 
-    return Response(success=True, data=updated)
+    return Response(success=True, data=True)
 
 
 @chatRouter.post("/{id}/switchFavourite")
@@ -89,7 +95,7 @@ def changeFavourite(id: str) -> Response:
     body = chatCollection.find_one({"id": id})
 
     chatCollection.update_one(
-        {"_id": getIDFromString(id)}, {"$set": {"isFavourite": body["isFavourite"]}}
+        {"_id": getIDFromString(id)}, {"$set": {"isFavourite": not body["isFavourite"]}}
     )
 
     return Response(success=True)
