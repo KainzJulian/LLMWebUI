@@ -14,7 +14,14 @@ chatRouter = APIRouter(prefix="/chats")
 
 @chatRouter.get("/")
 def getAllChats() -> Response:
-    return Response(success=True, data=list(chatCollection.find({})))
+
+    chats = list(chatCollection.find({}))
+    print(chats)
+
+    for chat in chats:
+        chat["_id"] = str(chat["_id"])
+
+    return Response(success=True, data=chats)
 
 
 @chatRouter.delete("/")
@@ -29,7 +36,7 @@ def deleteChat(id: str) -> Response:
     print(id)
 
     try:
-        deleted = chatCollection.delete_one({"id": id})
+        deleted = chatCollection.delete_one({"_id": getIDFromString(id)})
         print(deleted)
         return Response(success=True, data=deleted)
 
@@ -39,7 +46,7 @@ def deleteChat(id: str) -> Response:
 
 @chatRouter.get("/{id}")
 def getChatByID(id: str) -> Response:
-    document = chatCollection.find_one({"id": id})
+    document = chatCollection.find_one({"_id": getIDFromString(id)})
 
     if document is None:
         return Response(
@@ -52,15 +59,14 @@ def getChatByID(id: str) -> Response:
 @chatRouter.post("/new")
 def createChat(chat: Chat) -> Response:
     try:
-        insertedRow = chatCollection.insert_one(chat.model_dump())
-        id = insertedRow.inserted_id
+        id = chatCollection.insert_one(chat.model_dump()).inserted_id
 
         chatCollection.update_one(
             {"_id": id},
-            {"$set": {"id": str(chat.id)}},
+            {"$set": {"id": str(id)}},
         )
 
-        return Response(success=True, data=insertedRow)
+        return Response(success=True, data=str(chat.id))
 
     except Exception as e:
         return Response(success=False, error=str(e))
@@ -70,7 +76,7 @@ def createChat(chat: Chat) -> Response:
 def addConvo(convo: Convo, id: str) -> Response:
 
     updated = chatCollection.update_one(
-        {"id": id},
+        {"_id": getIDFromString(id)},
         {"$push": {"convo": {"content": convo.content, "role": convo.role}}},
     )
 
@@ -83,7 +89,14 @@ def changeFavourite(id: str) -> Response:
     body = chatCollection.find_one({"id": id})
 
     chatCollection.update_one(
-        {"id": id}, {"$set": {"isFavourite": body["isFavourite"]}}
+        {"_id": getIDFromString(id)}, {"$set": {"isFavourite": body["isFavourite"]}}
     )
 
     return Response(success=True)
+
+
+def getIDFromString(id: str) -> ObjectId:
+    try:
+        return ObjectId(id)
+    except Exception as e:
+        raise HTTPException(status_code=400, detail="Invalid ID: " + id)
