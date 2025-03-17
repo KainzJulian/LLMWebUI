@@ -20,7 +20,7 @@ export class Model {
     this.modified_at = data.modified_at || new Date();
     this.size = data.size || 0;
     this.digest = data.digest || '';
-    this.details = new ModelDetails(data.details) || null;
+    this.details = new ModelDetails(data.details);
   }
 }
 
