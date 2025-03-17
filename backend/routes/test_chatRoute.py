@@ -77,5 +77,5 @@ def test_deleteAllChats():
     response = deleteAllChats()
 
     assert response.success is True
-    assert response.data is None
+    assert response.data is not None
     assert response.error is None

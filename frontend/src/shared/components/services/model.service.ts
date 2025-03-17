@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ENV } from '../../../environments/environment';
 import { Model } from '../../types/model';
+import { BackendResponse } from '../../types/response';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +15,9 @@ export class ModelService {
   }
 
   updateModelData() {
-    this.http.get<Model[]>(ENV.modelList.href).subscribe((value) => {
-      this.modelArray = value;
+    this.http.get<BackendResponse<Model[]>>(ENV.modelList.href).subscribe((value) => {
       console.log(value);
+      this.modelArray = value.data || [];
       console.log(this.modelArray);
     });
   }
