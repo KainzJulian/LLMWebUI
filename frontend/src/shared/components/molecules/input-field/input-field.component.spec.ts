@@ -31,15 +31,12 @@ describe('InputFieldComponent', () => {
   });
 
   it('should clear input field on sendRequest', () => {
-    const inputElement: HTMLTextAreaElement = fixture.debugElement.query(By.css('textarea')).nativeElement;
+    const inputElement: HTMLTextAreaElement = fixture.debugElement.query(
+      By.css('textarea')
+    ).nativeElement;
     inputElement.value = 'test input';
     component.sendRequest(inputElement.value);
     expect(inputElement.value).toBe('');
-  });
-
-  it('should set isLoading to true on sendRequest', () => {
-    component.sendRequest('test input');
-    expect(component.isLoading()).toBe(true);
   });
 
   it('should call llmService.sendRequest on sendRequest', () => {
@@ -50,6 +47,6 @@ describe('InputFieldComponent', () => {
 
   it('should set isLoading to false on cancelRequest', () => {
     component.cancelRequest();
-    expect(component.isLoading()).toBe(false);
+    expect(component.loadingState.isLoading()).toBe(false);
   });
 });

@@ -9,7 +9,7 @@
     (keydown.control.enter)="this.sendRequest(input.value)"
   ></textarea>
   <div class="toolbar">
-    <ng-container *ngIf="!this.isLoading(); else defaultMenu">
+    <ng-container *ngIf="!this.loadingState.isLoading(); else defaultMenu">
       <div class="toolbar__left">
         <base-button (onClick)="listenUserInput()">
           <icon #toggleVoiceInput iconName="mic-off-light" />

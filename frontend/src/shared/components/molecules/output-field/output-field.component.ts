@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { ModelService } from '../../services/model.service';
 import { ChatService } from '../../services/chat.service';
 import { CommonModule } from '@angular/common';
 import { LLMRequestService } from '../../services/llm-request.service';
 import { BaseButton } from '../../atoms/base-button/base-button';
 import { Icon } from '../../atoms/icon/icon';
+import { LoadingStateService } from '../../services/loading-state.service';
 
 @Component({
   selector: 'app-output-field',
@@ -20,9 +20,9 @@ export class OutputFieldComponent {
   @Input() isLastElement: boolean = false;
 
   constructor(
-    private modelService: ModelService,
     private chatService: ChatService,
-    private llmService: LLMRequestService
+    private llmService: LLMRequestService,
+    public loadingState: LoadingStateService
   ) {}
 
   public copyText(text: string) {

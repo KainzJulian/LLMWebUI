@@ -3,6 +3,7 @@ import { ENV } from '../../../environments/environment';
 import { Chat } from '../../types/chat';
 import { Convo } from '../../types/convo';
 import { ChatService } from './chat.service';
+import { LoadingStateService } from './loading-state.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,10 @@ import { ChatService } from './chat.service';
 export class LLMRequestService implements OnDestroy {
   protected abortController: AbortController | null = null;
 
-  constructor(private chatService: ChatService) {}
+  constructor(
+    private chatService: ChatService,
+    private loadingState: LoadingStateService
+  ) {}
 
   public cancelRequest() {
     if (this.abortController == null) return;
@@ -18,17 +22,16 @@ export class LLMRequestService implements OnDestroy {
     try {
       this.abortController.abort('Cancelled Request to LLM');
       this.abortController = null;
+      this.loadingState.set(false);
     } catch (error) {
       console.log('Request canceled: ' + error);
     }
   }
 
-  public async sendRequest(
-    currentChat: Chat | null,
-    text: string = '',
-    onResolve: () => void = () => {}
-  ) {
-    if (currentChat == null) return;
+  public async sendRequest(currentChat: Chat | null, text: string = '') {
+    if (currentChat == null || this.loadingState.isLoading()) return;
+
+    this.loadingState.set(true);
 
     const abortController = new AbortController();
     const signal = abortController.signal;
@@ -73,8 +76,9 @@ export class LLMRequestService implements OnDestroy {
         if (convo == undefined) return;
 
         this.chatService.addConvo(convo, currentChat.id);
+
+        this.loadingState.set(false);
       })
-      .then(() => onResolve())
       .catch((error) => console.warn(error));
 
     this.abortController = abortController;
