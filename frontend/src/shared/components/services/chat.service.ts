@@ -21,8 +21,6 @@ export class ChatService {
   switchFavouriteState() {
     if (this.currentChat == null) return;
 
-    console.log(this.currentChat.id);
-
     this.currentChat.isFavourite = !this.currentChat.isFavourite;
 
     const body = this.currentChat;
@@ -46,7 +44,6 @@ export class ChatService {
 
     this.http.post<boolean>(ENV.chatURL + '/' + id + '/switchFavourite', body).subscribe((res) => {
       if (!res) this.currentChat = null;
-      console.log(res);
     });
   }
 
@@ -55,12 +52,7 @@ export class ChatService {
     const modelID = this.chatList[index].id;
     const url = ENV.chatURL + '/' + modelID;
 
-    console.log(this.chatList);
-
-    this.http.delete<boolean>(url).subscribe((res) => {
-      console.log('Deleted chat ' + modelID);
-      console.log('Status: ' + res);
-    });
+    this.http.delete<boolean>(url);
 
     const deletedChat = this.chatList.splice(index, 1);
 
@@ -80,8 +72,6 @@ export class ChatService {
       if (res.data == null) return;
 
       const chat = new Chat(res.data, name, name, [], new Date());
-
-      console.log(res);
 
       this.chatList.push(chat);
       this.currentChat = chat;
@@ -109,10 +99,7 @@ export class ChatService {
     this.chatList.splice(0, this.chatList.length);
     this.currentChat = null;
 
-    this.http.delete<BackendResponse<boolean>>(ENV.chatURL.href).subscribe((res) => {
-      console.log('Deleted all Chats: ');
-      console.log(res);
-    });
+    this.http.delete<BackendResponse<boolean>>(ENV.chatURL.href);
   }
 
   public isCurrentChat(chat: Chat, chatList: Chat[]): boolean {
@@ -122,8 +109,6 @@ export class ChatService {
   setChats(): void {
     this.http.get<BackendResponse<Chat[]>>(ENV.chatURL.href).subscribe((res) => {
       if (res.data == null) return;
-
-      console.log(res);
 
       res.data.forEach((chat) => {
         if (chat.isFavourite) this.favouriteChats.push(chat);
@@ -146,8 +131,6 @@ export class ChatService {
 
   public addConvo(convo: Convo, id: string) {
     const body = convo;
-    this.http.post<BackendResponse<boolean>>(ENV.chatURL + '/add/' + id, body).subscribe((res) => {
-      console.log('Status of addConvo: ' + res);
-    });
+    this.http.post<BackendResponse<boolean>>(ENV.chatURL + '/add/' + id, body);
   }
 }

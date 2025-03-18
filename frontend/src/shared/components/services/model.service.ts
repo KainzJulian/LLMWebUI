@@ -16,9 +16,7 @@ export class ModelService {
 
   updateModelData() {
     this.http.get<BackendResponse<Model[]>>(ENV.modelList.href).subscribe((value) => {
-      console.log(value);
       this.modelArray = value.data || [];
-      console.log(this.modelArray);
     });
   }
 }

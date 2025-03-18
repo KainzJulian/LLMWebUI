@@ -4,7 +4,6 @@ import { Chat } from '../../types/chat';
 import { Convo } from '../../types/convo';
 import { ChatService } from './chat.service';
 
-//TODO: alle Subscriptions in ein service geben und funktionen dort verwenden
 @Injectable({
   providedIn: 'root'
 })
@@ -35,8 +34,6 @@ export class LLMRequestService implements OnDestroy {
     const signal = abortController.signal;
 
     const newConvo = new Convo({ role: 'user', content: text });
-
-    console.log(currentChat.convo);
 
     currentChat.convo.push(newConvo);
 

@@ -36,7 +36,6 @@ export class SidebarComponent {
   }
 
   openOptions() {
-    console.log(this.sidebarService.isOptionsOpen);
     this.sidebarService.toggleState();
   }
 

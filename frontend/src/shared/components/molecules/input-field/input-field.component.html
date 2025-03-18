@@ -9,11 +9,7 @@
     (keydown.control.enter)="this.sendRequest(input.value)"
   ></textarea>
   <div class="toolbar">
-    <base-button *ngIf="this.isLoading(); else defaultButton" (onClick)="cancelRequest()">
-      <icon iconName="close-light" />
-    </base-button>
-
-    <ng-template #defaultButton>
+    <ng-container *ngIf="!this.isLoading(); else defaultMenu">
       <div class="toolbar__left">
         <base-button (onClick)="listenUserInput()">
           <icon #toggleVoiceInput iconName="mic-off-light" />
@@ -33,6 +29,12 @@
           <icon iconName="send-light" />
         </base-button>
       </div>
+    </ng-container>
+
+    <ng-template #defaultMenu class="toolbar__right">
+      <base-button (onClick)="cancelRequest()">
+        <icon iconName="close-light" />
+      </base-button>
     </ng-template>
   </div>
 </div>

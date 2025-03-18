@@ -28,8 +28,4 @@ export class Chat {
   public setName(newName: string) {
     this.name = newName;
   }
-
-  public printChat(): void {
-    console.log(this.name);
-  }
 }
