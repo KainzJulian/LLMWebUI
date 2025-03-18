@@ -23,6 +23,11 @@ export class ChatService {
 
     this.currentChat.isFavourite = !this.currentChat.isFavourite;
 
+    const chatListIndex = this.chatList.findIndex((val) => val.id == this.currentChat?.id);
+    console.log(this.chatList[chatListIndex]);
+
+    this.chatList[chatListIndex].isFavourite = this.currentChat.isFavourite;
+
     const body = this.currentChat;
     const id = this.currentChat.id;
     const index = this.favouriteChats.findIndex((val) => val.id == id);
@@ -42,7 +47,7 @@ export class ChatService {
       this.favouriteChats.splice(index, 1);
     }
 
-    this.http.post<boolean>(ENV.chatURL + '/' + id + '/switchFavourite', body).subscribe((res) => {
+    this.http.post<boolean>(ENV.chatURL + '/switchFavourite/' + id, body).subscribe((res) => {
       if (!res) this.currentChat = null;
     });
   }
@@ -50,11 +55,19 @@ export class ChatService {
   delete(index: number): Chat {
     const help = this.chatList[index];
     const modelID = this.chatList[index].id;
-    const url = ENV.chatURL + '/' + modelID;
 
-    this.http.delete<boolean>(url);
+    const url = ENV.chatURL.href + '/remove/' + modelID;
+
+    this.http.delete<boolean>(url).subscribe((res) => {
+      console.log(res);
+    });
 
     const deletedChat = this.chatList.splice(index, 1);
+
+    if (deletedChat[0].isFavourite) {
+      const favouriteIndex = this.favouriteChats.findIndex((val) => val.id == modelID);
+      this.favouriteChats.splice(favouriteIndex, 1);
+    }
 
     if (this.currentChat == deletedChat[0]) {
       this.currentChat = null;

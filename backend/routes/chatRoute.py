@@ -34,10 +34,11 @@ def deleteAllChats():
     return Response(success=True, data=True)
 
 
-@chatRouter.delete("/{id}")
+@chatRouter.delete("/remove/{id}")
 def deleteChat(id: str) -> Response:
 
     print(id)
+    print("deleted this shit")
 
     try:
         chatCollection.delete_one({"_id": getIDFromString(id)})
@@ -89,7 +90,7 @@ def addConvo(convo: Convo, id: str) -> Response:
     return Response(success=True, data=True)
 
 
-@chatRouter.post("/{id}/switchFavourite")
+@chatRouter.post("/switchFavourite/{id}")
 def changeFavourite(id: str) -> Response:
 
     body = chatCollection.find_one({"id": id})
