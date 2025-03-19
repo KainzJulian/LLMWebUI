@@ -65,7 +65,8 @@ export class LLMRequestService implements OnDestroy {
 
         while (true) {
           const { done, value } = await reader.read();
-          if (done) break;
+
+          if (done) return;
 
           const chunk = decoder.decode(value, { stream: true });
           currentChat?.addContent(chunk);
@@ -73,6 +74,7 @@ export class LLMRequestService implements OnDestroy {
       })
       .then(() => {
         const convo = currentChat.convo.at(-1);
+
         if (convo == undefined) return;
 
         this.chatService.addConvo(convo, currentChat.id);
