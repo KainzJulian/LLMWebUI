@@ -1,8 +1,7 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ChatService } from './chat.service';
 import { provideHttpClient } from '@angular/common/http';
-import { ENV } from '../../../environments/environment';
 import { Chat } from '../../types/chat';
 import { Convo } from '../../types/convo';
 

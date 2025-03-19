@@ -79,7 +79,11 @@ describe('WepPageComponent', () => {
   it('should toggle favourite state on FloatingButton click', () => {
     jest.spyOn(component.chatService, 'switchFavouriteState');
 
-    component.chatService.currentChat = new Chat();
+    const chat = new Chat();
+
+    component.chatService.currentChat = chat;
+    component.chatService.chatList.push(chat);
+
     fixture.detectChanges();
     const floatingButtonElement = fixture.debugElement.query(By.directive(FloatingButton));
     floatingButtonElement.triggerEventHandler('onClick', null);
