@@ -7,11 +7,19 @@ export class SidebarStateService {
   public isSidebarOpen = signal(true);
   public isOptionsOpen = signal(false);
 
-  toggleState() {
+  toggleOptionsState() {
     this.isOptionsOpen.update((current) => !current);
   }
 
-  setState(state: boolean) {
+  toggleSidebarState() {
+    this.isSidebarOpen.update((current) => !current);
+  }
+
+  setOptionsState(state: boolean) {
     this.isOptionsOpen.set(state);
+  }
+
+  setSidebarState(state: boolean) {
+    this.isSidebarOpen.set(state);
   }
 }

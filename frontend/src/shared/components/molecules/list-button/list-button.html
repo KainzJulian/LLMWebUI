@@ -22,3 +22,12 @@
     </base-button>
   </div>
 </div>
+
+<chat-menu
+  (delete)="onDelete()"
+  (rename)="onRename()"
+  (archive)="onArchive()"
+  (download)="onDownload()"
+  #chatMenu
+  *ngIf="this.isShown"
+></chat-menu>

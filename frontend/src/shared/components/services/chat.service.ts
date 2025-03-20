@@ -9,6 +9,9 @@ import { BackendResponse } from '../../types/response';
   providedIn: 'any'
 })
 export class ChatService {
+  download() {
+    throw new Error('Method not implemented.');
+  }
   public chatList: Chat[] = [];
   public favouriteChats: Chat[] = [];
 
@@ -145,5 +148,13 @@ export class ChatService {
   public addConvo(convo: Convo, id: string) {
     const body = convo;
     this.http.post<BackendResponse<boolean>>(ENV.chatURL + '/add/' + id, body);
+  }
+
+  archive() {
+    throw new Error('Method not implemented.');
+  }
+
+  rename() {
+    throw new Error('Method not implemented.');
   }
 }

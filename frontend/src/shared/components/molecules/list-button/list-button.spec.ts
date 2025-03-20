@@ -8,7 +8,7 @@ describe('ListButton', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ListButton],
+      imports: [ListButton]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ListButton);
@@ -24,13 +24,11 @@ describe('ListButton', () => {
     component.text = 'Test Button';
     component.iconName = 'test-icon';
     component.isSelected = true;
-    component.openOptionsOnIconClick = true;
     fixture.detectChanges();
 
     expect(component.text).toBe('Test Button');
     expect(component.iconName).toBe('test-icon');
     expect(component.isSelected).toBe(true);
-    expect(component.openOptionsOnIconClick).toBe(true);
   });
 
   it('should emit onClickButton event when button is clicked', () => {

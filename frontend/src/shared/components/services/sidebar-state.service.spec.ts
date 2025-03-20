@@ -15,12 +15,12 @@ describe('SidebarStateService', () => {
   });
 
   it('should toggle the state', () => {
-    service.toggleState();
+    service.toggleOptionsState();
     expect(service.isOptionsOpen()).toBe(true);
   });
 
   it('should set the state', () => {
-    service.setState(true);
+    service.setOptionsState(true);
     expect(service.isOptionsOpen()).toBe(true);
   });
 });

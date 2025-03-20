@@ -17,7 +17,11 @@ describe('FloatingPanelComponent', () => {
   beforeEach(async () => {
     sidebarStateMock = {
       isOptionsOpen: jest.fn().mockReturnValue(false),
-      setState: jest.fn()
+      isSidebarOpen: jest.fn().mockReturnValue(false),
+      toggleOptionsState: jest.fn(),
+      toggleSidebarState: jest.fn(),
+      setOptionsState: jest.fn(),
+      setSidebarState: jest.fn()
     } as unknown as jest.Mocked<SidebarStateService>;
 
     chatMock = {
@@ -68,6 +72,6 @@ describe('FloatingPanelComponent', () => {
     closeButton.triggerEventHandler('onClick', null);
 
     expect(component.close).toHaveBeenCalled();
-    expect(component.stateService.setState).toHaveBeenCalledWith(false);
+    expect(component.stateService.setOptionsState).toHaveBeenCalledWith(false);
   });
 });

@@ -36,7 +36,7 @@ export class SidebarComponent {
   }
 
   openOptions() {
-    this.sidebarService.toggleState();
+    this.sidebarService.toggleOptionsState();
   }
 
   createImage() {

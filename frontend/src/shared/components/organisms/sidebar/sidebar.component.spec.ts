@@ -42,8 +42,8 @@ describe('SidebarComponent', () => {
   });
 
   it('should toggle options', () => {
-    jest.spyOn(component.sidebarService, 'toggleState');
+    jest.spyOn(component.sidebarService, 'toggleOptionsState');
     component.openOptions();
-    expect(component.sidebarService.toggleState).toHaveBeenCalled();
+    expect(component.sidebarService.toggleOptionsState).toHaveBeenCalled();
   });
 });
