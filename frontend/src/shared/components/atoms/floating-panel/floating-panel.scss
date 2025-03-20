@@ -1,0 +1,15 @@
+@import '@styles';
+
+div {
+  position: absolute;
+  border-radius: $radius--mid;
+  padding: $padding--big;
+
+  background-color: $color-accent;
+}
+
+.centered {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

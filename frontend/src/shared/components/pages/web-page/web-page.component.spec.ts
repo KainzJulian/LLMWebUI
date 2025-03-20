@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { WebPageComponent } from './web-page.component';
 import { SidebarComponent } from '../../organisms/sidebar/sidebar.component';
 import { ConvoListComponent } from '../../molecules/convo-list/convo-list.component';
-import { FloatingPanelComponent } from '../../molecules/floating-panel/floating-panel.component';
+import { MainMenuComponent } from '../../molecules/main-menu/main-menu.component';
 import { InputFieldComponent } from '../../molecules/input-field/input-field.component';
 import { FloatingButton } from '../../molecules/floating-button/floating-button';
 import { CommonModule } from '@angular/common';
@@ -23,7 +23,7 @@ describe('WepPageComponent', () => {
         WebPageComponent,
         SidebarComponent,
         ConvoListComponent,
-        FloatingPanelComponent,
+        MainMenuComponent,
         InputFieldComponent,
         FloatingButton,
         CommonModule,
@@ -65,7 +65,7 @@ describe('WepPageComponent', () => {
   });
 
   it('should render FloatingPanelComponent', () => {
-    const floatingPanelElement = fixture.debugElement.query(By.directive(FloatingPanelComponent));
+    const floatingPanelElement = fixture.debugElement.query(By.directive(MainMenuComponent));
     expect(floatingPanelElement).toBeTruthy();
   });
 

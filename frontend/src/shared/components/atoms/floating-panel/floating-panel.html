@@ -1,0 +1,14 @@
+<div
+  #floatingPanel
+  [style]="{
+    top: this.config.top + 'px',
+    left: this.config.left + 'px',
+    right: this.config.right + 'px',
+    bottom: this.config.bottom + 'px',
+    width: this.config.width,
+    height: this.config.height
+  }"
+  [ngClass]="{ 'centered': this.centered }"
+>
+  <ng-content />
+</div>

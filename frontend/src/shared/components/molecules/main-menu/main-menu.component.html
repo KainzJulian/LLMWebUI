@@ -1,10 +1,14 @@
-<div *ngIf="stateService.isOptionsOpen()" class="container">
-  <base-button
-    class="button--close"
-    (onClick)="close()"
-    iconName="close-light"
-    buttonType="icon"
-  ></base-button>
+<floating-panel
+  [config]="{ width: '50%', height: '50%' }"
+  class="container"
+  [centered]="true"
+  [closeOnClickOutside]="true"
+  *ngIf="stateService.isOptionsOpen()"
+  #floatingPanel
+>
+  <base-button class="button--close" (onClick)="close()">
+    <icon iconName="close-light" />
+  </base-button>
 
   <div class="list-item">
     <p>Alle Chats archivieren</p>
@@ -19,4 +23,4 @@
       <p>Alle Chats</p>
     </base-button>
   </div>
-</div>
+</floating-panel>

@@ -1,21 +1,6 @@
 @import '@styles';
 
 .container {
-  position: absolute;
-  background-color: $color-accent;
-  width: 50%;
-
-  height: fit-content;
-  min-height: 25%;
-  max-height: 75%;
-
-  right: 25%;
-  left: 25%;
-  top: 15%;
-
-  border-radius: 16px;
-
-  padding: $padding--big;
   color: white;
 
   display: flex;

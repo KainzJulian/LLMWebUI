@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FloatingPanelComponent } from './floating-panel.component';
+import { MainMenuComponent } from './main-menu.component';
 import { SidebarStateService } from '../../services/sidebar-state.service';
 import { ChatService } from '../../services/chat.service';
 import { By } from '@angular/platform-browser';
@@ -8,8 +8,8 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('FloatingPanelComponent', () => {
-  let component: FloatingPanelComponent;
-  let fixture: ComponentFixture<FloatingPanelComponent>;
+  let component: MainMenuComponent;
+  let fixture: ComponentFixture<MainMenuComponent>;
 
   let sidebarStateMock: jest.Mocked<SidebarStateService>;
   let chatMock: jest.Mocked<ChatService>;
@@ -29,7 +29,7 @@ describe('FloatingPanelComponent', () => {
     } as unknown as jest.Mocked<ChatService>;
 
     await TestBed.configureTestingModule({
-      imports: [FloatingPanelComponent],
+      imports: [MainMenuComponent],
       providers: [
         provideHttpClient(),
         provideHttpClientTesting(),
@@ -38,7 +38,7 @@ describe('FloatingPanelComponent', () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(FloatingPanelComponent);
+    fixture = TestBed.createComponent(MainMenuComponent);
 
     component = fixture.componentInstance;
     fixture.detectChanges();
