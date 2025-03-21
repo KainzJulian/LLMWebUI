@@ -95,11 +95,15 @@ def changeFavourite(id: str) -> Response:
 
     body = chatCollection.find_one({"id": id})
 
-    chatCollection.update_one(
-        {"_id": getIDFromString(id)}, {"$set": {"isFavourite": not body["isFavourite"]}}
-    )
+    try:
 
-    return Response(success=True)
+        chatCollection.update_one(
+            {"_id": getIDFromString(id)},
+            {"$set": {"isFavourite": not body["isFavourite"]}},
+        )
+        return Response(success=True)
+    except Exception as e:
+        return Response(success=False, error=str(e))
 
 
 def getIDFromString(id: str) -> ObjectId:
@@ -107,3 +111,14 @@ def getIDFromString(id: str) -> ObjectId:
         return ObjectId(id)
     except Exception as e:
         raise HTTPException(status_code=400, detail="Invalid ID: " + id)
+
+
+@chatRouter.post("/rename/{id}")
+def changeName(name: str, id: str) -> Response:
+    try:
+        chatCollection.update_one(
+            {"_id": getIDFromString(id)}, {"$set": {"name": name}}
+        )
+        return Response(success=True)
+    except Exception as e:
+        return Response(success=False, error=str(e))

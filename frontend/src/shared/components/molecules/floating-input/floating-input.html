@@ -1,0 +1,15 @@
+<floating-panel
+  *ngIf="floatingInputService.getFloatingInputState()"
+  [closeOnClickOutside]="true"
+  (onClickOutside)="clickOutside()"
+  [centered]="true"
+>
+  <input
+    autofocus
+    [(ngModel)]="floatingInputService.chat().name"
+    type="text"
+    (keydown.enter)="enter()"
+    maxlength="100"
+    size="30"
+  />
+</floating-panel>

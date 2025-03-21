@@ -4,20 +4,21 @@ import { ENV } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Convo } from '../../types/convo';
 import { BackendResponse } from '../../types/response';
+import { FloatingInputStateService } from './floating-input-state.service';
 
 @Injectable({
   providedIn: 'any'
 })
 export class ChatService {
-  download() {
-    throw new Error('Method not implemented.');
-  }
   public chatList: Chat[] = [];
   public favouriteChats: Chat[] = [];
 
   public currentChat: Chat | null = null;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private floatingInputService: FloatingInputStateService
+  ) {
     this.setChats();
   }
 
@@ -100,9 +101,6 @@ export class ChatService {
 
   public setCurrentChat(chat: Chat): void {
     this.currentChat = chat;
-
-    console.info('Current Chat: ' + this.currentChat);
-    console.info('Current Chat: ' + this.currentChat?.isFavourite);
   }
 
   private sortChat(): void {
@@ -154,7 +152,20 @@ export class ChatService {
     throw new Error('Method not implemented.');
   }
 
-  rename() {
+  rename(input: string) {
+    const chat = this.floatingInputService.chat();
+
+    console.log(input);
+
+    const path = new URL(ENV.chatURL.href + '/rename/' + chat.id);
+    path.searchParams.set('name', input);
+
+    console.log(path.href);
+
+    this.http.post<BackendResponse<boolean>>(path.href, input).subscribe((res) => console.log(res));
+  }
+
+  download() {
     throw new Error('Method not implemented.');
   }
 }

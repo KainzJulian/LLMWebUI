@@ -7,6 +7,8 @@ import { BaseButton } from '../../atoms/base-button/base-button';
 import { ListButton } from '../../molecules/list-button/list-button';
 import { Icon } from '../../atoms/icon/icon';
 import { LLMRequestService } from '../../services/llm-request.service';
+import { FloatingInputStateService } from '../../services/floating-input-state.service';
+import { Chat } from '../../../types/chat';
 
 @Component({
   selector: 'app-sidebar',
@@ -20,7 +22,8 @@ export class SidebarComponent {
     public sidebarService: SidebarStateService,
     public modelService: ModelService,
     public chatService: ChatService,
-    public llmService: LLMRequestService
+    public llmService: LLMRequestService,
+    public floatingInputService: FloatingInputStateService
   ) {}
 
   openSearch() {
@@ -41,5 +44,10 @@ export class SidebarComponent {
 
   createImage() {
     this.llmService.generateImage();
+  }
+
+  openRenamePanel(chat: Chat) {
+    this.floatingInputService.setChat(chat);
+    this.floatingInputService.setFloatingInputState(true);
   }
 }

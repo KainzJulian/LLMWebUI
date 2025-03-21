@@ -73,6 +73,15 @@ def test_changeFavourite():
     assert response.error is None
 
 
+def test_changeName():
+    allChats = getAllChats().data
+    response = changeName("test", allChats[0]["id"])
+
+    assert response.success is True
+    assert response.data is None
+    assert response.error is None
+
+
 def test_deleteAllChats():
     response = deleteAllChats()
 

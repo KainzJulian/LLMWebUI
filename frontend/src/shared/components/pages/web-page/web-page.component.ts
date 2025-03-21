@@ -6,6 +6,8 @@ import { ChatService } from '../../services/chat.service';
 import { CommonModule } from '@angular/common';
 import { FloatingButton } from '../../molecules/floating-button/floating-button';
 import { MainMenuComponent } from '../../molecules/main-menu/main-menu.component';
+import { FloatingInput } from '../../molecules/floating-input/floating-input';
+import { FloatingInputStateService } from '../../services/floating-input-state.service';
 
 @Component({
   selector: 'app-web-page',
@@ -16,11 +18,15 @@ import { MainMenuComponent } from '../../molecules/main-menu/main-menu.component
     SidebarComponent,
     CommonModule,
     FloatingButton,
-    MainMenuComponent
+    MainMenuComponent,
+    FloatingInput
   ],
   templateUrl: './web-page.component.html',
   styleUrl: './web-page.component.scss'
 })
 export class WebPageComponent {
-  constructor(public chatService: ChatService) {}
+  constructor(
+    public chatService: ChatService,
+    public floatingInputService: FloatingInputStateService
+  ) {}
 }

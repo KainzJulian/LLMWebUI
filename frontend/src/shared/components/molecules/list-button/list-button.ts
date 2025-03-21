@@ -35,7 +35,7 @@ export class ListButton {
   @ViewChild('chatMenu', { read: ElementRef }) chatMenu!: ElementRef;
 
   @Output() delete = new EventEmitter<void>();
-  @Output() rename = new EventEmitter<void>();
+  @Output() rename = new EventEmitter<string>();
   @Output() download = new EventEmitter<void>();
   @Output() archive = new EventEmitter<void>();
 

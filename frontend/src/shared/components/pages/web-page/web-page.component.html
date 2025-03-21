@@ -20,4 +20,9 @@
   </div>
 
   <main-menu></main-menu>
+
+  <floating-input
+    (onClickOutside)="this.chatService.rename($event)"
+    (onEnter)="this.chatService.rename($event)"
+  ></floating-input>
 </div>

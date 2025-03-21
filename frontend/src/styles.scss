@@ -82,3 +82,10 @@ textarea {
 p {
   margin: 0px;
 }
+
+input {
+  border: none;
+  outline: none;
+  background-color: $color;
+  color: $text-color--light;
+}

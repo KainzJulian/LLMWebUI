@@ -6,8 +6,6 @@ import { BaseButton } from '../../atoms/base-button/base-button';
 import { FloatingPanel } from '../../atoms/floating-panel/floating-panel';
 import { Icon } from '../../atoms/icon/icon';
 
-//TODO: make the floating panel more reusable
-
 @Component({
   selector: 'main-menu',
   standalone: true,
