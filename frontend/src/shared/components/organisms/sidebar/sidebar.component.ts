@@ -47,7 +47,13 @@ export class SidebarComponent {
   }
 
   openRenamePanel(chat: Chat) {
-    this.floatingInputService.setChat(chat);
+    const newChat = this.chatService.chatList.find((val) => val.id == chat.id);
+    const favouriteChat = this.chatService.favouriteChats.find((val) => val.id == chat.id);
+
+    if (newChat != undefined) this.floatingInputService.setChat(newChat);
+
+    if (favouriteChat != undefined) this.floatingInputService.setFavouriteChat(favouriteChat);
+
     this.floatingInputService.setFloatingInputState(true);
   }
 }

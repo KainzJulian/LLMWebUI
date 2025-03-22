@@ -47,8 +47,13 @@
           <list-button
             (onClickButton)="this.chatService.setCurrentChat(chat)"
             (onClickIcon)="this.chatService.setCurrentChat(chat)"
+            [showMenuOnIconClick]="true"
+            (delete)="this.chatService.delete(i)"
+            (rename)="this.openRenamePanel(chat)"
+            (archive)="this.chatService.archive()"
+            (download)="this.chatService.download()"
             [text]="chat.name"
-            iconName="add-light"
+            iconName="dots-light"
             [isSelected]="this.chatService.isCurrentChat(chat, chatService.favouriteChats)"
           ></list-button>
         }

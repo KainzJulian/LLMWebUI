@@ -6,7 +6,9 @@ import { Chat } from '../../types/chat';
 })
 export class FloatingInputStateService {
   isFloatingInputOpen = signal(false);
+
   chat = signal(new Chat());
+  chatFavourite = signal(new Chat());
 
   constructor() {}
 
@@ -24,5 +26,9 @@ export class FloatingInputStateService {
 
   public setChat(chat: Chat) {
     this.chat.set(chat);
+  }
+
+  public setFavouriteChat(chat: Chat) {
+    this.chatFavourite.set(chat);
   }
 }
