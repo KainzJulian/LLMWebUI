@@ -5,7 +5,7 @@ import ollama
 from POJOs.chat import Chat
 from POJOs.convo import Convo
 from POJOs.response import Response
-from database import chatCollection, archiveCollection
+from database import chatCollection
 
 chatRouter = APIRouter(prefix="/chats")
 
