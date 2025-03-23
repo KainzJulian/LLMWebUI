@@ -22,15 +22,23 @@ export class ChatService {
     this.setChats();
   }
 
+  getArchivedChats(): Chat[] {
+    return this.chatList.filter((val) => val.isArchived);
+  }
+
+  getChatList(): Chat[] {
+    return this.chatList.filter((val) => !val.isArchived);
+  }
+
   switchFavouriteState() {
     if (this.currentChat == null) return;
 
     this.currentChat.isFavourite = !this.currentChat.isFavourite;
 
-    const chatListIndex = this.chatList.findIndex((val) => val.id == this.currentChat?.id);
-    console.log(this.chatList[chatListIndex]);
+    const chatListIndex = this.getChatList().findIndex((val) => val.id == this.currentChat?.id);
+    console.log(this.getChatList()[chatListIndex]);
 
-    this.chatList[chatListIndex].isFavourite = this.currentChat.isFavourite;
+    this.getChatList()[chatListIndex].isFavourite = this.currentChat.isFavourite;
 
     const body = this.currentChat;
     const id = this.currentChat.id;
@@ -56,11 +64,10 @@ export class ChatService {
     });
   }
 
-  delete(index: number): Chat {
-    const help = this.chatList[index];
-    const modelID = this.chatList[index].id;
+  delete(id: string): Chat {
+    const index = this.getChatList().findIndex((val) => val.id == id);
 
-    const url = ENV.chatURL.href + '/remove/' + modelID;
+    const url = ENV.chatURL.href + '/remove/' + id;
 
     this.http.delete<boolean>(url).subscribe((res) => {
       console.log(res);
@@ -69,7 +76,7 @@ export class ChatService {
     const deletedChat = this.chatList.splice(index, 1);
 
     if (deletedChat[0].isFavourite) {
-      const favouriteIndex = this.favouriteChats.findIndex((val) => val.id == modelID);
+      const favouriteIndex = this.favouriteChats.findIndex((val) => val.id == id);
       this.favouriteChats.splice(favouriteIndex, 1);
     }
 
@@ -79,7 +86,7 @@ export class ChatService {
 
     this.sortChat();
 
-    return help;
+    return deletedChat[0];
   }
 
   createChat(name: string): Chat {
@@ -99,7 +106,7 @@ export class ChatService {
     return chatBody;
   }
 
-  public setCurrentChat(chat: Chat): void {
+  public setCurrentChat(chat: Chat | null): void {
     this.currentChat = chat;
   }
 
@@ -110,7 +117,7 @@ export class ChatService {
   }
 
   deleteAll() {
-    this.chatList.splice(0, this.chatList.length);
+    this.chatList.splice(0, this.getChatList().length);
     this.currentChat = null;
 
     this.http.delete<BackendResponse<boolean>>(ENV.chatURL.href);
@@ -123,6 +130,7 @@ export class ChatService {
   setChats(): void {
     this.http.get<BackendResponse<Chat[]>>(ENV.chatURL.href).subscribe((res) => {
       if (res.data == null) return;
+      console.log(res.data);
 
       res.data.forEach((chat) => {
         if (chat.isFavourite) this.favouriteChats.push(chat);
@@ -134,7 +142,8 @@ export class ChatService {
             chat.name,
             chat.convo,
             new Date(chat.date),
-            chat.isFavourite
+            chat.isFavourite,
+            chat.isArchived
           )
         );
       });
@@ -145,27 +154,67 @@ export class ChatService {
 
   public addConvo(convo: Convo, id: string) {
     const body = convo;
-    this.http.post<BackendResponse<boolean>>(ENV.chatURL + '/add/' + id, body);
+    this.http.post<BackendResponse<boolean>>(ENV.chatURL + '/add/' + id, body).subscribe((res) => {
+      console.log(res);
+    });
   }
 
-  archive() {
-    throw new Error('Method not implemented.');
+  archive(id: string) {
+    this.setCurrentChat(null);
+
+    this.http
+      .post<BackendResponse<Chat[]>>(ENV.chatURL.href + '/archive/' + id, null)
+      .subscribe((res) => {
+        this.getChatList()
+          .find((val) => val.id == id)
+          ?.archive();
+
+        const index = this.favouriteChats.findIndex((val) => val.id == id);
+        if (index != -1) this.favouriteChats.splice(index, 1);
+
+        console.log(res);
+      });
   }
 
   rename(input: string) {
     const chat = this.floatingInputService.chat();
 
-    console.log(input);
-
     const path = new URL(ENV.chatURL.href + '/rename/' + chat.id);
     path.searchParams.set('name', input);
-
-    console.log(path.href);
 
     this.http.post<BackendResponse<boolean>>(path.href, input).subscribe((res) => console.log(res));
   }
 
   download() {
     throw new Error('Method not implemented.');
+  }
+
+  dearchive(id: string) {
+    this.setCurrentChat(null);
+
+    this.http
+      .post<BackendResponse<Chat[]>>(ENV.chatURL.href + '/dearchive/' + id, null)
+      .subscribe((res) => {
+        console.log(res);
+
+        const chat = this.getArchivedChats().find((val) => val.id == id);
+
+        this.getArchivedChats()
+          .find((val) => val.id == id)
+          ?.dearchive();
+
+        if (chat?.isFavourite)
+          this.favouriteChats.push(
+            new Chat(
+              chat.id,
+              chat.modelName,
+              chat.name,
+              chat.convo,
+              chat.date,
+              chat.isFavourite,
+              chat.isArchived
+            )
+          );
+      });
   }
 }

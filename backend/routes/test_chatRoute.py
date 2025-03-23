@@ -15,6 +15,7 @@ def chat(modelName: str) -> Chat:
             Convo(content="test", role="system"),
             Convo(content="test", role="user"),
         ],
+        isArchived=False,
     )
 
 

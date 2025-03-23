@@ -20,7 +20,7 @@ export class OutputFieldComponent {
   @Input() isLastElement: boolean = false;
 
   constructor(
-    private chatService: ChatService,
+    public chatService: ChatService,
     private llmService: LLMRequestService,
     public loadingState: LoadingStateService
   ) {}

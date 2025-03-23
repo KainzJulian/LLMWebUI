@@ -10,6 +10,10 @@
       <icon iconName="sidebar-light" />
     </base-button>
 
+    <base-button (onClick)="switchArchivedPanel()">
+      <icon iconName="archivebox-light" />
+    </base-button>
+
     <base-button (onClick)="createImage()">
       <icon iconName="image-light" />
     </base-button>
@@ -19,7 +23,26 @@
     </base-button>
   </div>
 
-  <div class="group">
+  <div *ngIf="displayArchived" class="group">
+    <div class="group__container">
+      <div class="group__title">
+        <p>Archived Chats</p>
+      </div>
+
+      @for (chat of chatService.getArchivedChats(); track $index; let i = $index) {
+        <list-button
+          (onClickButton)="this.chatService.setCurrentChat(chat)"
+          (onClickIcon)="this.chatService.dearchive(chat.id)"
+          [text]="chat.name"
+          [showMenuOnIconClick]="false"
+          iconName="close-light"
+          [isSelected]="this.chatService.isCurrentChat(chat, chatService.getArchivedChats())"
+        ></list-button>
+      }
+    </div>
+  </div>
+
+  <div *ngIf="!displayArchived" class="group">
     <div class="group__container">
       @if (modelService.modelArray.length) {
         <div class="group__title">
@@ -48,9 +71,9 @@
             (onClickButton)="this.chatService.setCurrentChat(chat)"
             (onClickIcon)="this.chatService.setCurrentChat(chat)"
             [showMenuOnIconClick]="true"
-            (delete)="this.chatService.delete(i)"
-            (rename)="this.openRenamePanel(chat)"
-            (archive)="this.chatService.archive()"
+            (delete)="this.chatService.delete(chat.id)"
+            (rename)="this.openRenamePanel(chat.id)"
+            (archive)="this.chatService.archive(chat.id)"
             (download)="this.chatService.download()"
             [text]="chat.name"
             iconName="dots-light"
@@ -61,22 +84,22 @@
     </div>
 
     <div class="group__container">
-      @if (chatService.chatList.length) {
+      @if (chatService.getChatList().length) {
         <div class="group__title">
           <p>Chats</p>
         </div>
 
-        @for (chat of chatService.chatList; track $index; let i = $index) {
+        @for (chat of chatService.getChatList(); track $index; let i = $index) {
           <list-button
             (onClickButton)="this.chatService.setCurrentChat(chat)"
             [showMenuOnIconClick]="true"
-            (delete)="this.chatService.delete(i)"
-            (rename)="this.openRenamePanel(chat)"
-            (archive)="this.chatService.archive()"
+            (delete)="this.chatService.delete(chat.id)"
+            (rename)="this.openRenamePanel(chat.id)"
+            (archive)="this.chatService.archive(chat.id)"
             (download)="this.chatService.download()"
             [text]="chat.name"
             iconName="dots-light"
-            [isSelected]="this.chatService.isCurrentChat(chat, chatService.chatList)"
+            [isSelected]="this.chatService.isCurrentChat(chat, chatService.getChatList())"
           ></list-button>
         }
       }

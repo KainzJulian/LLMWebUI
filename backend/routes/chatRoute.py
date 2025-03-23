@@ -5,9 +5,7 @@ import ollama
 from POJOs.chat import Chat
 from POJOs.convo import Convo
 from POJOs.response import Response
-from database import chatCollection
-
-import pymongo
+from database import chatCollection, archiveCollection
 
 chatRouter = APIRouter(prefix="/chats")
 
@@ -36,10 +34,6 @@ def deleteAllChats():
 
 @chatRouter.delete("/remove/{id}")
 def deleteChat(id: str) -> Response:
-
-    print(id)
-    print("deleted this shit")
-
     try:
         chatCollection.delete_one({"_id": getIDFromString(id)})
         return Response(success=True, data=True)
@@ -50,14 +44,16 @@ def deleteChat(id: str) -> Response:
 
 @chatRouter.get("/{id}")
 def getChatByID(id: str) -> Response:
-    document = chatCollection.find_one({"_id": getIDFromString(id)})
+    try:
+        document = chatCollection.find_one({"_id": getIDFromString(id)})
 
-    if document is None:
-        return Response(
-            success=False, error="no document with the id {" + id + "} found"
-        )
-
-    return Response(success=True, data=document)
+        if document is None:
+            return Response(
+                success=False, error="no document with the id {" + id + "} found"
+            )
+        return Response(success=True, data=document)
+    except Exception as e:
+        return Response(success=False, error=str(e))
 
 
 @chatRouter.post("/new")
@@ -119,6 +115,46 @@ def changeName(name: str, id: str) -> Response:
         chatCollection.update_one(
             {"_id": getIDFromString(id)}, {"$set": {"name": name}}
         )
+        return Response(success=True)
+    except Exception as e:
+        return Response(success=False, error=str(e))
+
+
+@chatRouter.post("/archive/{id}")
+def archive(id: str) -> Response:
+    try:
+        chatCollection.update_one(
+            {"_id": getIDFromString(id)}, {"$set": {"isArchived": True}}
+        )
+
+        return Response(success=True)
+    except Exception as e:
+        return Response(success=False, error=str(e))
+
+
+@chatRouter.get("/archive/all")
+def getArchive() -> Response:
+    try:
+
+        archive = list(chatCollection.find({"isArchived": True}))
+
+        print(archive)
+
+        for chat in archive:
+            chat["_id"] = str(chat["_id"])
+
+        return Response(success=True, data=archive)
+    except Exception as e:
+        return Response(success=False, error=str(e))
+
+
+@chatRouter.post("/dearchive/{id}")
+def dearchive(id: str) -> Response:
+    try:
+        chatCollection.update_one(
+            {"_id": getIDFromString(id)}, {"$set": {"isArchived": False}}
+        )
+
         return Response(success=True)
     except Exception as e:
         return Response(success=False, error=str(e))

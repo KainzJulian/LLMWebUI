@@ -6,8 +6,8 @@
 >
   <input
     autofocus
-    [(ngModel)]="floatingInputService.chat().name"
     [(ngModel)]="floatingInputService.chatFavourite().name"
+    [(ngModel)]="floatingInputService.chat().name"
     type="text"
     (keydown.enter)="enter()"
     maxlength="100"

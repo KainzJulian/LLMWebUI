@@ -11,3 +11,4 @@ client._connect()
 database = client[os.getenv("DATABASE_NAME")]
 modelCollection = database[os.getenv("MODEL_COLLECTION")]
 chatCollection = database[os.getenv("CHAT_COLLECTION")]
+archiveCollection = database[os.getenv("ARCHIVE_COLLECTION")]

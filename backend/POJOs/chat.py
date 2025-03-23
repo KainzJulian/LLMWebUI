@@ -14,3 +14,4 @@ class Chat(BaseModel):
     convo: Optional[list[Convo]]
     date: Optional[str]
     isFavourite: Optional[bool]
+    isArchived: Optional[bool]

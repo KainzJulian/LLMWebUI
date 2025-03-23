@@ -23,7 +23,7 @@ export class FloatingInput {
   }
 
   clickOutside() {
-    this.onClickOutside.emit(this.floatingInputService.chat().name);
     this.floatingInputService.setFloatingInputState(false);
+    this.onClickOutside.emit(this.floatingInputService.chat().name);
   }
 }

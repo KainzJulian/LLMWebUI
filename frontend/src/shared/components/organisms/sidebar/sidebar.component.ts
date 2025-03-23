@@ -8,7 +8,6 @@ import { ListButton } from '../../molecules/list-button/list-button';
 import { Icon } from '../../atoms/icon/icon';
 import { LLMRequestService } from '../../services/llm-request.service';
 import { FloatingInputStateService } from '../../services/floating-input-state.service';
-import { Chat } from '../../../types/chat';
 
 @Component({
   selector: 'app-sidebar',
@@ -18,6 +17,8 @@ import { Chat } from '../../../types/chat';
   styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent {
+  displayArchived: boolean = false;
+
   constructor(
     public sidebarService: SidebarStateService,
     public modelService: ModelService,
@@ -46,14 +47,18 @@ export class SidebarComponent {
     this.llmService.generateImage();
   }
 
-  openRenamePanel(chat: Chat) {
-    const newChat = this.chatService.chatList.find((val) => val.id == chat.id);
-    const favouriteChat = this.chatService.favouriteChats.find((val) => val.id == chat.id);
+  openRenamePanel(id: string) {
+    const newChat = this.chatService.chatList.find((val) => val.id == id);
+    const favouriteChat = this.chatService.favouriteChats.find((val) => val.id == id);
 
     if (newChat != undefined) this.floatingInputService.setChat(newChat);
 
     if (favouriteChat != undefined) this.floatingInputService.setFavouriteChat(favouriteChat);
 
     this.floatingInputService.setFloatingInputState(true);
+  }
+
+  switchArchivedPanel() {
+    this.displayArchived = !this.displayArchived;
   }
 }

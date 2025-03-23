@@ -9,7 +9,8 @@ export class Chat {
     public name: string = '',
     public convo: Convo[] = [],
     public date: Date = new Date(),
-    public isFavourite: boolean = false
+    public isFavourite: boolean = false,
+    public isArchived: boolean = false
   ) {}
 
   public addNewConvo(convo: Convo) {
@@ -27,5 +28,13 @@ export class Chat {
 
   public setName(newName: string) {
     this.name = newName;
+  }
+
+  public archive() {
+    this.isArchived = true;
+  }
+
+  public dearchive() {
+    this.isArchived = false;
   }
 }

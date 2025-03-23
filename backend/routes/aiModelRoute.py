@@ -72,9 +72,6 @@ def getModelList():
 @aiModelRouter.post("/generate")
 async def generate(convo: list[Convo], modelName: str) -> Response:
     try:
-        print(convo)
-        print(modelName)
-
         return StreamingResponse(
             generateChatResponse(convo, modelName), media_type="text/plain"
         )
@@ -86,8 +83,6 @@ async def generate(convo: list[Convo], modelName: str) -> Response:
 async def generateChatResponse(convoList: list[Convo], modelName: str):
     message = []
 
-    print(modelName)
-
     for convo in convoList:
         message.append({"role": convo.role, "content": convo.content})
 
@@ -96,5 +91,4 @@ async def generateChatResponse(convoList: list[Convo], modelName: str):
     async for response in await ollama.AsyncClient().chat(
         modelName, message, stream=True
     ):
-        print(response.message.content)
         yield response.message.content

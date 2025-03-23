@@ -1,22 +1,27 @@
 <div class="container">
   <app-sidebar></app-sidebar>
 
-  <ng-container *ngIf="this.chatService.currentChat != null">
-    <floating-button
-      [config]="{
-        right: 8,
-        top: 8
-      }"
-      [iconName]="
-        this.chatService.currentChat.isFavourite ? 'bookmark-light-filled' : 'bookmark-light'
-      "
-      (onClick)="this.chatService.switchFavouriteState()"
-    ></floating-button>
-  </ng-container>
+  <floating-button
+    *ngIf="this.chatService.currentChat != null && !this.chatService.currentChat.isArchived"
+    [config]="{
+      right: 8,
+      top: 8
+    }"
+    [iconName]="
+      this.chatService.currentChat.isFavourite ? 'bookmark-light-filled' : 'bookmark-light'
+    "
+    (onClick)="this.chatService.switchFavouriteState()"
+  ></floating-button>
 
   <div class="group--convo">
-    <app-convo-list></app-convo-list>
-    <app-input-field *ngIf="chatService.currentChat != undefined"></app-input-field>
+    <app-convo-list
+      [ngClass]="{
+        'height-100': chatService.currentChat?.isArchived
+      }"
+    ></app-convo-list>
+    <app-input-field
+      *ngIf="!chatService.currentChat?.isArchived && chatService.currentChat != undefined"
+    ></app-input-field>
   </div>
 
   <main-menu></main-menu>
