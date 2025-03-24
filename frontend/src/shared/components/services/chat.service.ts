@@ -185,8 +185,14 @@ export class ChatService {
     this.http.post<BackendResponse<boolean>>(path.href, input).subscribe((res) => console.log(res));
   }
 
-  download() {
-    throw new Error('Method not implemented.');
+  download(chat: Chat, fileName: string) {
+    const blob = new Blob([JSON.stringify(chat, null, 2)], { type: 'application/json' });
+
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = fileName + '.json';
+    link.click();
+    window.URL.revokeObjectURL(link.href);
   }
 
   dearchive(id: string) {
