@@ -186,7 +186,7 @@ export class ChatService {
   }
 
   download(chat: Chat, fileName: string) {
-    const blob = new Blob([JSON.stringify(chat, null, 2)], { type: 'application/json' });
+    const blob = new Blob([JSON.stringify(chat.convo, null, 2)], { type: 'application/json' });
 
     const link = document.createElement('a');
     link.href = window.URL.createObjectURL(blob);

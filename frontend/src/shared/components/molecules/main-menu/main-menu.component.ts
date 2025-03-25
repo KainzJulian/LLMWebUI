@@ -21,10 +21,6 @@ export class MainMenuComponent {
 
   @ViewChild('floatingPanel', { read: ElementRef }) floatingPanel!: ElementRef;
 
-  archiveAllChats() {
-    throw new Error('Method not implemented.');
-  }
-
   deleteAllChats() {
     this.chatService.deleteAll();
   }
