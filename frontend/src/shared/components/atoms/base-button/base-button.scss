@@ -36,6 +36,8 @@ button {
   @include hover($color-primary, $color-primary);
   height: auto;
   width: 95%;
+  padding-top: $padding--big;
+  padding-bottom: $padding--big;
 }
 
 .width--100 {

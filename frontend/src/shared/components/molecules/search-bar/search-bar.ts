@@ -8,11 +8,13 @@ import { ENV } from '../../../../environments/environment';
 import { BackendResponse } from '../../../types/response';
 import { SearchResult } from '../../../types/searchResult';
 import { SearchListItem } from '../search-list-item/search-list-item';
+import { BaseButton } from '../../atoms/base-button/base-button';
+import { Icon } from "../../atoms/icon/icon";
 
 @Component({
   selector: 'search-bar',
   standalone: true,
-  imports: [FloatingPanel, CommonModule, FormsModule, SearchListItem],
+  imports: [FloatingPanel, CommonModule, FormsModule, SearchListItem, BaseButton, Icon],
   templateUrl: './search-bar.html',
   styleUrl: './search-bar.scss'
 })

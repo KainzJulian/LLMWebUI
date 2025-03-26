@@ -24,6 +24,8 @@ export class SearchListItem {
 
     if (chat == undefined) return;
 
+    this.chatService.setCurrentChat(chat);
+
     this.searchService.setSearchState(false);
   }
 }
