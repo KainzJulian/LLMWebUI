@@ -1,0 +1,17 @@
+@import '@styles';
+
+.list-item {
+  width: 100%;
+  padding-top: $padding--mid;
+}
+
+.list-item__title {
+  font-weight: bold;
+  display: flex;
+}
+
+.list-item__text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

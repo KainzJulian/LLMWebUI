@@ -8,6 +8,7 @@ import { ListButton } from '../../molecules/list-button/list-button';
 import { Icon } from '../../atoms/icon/icon';
 import { LLMRequestService } from '../../services/llm-request.service';
 import { FloatingInputStateService } from '../../services/floating-input-state.service';
+import { SearchBarService } from '../../services/search-bar.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -24,11 +25,12 @@ export class SidebarComponent {
     public modelService: ModelService,
     public chatService: ChatService,
     public llmService: LLMRequestService,
-    public floatingInputService: FloatingInputStateService
+    public floatingInputService: FloatingInputStateService,
+    public searchBarService: SearchBarService
   ) {}
 
   openSearch() {
-    throw new Error('Method not implemented.');
+    this.searchBarService.switchSearchState();
   }
 
   openSidebar() {

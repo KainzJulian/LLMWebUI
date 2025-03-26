@@ -32,6 +32,12 @@ button {
   @include hover($color-primary, $color-primary);
 }
 
+.text {
+  @include hover($color-primary, $color-primary);
+  height: auto;
+  width: 95%;
+}
+
 .width--100 {
   text-align: start;
   width: 100%;
