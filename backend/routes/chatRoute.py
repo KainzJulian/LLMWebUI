@@ -27,7 +27,7 @@ def getAllChats() -> Response:
 @chatRouter.delete("/")
 def deleteAllChats():
     try:
-        chatCollection.delete_many({})
+        chatCollection.delete_many({"isArchived": False})
     except Exception as e:
         return Response(success=False, error=str(e))
 
