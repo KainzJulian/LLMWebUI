@@ -8,6 +8,8 @@ import { FloatingButton } from '../../molecules/floating-button/floating-button'
 import { MainMenuComponent } from '../../molecules/main-menu/main-menu.component';
 import { FloatingInput } from '../../molecules/floating-input/floating-input';
 import { FloatingInputStateService } from '../../services/floating-input-state.service';
+import { SearchBarService } from '../../services/search-bar.service';
+import { SearchBar } from '../../molecules/search-bar/search-bar';
 
 @Component({
   selector: 'app-web-page',
@@ -19,7 +21,8 @@ import { FloatingInputStateService } from '../../services/floating-input-state.s
     CommonModule,
     FloatingButton,
     MainMenuComponent,
-    FloatingInput
+    FloatingInput,
+    SearchBar
   ],
   templateUrl: './web-page.component.html',
   styleUrl: './web-page.component.scss'
@@ -27,6 +30,7 @@ import { FloatingInputStateService } from '../../services/floating-input-state.s
 export class WebPageComponent {
   constructor(
     public chatService: ChatService,
-    public floatingInputService: FloatingInputStateService
+    public floatingInputService: FloatingInputStateService,
+    public searchService: SearchBarService
   ) {}
 }

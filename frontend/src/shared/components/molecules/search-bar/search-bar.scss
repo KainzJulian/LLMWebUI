@@ -1,0 +1,21 @@
+@import '@styles';
+
+.search__input {
+  width: 100%;
+}
+
+.search__output {
+  overflow-y: auto;
+}
+
+.search {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.button--close {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+}

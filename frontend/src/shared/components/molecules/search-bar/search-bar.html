@@ -1,0 +1,29 @@
+<floating-panel
+  [closeOnClickOutside]="true"
+  (onClickOutside)="this.searchService.setSearchState(false)"
+  [config]="{ width: '40%', height: '60%', top: '20%', left:'30%'}"
+  *ngIf="this.searchService.getSearchState()"
+>
+  <base-button class="button--close" (onClick)="this.searchService.setSearchState(false)">
+    <icon iconName="close-light" />
+  </base-button>
+
+  <div class="search">
+    <div [ngStyle]="{'padding-bottom': this.searchService.searchResults?.length ? '16px' : '0px'}">
+      <input
+        [(ngModel)]="this.input"
+        class="search__input"
+        autofocus
+        type="text"
+        placeholder="Search"
+        (keydown.enter)="this.searchChat()"
+      />
+    </div>
+
+    <div *ngIf="this.searchService.searchResults?.length" class="search__output">
+      @for(item of this.searchService.searchResults; track $index) {
+      <search-list-item [data]="item"></search-list-item>
+      }
+    </div>
+  </div>
+</floating-panel>

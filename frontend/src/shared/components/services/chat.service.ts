@@ -117,10 +117,14 @@ export class ChatService {
   }
 
   deleteAll() {
-    this.chatList.splice(0, this.getChatList().length);
     this.currentChat = null;
 
-    this.http.delete<BackendResponse<boolean>>(ENV.chatURL.href);
+    this.chatList = this.chatList.filter((val) => val.isArchived);
+    this.favouriteChats = [];
+
+    this.http.delete<BackendResponse<boolean>>(ENV.chatURL.href).subscribe((res) => {
+      console.log(res);
+    });
   }
 
   public isCurrentChat(chat: Chat, chatList: Chat[]): boolean {

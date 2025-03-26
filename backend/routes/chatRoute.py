@@ -1,10 +1,12 @@
 import json
+import re
 from bson import ObjectId
 from fastapi import APIRouter, HTTPException
 import ollama
 from POJOs.chat import Chat
 from POJOs.convo import Convo
 from POJOs.response import Response
+from POJOs.searchResult import SearchResult
 from database import chatCollection
 
 chatRouter = APIRouter(prefix="/chats")
@@ -25,7 +27,7 @@ def getAllChats() -> Response:
 @chatRouter.delete("/")
 def deleteAllChats():
     try:
-        chatCollection.delete_many({})
+        chatCollection.delete_many({"isArchived": False})
     except Exception as e:
         return Response(success=False, error=str(e))
 
@@ -158,3 +160,66 @@ def dearchive(id: str) -> Response:
         return Response(success=True)
     except Exception as e:
         return Response(success=False, error=str(e))
+
+
+@chatRouter.get("/search/{text}")
+def findChatsByText(text: str) -> Response:
+    try:
+
+        chatList: list[SearchResult] = []
+        chats = chatCollection.aggregate(getSearchPipeline(text)).to_list()
+
+        for chat in chats:
+            for convo in chat["matchingContent"]:
+
+                outputText = convo["content"]
+                positions = [match.start() for match in re.finditer(text, outputText)]
+
+                for i in positions:
+
+                    if outputText[i - 50 : i + 50] is "":
+                        continue
+
+                    prepText = "..." + outputText[i - 50 : i + 50] + "..."
+
+                    chatList.append(
+                        SearchResult(
+                            id=chat["id"],
+                            modelName=chat["name"],
+                            text=prepText,
+                        )
+                    )
+
+        return Response(
+            success=True,
+            data=chatList,
+        )
+    except Exception as e:
+        return Response(success=False, error=str(e))
+
+
+def getSearchPipeline(text: str):
+    return [
+        {"$match": {"convo.content": {"$regex": f"{text}.*", "$options": "i"}}},
+        {
+            "$project": {
+                "_id": 0,
+                "id": 1,
+                "content": 1,
+                "name": 1,
+                "matchingContent": {
+                    "$filter": {
+                        "input": "$convo",
+                        "as": "item",
+                        "cond": {
+                            "$regexMatch": {
+                                "input": "$$item.content",
+                                "regex": f"{text}.*",
+                                "options": "i",
+                            }
+                        },
+                    }
+                },
+            }
+        },
+    ]
