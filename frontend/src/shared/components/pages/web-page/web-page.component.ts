@@ -10,6 +10,7 @@ import { FloatingInput } from '../../molecules/floating-input/floating-input';
 import { FloatingInputStateService } from '../../services/floating-input-state.service';
 import { SearchBarService } from '../../services/search-bar.service';
 import { SearchBar } from '../../molecules/search-bar/search-bar';
+import { FileUploader } from '../../molecules/file-uploader/file-uploader';
 
 @Component({
   selector: 'app-web-page',
@@ -22,7 +23,8 @@ import { SearchBar } from '../../molecules/search-bar/search-bar';
     FloatingButton,
     MainMenuComponent,
     FloatingInput,
-    SearchBar
+    SearchBar,
+    FileUploader
   ],
   templateUrl: './web-page.component.html',
   styleUrl: './web-page.component.scss'

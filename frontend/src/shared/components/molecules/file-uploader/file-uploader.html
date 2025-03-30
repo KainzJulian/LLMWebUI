@@ -1,0 +1,62 @@
+<floating-panel
+  [closeOnClickOutside]="true"
+  (onClickOutside)="fileUploaderService.setOpenState(false)"
+  *ngIf="fileUploaderService.getOpenState()"
+  [centered]="true"
+  [config]="{ width: '25%', height: '50%' }"
+>
+  <div
+    class="container"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)"
+    (drop)="onDrop($event)"
+  >
+    <input
+      hidden
+      #folderInput
+      multiple
+      (change)="handleFileSelection($event)"
+      webkitdirectory
+      class="file__input"
+      type="file"
+    />
+
+    <input
+      hidden
+      #fileInput
+      multiple
+      class="file__input"
+      type="file"
+      (change)="handleFileSelection($event)"
+      id="file__input"
+    />
+
+    <div *ngIf="!isDragging() && this.fileUploaderService.files().length != 0" class="file-list">
+      @for(file of fileUploaderService.files(); track $index) {
+      <div class="list__item">
+        <p class="item__text">{{ file.name }}</p>
+        <base-button class="item__button" (onClick)="fileUploaderService.deleteFile($index)">
+          <icon iconName="delete-light" />
+        </base-button>
+      </div>
+      }
+    </div>
+    <div
+      *ngIf="isDragging() || this.fileUploaderService.files().length == 0"
+      class="text--centered"
+      #dragOverText
+    >
+      <p>Drag and Drop File or Folder</p>
+    </div>
+
+    <div *ngIf="!isDragging() && this.fileUploaderService.files().length != 0" class="button-group">
+      <base-button (onClick)="fileInput.click()" class="button-group__button">
+        <icon iconName="file-light" />
+      </base-button>
+      <base-button class="button-group__button"> <icon iconName="upload-light" /> </base-button>
+      <base-button (onClick)="folderInput.click()" class="button-group__button">
+        <icon iconName="folder-light" />
+      </base-button>
+    </div>
+  </div>
+</floating-panel>

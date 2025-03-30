@@ -7,6 +7,7 @@ import { BaseButton } from '../../atoms/base-button/base-button';
 import { Icon } from '../../atoms/icon/icon';
 import { ReadListenStateService } from '../../services/readListen-state.service';
 import { LoadingStateService } from '../../services/loading-state.service';
+import { FileUploaderService } from '../../services/file-uploader.service';
 
 @Component({
   selector: 'app-input-field',
@@ -26,7 +27,8 @@ export class InputFieldComponent {
     public modelService: ModelService,
     public llmService: LLMRequestService,
     public readListenStateService: ReadListenStateService,
-    public loadingState: LoadingStateService
+    public loadingState: LoadingStateService,
+    public fileUploaderService: FileUploaderService
   ) {
     effect(() => {
       if (this.readListenStateService.getListenState()) {
@@ -70,7 +72,7 @@ export class InputFieldComponent {
   }
 
   uploadFile() {
-    this.llmService.uploadFile();
+    this.fileUploaderService.switchOpenState();
   }
 
   listenUserInput() {
