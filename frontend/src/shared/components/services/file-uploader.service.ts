@@ -1,33 +1,19 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
+import { FileData } from '../../types/file';
+import { BackendResponse } from '../../types/response';
+import { ENV } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileUploaderService {
-  private isOpenState = signal(true);
+  private isOpenState = signal(false);
+  public fileDataList: FileData[] = [];
 
-  public files = signal<File[]>([]);
+  public currentChatID: string = '';
 
-  constructor() {
-    const files: File[] = [];
-    files.push(new File([], 'tester'));
-    // files.push(new File([], 'tester2'));
-    // files.push(new File([], 'tester3'));
-    // files.push(new File([], 'tester4'));
-    // files.push(new File([], 'tester4'));
-    // files.push(new File([], 'tester4'));
-    // files.push(new File([], 'tester4'));
-    // files.push(new File([], 'tester4'));
-    // files.push(new File([], 'tester4'));
-    // files.push(new File([], 'tester4'));
-    // files.push(new File([], 'tester4'));
-    // files.push(new File([], 'tester4'));
-    // files.push(new File([], 'tester4'));
-    // files.push(new File([], 'tester4'));
-    // files.push(new File([], 'tester4'));
-
-    this.files.set(files);
-  }
+  constructor(public http: HttpClient) {}
 
   switchOpenState() {
     this.isOpenState.set(!this.isOpenState());
@@ -43,42 +29,57 @@ export class FileUploaderService {
 
   saveFiles($event: Event) {
     const input = $event as DragEvent;
-    console.log(input);
 
     if (input == null || input.dataTransfer == null) return;
-
-    console.log(input.dataTransfer.files);
-
     if (input.dataTransfer.files == null || input.dataTransfer.files.length <= 0) return;
 
     const newFiles = Array.from(input.dataTransfer.files);
 
-    console.log(newFiles);
-
     newFiles.forEach((file) => {
-      console.log(file.name);
-      console.log(file.size);
       this.saveFile(file);
     });
   }
 
   saveFile(file: File) {
-    const index = this.files().findIndex((val) => val.name == file.name && val.size == file.size);
+    const url = ENV.fileRoute.href + '/upload/' + this.currentChatID;
 
-    if (index == -1) this.files.set([...this.files(), file]);
-  }
+    const formData = new FormData();
 
-  saveFileList(file: FileList) {
-    for (let i = 0; i < file.length; i++) this.saveFile(file.item(i) as File);
+    formData.append('file', file);
+
+    this.http.post<BackendResponse<string>>(url, formData).subscribe((res) => {
+      if (res.data == null) return;
+
+      const fileData = new FileData(res.data, file.name, file.type, file.size, file);
+
+      this.fileDataList.push(fileData);
+    });
   }
 
   deleteFile(index: number) {
-    const updatedFiles = [...this.files()];
-    updatedFiles.splice(index, 1);
-    this.files.set(updatedFiles);
+    const file = this.fileDataList.splice(index, 1);
+
+    const url = new URL(ENV.fileRoute.href + '/delete/' + this.currentChatID);
+    url.searchParams.append('fileID', file[0].id);
+
+    this.http.delete<BackendResponse<boolean>>(url.href).subscribe((res) => {
+      if (res.error != null) throw new Error(res.error);
+    });
   }
 
-  deleteAllFiles() {
-    this.files.set([]);
+  uploadFiles() {
+    this.isOpenState.set(false);
+  }
+
+  setFileData(id: string) {
+    if (this.currentChatID == id) return;
+
+    this.fileDataList = [];
+    this.currentChatID = id;
+
+    this.http.get<BackendResponse<FileData[]>>(ENV.fileRoute.href + '/' + id).subscribe((res) => {
+      if (res.data == null) return;
+      this.fileDataList = res.data;
+    });
   }
 }

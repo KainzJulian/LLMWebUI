@@ -4,6 +4,7 @@ import { FileUploaderService } from '../../services/file-uploader.service';
 import { CommonModule } from '@angular/common';
 import { BaseButton } from '../../atoms/base-button/base-button';
 import { Icon } from '../../atoms/icon/icon';
+import { ChatService } from '../../services/chat.service';
 
 @Component({
   selector: 'file-uploader',
@@ -15,10 +16,22 @@ import { Icon } from '../../atoms/icon/icon';
 export class FileUploader {
   public isDragging = signal(false);
 
-  constructor(public fileUploaderService: FileUploaderService) {}
+  constructor(
+    public fileUploaderService: FileUploaderService,
+    public chatService: ChatService
+  ) {}
+
+  uploadFiles() {
+    this.fileUploaderService.uploadFiles();
+  }
+
+  deleteFile(index: number) {
+    this.fileUploaderService.deleteFile(index);
+  }
 
   onDragOver($event: DragEvent) {
     $event.preventDefault();
+
     this.isDragging.set(true);
   }
 
@@ -59,15 +72,14 @@ export class FileUploader {
   }
 
   processEntry(entry: FileSystemEntry, path = '') {
-    console.log(entry.name);
-
     if (entry.isFile) {
       (entry as FileSystemFileEntry).file((file) => {
-        if (file.size == 0) return;
+        if (file.size == 0) return; // TODO: Toast for empty files
         this.fileUploaderService.saveFile(file);
       });
     } else if (entry.isDirectory) {
       const reader = (entry as FileSystemDirectoryEntry).createReader();
+
       reader.readEntries((entries: FileSystemEntry[]) => {
         for (const entry of entries) {
           this.processEntry(entry, path + entry.name + '/');

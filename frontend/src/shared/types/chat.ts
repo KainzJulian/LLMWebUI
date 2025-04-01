@@ -1,4 +1,5 @@
 import { Convo } from './convo';
+import { FileData } from './file';
 
 export class Chat {
   private nameSet = false;
@@ -10,7 +11,8 @@ export class Chat {
     public convo: Convo[] = [],
     public date: Date = new Date(),
     public isFavourite: boolean = false,
-    public isArchived: boolean = false
+    public isArchived: boolean = false,
+    public files: FileData[] = []
   ) {}
 
   public addNewConvo(convo: Convo) {

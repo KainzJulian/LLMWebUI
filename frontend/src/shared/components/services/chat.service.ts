@@ -90,7 +90,9 @@ export class ChatService {
   }
 
   createChat(name: string): Chat {
-    const chatBody = new Chat('', name, name, [], new Date());
+    const chatBody = new Chat('', name, name, [], new Date(), false, false, []);
+
+    console.log(chatBody);
 
     this.http.post<BackendResponse<string>>(ENV.chatURL + '/new', chatBody).subscribe((res) => {
       if (res.data == null) return;

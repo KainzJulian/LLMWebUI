@@ -72,6 +72,9 @@ export class InputFieldComponent {
   }
 
   uploadFile() {
+    if (this.chatService.currentChat == null) return;
+
+    this.fileUploaderService.setFileData(this.chatService.currentChat.id);
     this.fileUploaderService.switchOpenState();
   }
 

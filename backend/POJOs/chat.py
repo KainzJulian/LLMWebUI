@@ -3,6 +3,7 @@ from typing import Optional
 import ollama
 from pydantic import BaseModel, Field
 
+from POJOs.fileData import FileData
 from POJOs.convo import Convo
 
 
@@ -15,3 +16,5 @@ class Chat(BaseModel):
     date: Optional[str]
     isFavourite: Optional[bool]
     isArchived: Optional[bool]
+
+    files: Optional[list[FileData]]

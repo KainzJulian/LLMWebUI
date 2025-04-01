@@ -31,29 +31,37 @@
       id="file__input"
     />
 
-    <div *ngIf="!isDragging() && this.fileUploaderService.files().length != 0" class="file-list">
-      @for(file of fileUploaderService.files(); track $index) {
+    <div
+      *ngIf="!isDragging() && this.fileUploaderService.fileDataList.length != 0"
+      class="file-list"
+    >
+      @for(file of this.fileUploaderService.fileDataList; track $index) {
       <div class="list__item">
-        <p class="item__text">{{ file.name }}</p>
-        <base-button class="item__button" (onClick)="fileUploaderService.deleteFile($index)">
+        <p class="item__text">{{ file.filename }}</p>
+        <base-button class="item__button" (onClick)="deleteFile($index)">
           <icon iconName="delete-light" />
         </base-button>
       </div>
       }
     </div>
     <div
-      *ngIf="isDragging() || this.fileUploaderService.files().length == 0"
+      *ngIf="isDragging() || this.fileUploaderService.fileDataList.length == 0"
       class="text--centered"
       #dragOverText
     >
       <p>Drag and Drop File or Folder</p>
     </div>
 
-    <div *ngIf="!isDragging() && this.fileUploaderService.files().length != 0" class="button-group">
+    <div
+      *ngIf="!isDragging() && this.fileUploaderService.fileDataList.length != 0"
+      class="button-group"
+    >
       <base-button (onClick)="fileInput.click()" class="button-group__button">
         <icon iconName="file-light" />
       </base-button>
-      <base-button class="button-group__button"> <icon iconName="upload-light" /> </base-button>
+      <base-button (onClick)="uploadFiles()" class="button-group__button">
+        <icon iconName="upload-light" />
+      </base-button>
       <base-button (onClick)="folderInput.click()" class="button-group__button">
         <icon iconName="folder-light" />
       </base-button>

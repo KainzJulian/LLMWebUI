@@ -44,6 +44,8 @@ export class LLMRequestService implements OnDestroy {
 
     const url = ENV.generateURL;
     url.searchParams.set('modelName', currentChat.modelName);
+    url.searchParams.set('chatID', currentChat.id);
+
     fetch(url, {
       method: 'POST',
       headers: {

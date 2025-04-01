@@ -6,6 +6,7 @@ import database
 from POJOs.response import Response
 from POJOs.model import buildModel
 from POJOs.convo import Convo
+from routes.fileRoute import getDataFromFilesAsConvo
 
 
 aiModelRouter = APIRouter(prefix="/models")
@@ -70,7 +71,12 @@ def getModelList():
 
 
 @aiModelRouter.post("/generate")
-async def generate(convo: list[Convo], modelName: str) -> Response:
+async def generate(convo: list[Convo], modelName: str, chatID: str) -> Response:
+
+    result = getDataFromFilesAsConvo(chatID)
+
+    if result is not None:
+        convo = result + convo
     try:
         return StreamingResponse(
             generateChatResponse(convo, modelName), media_type="text/plain"

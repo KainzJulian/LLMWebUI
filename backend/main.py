@@ -1,8 +1,5 @@
-from dotenv import find_dotenv, load_dotenv
 from fastapi import *
 from fastapi.middleware.cors import CORSMiddleware
-from contextlib import asynccontextmanager
-import pymongo
 from routes import *
 import os
 
@@ -17,7 +14,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-routes = [aiModelRouter, chatRouter]
+routes = [aiModelRouter, chatRouter, fileRouter]
 
 for route in routes:
     app.include_router(route)
