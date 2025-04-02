@@ -32,10 +32,10 @@
     />
 
     <div
-      *ngIf="!isDragging() && this.fileUploaderService.fileDataList.length != 0"
+      *ngIf="!isDragging() && this.fileUploaderService.fileDataList().length != 0"
       class="file-list"
     >
-      @for(file of this.fileUploaderService.fileDataList; track $index) {
+      @for(file of this.fileUploaderService.fileDataList(); track $index) {
       <div class="list__item">
         <p class="item__text">{{ file.filename }}</p>
         <base-button class="item__button" (onClick)="deleteFile($index)">
@@ -45,7 +45,7 @@
       }
     </div>
     <div
-      *ngIf="isDragging() || this.fileUploaderService.fileDataList.length == 0"
+      *ngIf="isDragging() || this.fileUploaderService.fileDataList().length == 0"
       class="text--centered"
       #dragOverText
     >
@@ -53,7 +53,7 @@
     </div>
 
     <div
-      *ngIf="!isDragging() && this.fileUploaderService.fileDataList.length != 0"
+      *ngIf="!isDragging() && this.fileUploaderService.fileDataList().length != 0"
       class="button-group"
     >
       <base-button (onClick)="fileInput.click()" class="button-group__button">

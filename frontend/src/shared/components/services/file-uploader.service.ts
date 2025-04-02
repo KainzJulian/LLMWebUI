@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpEventType } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { FileData } from '../../types/file';
 import { BackendResponse } from '../../types/response';
@@ -9,7 +9,7 @@ import { ENV } from '../../../environments/environment';
 })
 export class FileUploaderService {
   private isOpenState = signal(false);
-  public fileDataList: FileData[] = [];
+  public fileDataList = signal<FileData[]>([]);
 
   public currentChatID: string = '';
 
@@ -44,23 +44,45 @@ export class FileUploaderService {
     const url = ENV.fileRoute.href + '/upload/' + this.currentChatID;
 
     const formData = new FormData();
-
     formData.append('file', file);
 
-    this.http.post<BackendResponse<string>>(url, formData).subscribe((res) => {
-      if (res.data == null) return;
+    this.http
+      .post<BackendResponse<string>>(url, formData, {
+        reportProgress: true,
+        observe: 'events'
+      })
+      .subscribe((event: HttpEvent<BackendResponse<string>>) => {
+        const fileData = new FileData('fakeID', file.name, file.type, file.size, file);
+        if (event.type === HttpEventType.UploadProgress) {
+          if (event.total) {
+            fileData.uploadProgress = Math.round((100 * event.loaded) / event.total);
+            console.log(fileData.uploadProgress);
+          }
+        } else if (event.type === HttpEventType.Response) {
+          console.log('upload Complete: ' + event.body);
+          fileData.uploadProgress = 100;
+          fileData.isUploading = false;
+          console.log(event.body);
 
-      const fileData = new FileData(res.data, file.name, file.type, file.size, file);
-
-      this.fileDataList.push(fileData);
-    });
+          if (event.body?.data != undefined) {
+            fileData.id = event.body.data;
+            this.fileDataList.set([...this.fileDataList(), fileData]);
+          }
+        }
+      });
   }
 
   deleteFile(index: number) {
-    const file = this.fileDataList.splice(index, 1);
+    const file = this.fileDataList().at(index);
+    if (file == null) return;
+
+    this.fileDataList.set([
+      ...this.fileDataList().slice(0, index),
+      ...this.fileDataList().slice(index + 1)
+    ]);
 
     const url = new URL(ENV.fileRoute.href + '/delete/' + this.currentChatID);
-    url.searchParams.append('fileID', file[0].id);
+    url.searchParams.append('fileID', file.id);
 
     this.http.delete<BackendResponse<boolean>>(url.href).subscribe((res) => {
       if (res.error != null) throw new Error(res.error);
@@ -74,12 +96,12 @@ export class FileUploaderService {
   setFileData(id: string) {
     if (this.currentChatID == id) return;
 
-    this.fileDataList = [];
+    this.fileDataList.set([]);
     this.currentChatID = id;
 
     this.http.get<BackendResponse<FileData[]>>(ENV.fileRoute.href + '/' + id).subscribe((res) => {
       if (res.data == null) return;
-      this.fileDataList = res.data;
+      this.fileDataList.set(res.data);
     });
   }
 }
