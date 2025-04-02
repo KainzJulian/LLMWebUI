@@ -5,11 +5,12 @@ import { CommonModule } from '@angular/common';
 import { BaseButton } from '../../atoms/base-button/base-button';
 import { Icon } from '../../atoms/icon/icon';
 import { ChatService } from '../../services/chat.service';
+import { FileListItem } from '../file-list-item/file-list-item';
 
 @Component({
   selector: 'file-uploader',
   standalone: true,
-  imports: [FloatingPanel, CommonModule, BaseButton, Icon],
+  imports: [FloatingPanel, CommonModule, BaseButton, Icon, FileListItem],
   templateUrl: './file-uploader.html',
   styleUrl: './file-uploader.scss'
 })

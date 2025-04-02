@@ -36,12 +36,7 @@
       class="file-list"
     >
       @for(file of this.fileUploaderService.fileDataList(); track $index) {
-      <div class="list__item">
-        <p class="item__text">{{ file.filename }}</p>
-        <base-button class="item__button" (onClick)="deleteFile($index)">
-          <icon iconName="delete-light" />
-        </base-button>
-      </div>
+      <file-list-item [fileData]="file" (onClick)="deleteFile($index)"></file-list-item>
       }
     </div>
     <div

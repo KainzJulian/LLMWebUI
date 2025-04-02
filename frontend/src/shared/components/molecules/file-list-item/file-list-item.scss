@@ -1,0 +1,25 @@
+.list__item {
+  display: flex;
+  flex-direction: row;
+
+  height: 50px;
+  justify-content: start;
+}
+
+.item__text,
+.item__button {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.item__text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  width: 100%;
+}
+
+.item__button {
+  margin-left: auto;
+  margin-right: 8px;
+}
