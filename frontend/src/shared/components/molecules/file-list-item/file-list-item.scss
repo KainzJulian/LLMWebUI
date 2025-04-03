@@ -1,3 +1,5 @@
+@import '@styles';
+
 .list__item {
   display: flex;
   flex-direction: row;
@@ -22,4 +24,31 @@
 .item__button {
   margin-left: auto;
   margin-right: 8px;
+}
+
+.progress-bar {
+  width: 37px;
+  height: 37px;
+  transform: rotate(-90deg);
+  margin-top: 6.5px;
+
+  &__background {
+    stroke: $color-primary;
+    r: 15px;
+    cx: 25px;
+    cy: 25px;
+    fill: transparent;
+    stroke-width: 8px;
+  }
+
+  &__progress {
+    stroke: $color-secondary;
+    stroke-width: 8px;
+    stroke-linecap: round;
+    fill: transparent;
+    stroke-dasharray: 94.2px;
+    r: 15px;
+    cx: 25px;
+    cy: 25px;
+  }
 }

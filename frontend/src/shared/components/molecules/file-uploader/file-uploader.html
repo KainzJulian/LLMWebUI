@@ -36,7 +36,7 @@
       class="file-list"
     >
       @for(file of this.fileUploaderService.fileDataList(); track $index) {
-      <file-list-item [fileData]="file" (onClick)="deleteFile($index)"></file-list-item>
+      <file-list-item [fileIndex]="$index" (onClick)="deleteFile($index)"></file-list-item>
       }
     </div>
     <div

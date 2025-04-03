@@ -1,4 +1,4 @@
-import { HttpClient, HttpEvent, HttpEventType } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { FileData } from '../../types/file';
 import { BackendResponse } from '../../types/response';
@@ -41,35 +41,79 @@ export class FileUploaderService {
   }
 
   saveFile(file: File) {
-    const url = ENV.fileRoute.href + '/upload/' + this.currentChatID;
+    const url = new URL(ENV.fileRoute.href + '/upload/' + this.currentChatID);
+    const fileData = new FileData(
+      crypto.randomUUID(),
+      file.name,
+      file.type,
+      file.size,
+      file,
+      true,
+      0
+    );
+    this.fileDataList.update(() => [...this.fileDataList(), fileData]);
+
+    url.searchParams.append('fileID', fileData.id);
 
     const formData = new FormData();
     formData.append('file', file);
 
-    this.http
-      .post<BackendResponse<string>>(url, formData, {
-        reportProgress: true,
-        observe: 'events'
-      })
-      .subscribe((event: HttpEvent<BackendResponse<string>>) => {
-        const fileData = new FileData('fakeID', file.name, file.type, file.size, file);
-        if (event.type === HttpEventType.UploadProgress) {
-          if (event.total) {
-            fileData.uploadProgress = Math.round((100 * event.loaded) / event.total);
-            console.log(fileData.uploadProgress);
-          }
-        } else if (event.type === HttpEventType.Response) {
-          console.log('upload Complete: ' + event.body);
-          fileData.uploadProgress = 100;
-          fileData.isUploading = false;
-          console.log(event.body);
+    const ajax = new XMLHttpRequest();
 
-          if (event.body?.data != undefined) {
-            fileData.id = event.body.data;
-            this.fileDataList.set([...this.fileDataList(), fileData]);
-          }
-        }
+    ajax.upload.addEventListener('progress', (event) => {
+      console.log('Event Loaded', event.loaded, 'Event total', event.total);
+
+      const progress = Math.round((100 * event.loaded) / event.total);
+
+      this.fileDataList.update((data) => {
+        return data.map((item) =>
+          item.id === fileData.id ? { ...item, uploadProgress: progress, isUploading: true } : item
+        );
       });
+    });
+
+    ajax.upload.addEventListener('load', (event) => {
+      console.log('upload completed', event.total);
+
+      this.fileDataList.update((data) => {
+        return data.map((item) =>
+          item.id === fileData.id ? { ...item, uploadProgress: 100, isUploading: false } : item
+        );
+      });
+    });
+
+    ajax.open('POST', url);
+    ajax.send(formData);
+
+    // this.http
+    //   .post(url.href, formData, {
+    //     reportProgress: true,
+    //     observe: 'events'
+    //   })
+    //   .subscribe((event) => {
+    //     console.log('Event type: ', event.type);
+
+    //     switch (event.type) {
+    //       case HttpEventType.UploadProgress:
+    //         console.log('Event loaded', event.loaded);
+
+    //         if (event.total == undefined) break;
+
+    //         fileData.uploadProgress = Math.round((100 * event.loaded) / event.total);
+    //         console.log(fileData.uploadProgress);
+    //         break;
+
+    //       case HttpEventType.Response:
+    //         fileData.uploadProgress = 100;
+    //         fileData.isUploading = false;
+    //         this.fileDataList.set([...this.fileDataList(), fileData]);
+
+    //         break;
+
+    //       default:
+    //         break;
+    //     }
+    //   });
   }
 
   deleteFile(index: number) {

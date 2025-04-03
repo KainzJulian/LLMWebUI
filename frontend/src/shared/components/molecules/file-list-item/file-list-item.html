@@ -1,6 +1,18 @@
 <div class="list__item">
-  <p class="item__text">{{ fileData.filename }}</p>
-  <base-button class="item__button" (onClick)="clickButton()">
+  <p class="item__text">{{ this.fileItem().filename }}</p>
+  <base-button *ngIf="!this.fileItem().isUploading" class="item__button" (onClick)="clickButton()">
     <icon iconName="delete-light" />
   </base-button>
+
+  <div
+    style="margin-right: 8px"
+    [hidden]="!this.fileItem().isUploading"
+    class="item__button"
+    #uploadPanel
+  >
+    <svg class="progress-bar" viewBox="0 0 50 50">
+      <circle class="progress-bar__background"></circle>
+      <circle #progressBar class="progress-bar__progress"></circle>
+    </svg>
+  </div>
 </div>

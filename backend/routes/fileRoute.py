@@ -50,13 +50,12 @@ def getFilesFromChat(chatID: str) -> Response:
     return Response(success=True, data=nameList)
 
 
+@fileRouter.post("test")
 @fileRouter.post("/upload/{chatID}")
-def uploadFile(chatID: str, file: UploadFile) -> Response:
-
-    id = str(uuid.uuid4())
+async def uploadFile(chatID: str, file: UploadFile, fileID: str) -> Response:
 
     fileData = FileData(
-        id=id,
+        id=fileID,
         filename=file.filename,
         contentType=file.content_type,
         size=file.size,
@@ -68,17 +67,18 @@ def uploadFile(chatID: str, file: UploadFile) -> Response:
             {"$push": {"files": fileData.model_dump()}},
         )
 
-        text = file.file.read()
-
-        if file.content_type == "application/pdf":
-            text = extractTextFromPDF(file.file)
+        # if file.content_type == "application/pdf":
+        #     text = extractTextFromPDF(file.file)
 
         with fs.open_upload_stream(
-            id,
+            fileID,
             chunk_size_bytes=1048576,
             metadata={"contentType": file.content_type},
         ) as grid_in:
-            grid_in.write(text)
+            while chunk := await file.read(1024 * 1024):
+
+                print(f"Received chunk of size {len(chunk)} bytes")
+                grid_in.write(chunk)
 
         return Response(success=True, data=fileData.id)
 
@@ -126,8 +126,6 @@ def getDataFromFilesAsConvo(id: str) -> list | None:
         for i in range(0, len(decodedText), chunk_size):
             chunk = decodedText[i : i + chunk_size]
             result.append(Convo(role="user", content=chunk))
-
-    print(result)
 
     return result
 

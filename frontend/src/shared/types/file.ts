@@ -5,7 +5,7 @@ export class FileData {
     public contentType: string = '',
     public size: number = 0,
     public file: File | null = null,
-    public uploadProgress: number = 0,
-    public isUploading: boolean = false
+    public isUploading: boolean = false,
+    public uploadProgress: number = 0
   ) {}
 }

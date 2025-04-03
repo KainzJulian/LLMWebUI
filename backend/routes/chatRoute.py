@@ -16,7 +16,6 @@ chatRouter = APIRouter(prefix="/chats")
 def getAllChats() -> Response:
 
     chats = list(chatCollection.find({}))
-    print(chats)
 
     for chat in chats:
         chat["_id"] = str(chat["_id"])
@@ -140,8 +139,6 @@ def getArchive() -> Response:
 
         archive = list(chatCollection.find({"isArchived": True}))
 
-        print(archive)
-
         for chat in archive:
             chat["_id"] = str(chat["_id"])
 
@@ -177,7 +174,7 @@ def findChatsByText(text: str) -> Response:
 
                 for i in positions:
 
-                    if outputText[i - 50 : i + 50] is "":
+                    if outputText[i - 50 : i + 50] == "":
                         continue
 
                     prepText = "..." + outputText[i - 50 : i + 50] + "..."
