@@ -22,10 +22,6 @@ export class FileUploader {
     public chatService: ChatService
   ) {}
 
-  uploadFiles() {
-    this.fileUploaderService.uploadFiles();
-  }
-
   deleteFile(index: number) {
     this.fileUploaderService.deleteFile(index);
   }

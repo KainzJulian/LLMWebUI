@@ -13,6 +13,8 @@ export class FileUploaderService {
 
   public currentChatID: string = '';
 
+  public ajax = new XMLHttpRequest();
+
   constructor(public http: HttpClient) {}
 
   switchOpenState() {
@@ -25,6 +27,13 @@ export class FileUploaderService {
 
   getOpenState() {
     return this.isOpenState();
+  }
+
+  public abort() {
+    this.ajax.abort();
+    this.fileDataList.update((listData) => {
+      return listData.filter((data) => !data.isUploading);
+    });
   }
 
   saveFiles($event: Event) {
@@ -58,9 +67,7 @@ export class FileUploaderService {
     const formData = new FormData();
     formData.append('file', file);
 
-    const ajax = new XMLHttpRequest();
-
-    ajax.upload.addEventListener('progress', (event) => {
+    this.ajax.upload.addEventListener('progress', (event) => {
       console.log('Event Loaded', event.loaded, 'Event total', event.total);
 
       const progress = Math.round((100 * event.loaded) / event.total);
@@ -72,7 +79,7 @@ export class FileUploaderService {
       });
     });
 
-    ajax.upload.addEventListener('load', (event) => {
+    this.ajax.upload.addEventListener('load', (event) => {
       console.log('upload completed', event.total);
 
       this.fileDataList.update((data) => {
@@ -82,38 +89,16 @@ export class FileUploaderService {
       });
     });
 
-    ajax.open('POST', url);
-    ajax.send(formData);
+    this.ajax.upload.addEventListener('abort', () => {
+      console.error('Aported');
+    });
 
-    // this.http
-    //   .post(url.href, formData, {
-    //     reportProgress: true,
-    //     observe: 'events'
-    //   })
-    //   .subscribe((event) => {
-    //     console.log('Event type: ', event.type);
+    this.ajax.upload.addEventListener('error', () => {
+      console.error('Error');
+    });
 
-    //     switch (event.type) {
-    //       case HttpEventType.UploadProgress:
-    //         console.log('Event loaded', event.loaded);
-
-    //         if (event.total == undefined) break;
-
-    //         fileData.uploadProgress = Math.round((100 * event.loaded) / event.total);
-    //         console.log(fileData.uploadProgress);
-    //         break;
-
-    //       case HttpEventType.Response:
-    //         fileData.uploadProgress = 100;
-    //         fileData.isUploading = false;
-    //         this.fileDataList.set([...this.fileDataList(), fileData]);
-
-    //         break;
-
-    //       default:
-    //         break;
-    //     }
-    //   });
+    this.ajax.open('POST', url);
+    this.ajax.send(formData);
   }
 
   deleteFile(index: number) {
@@ -131,10 +116,6 @@ export class FileUploaderService {
     this.http.delete<BackendResponse<boolean>>(url.href).subscribe((res) => {
       if (res.error != null) throw new Error(res.error);
     });
-  }
-
-  uploadFiles() {
-    this.isOpenState.set(false);
   }
 
   setFileData(id: string) {

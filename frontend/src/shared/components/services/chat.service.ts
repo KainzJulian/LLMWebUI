@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Convo } from '../../types/convo';
 import { BackendResponse } from '../../types/response';
 import { FloatingInputStateService } from './floating-input-state.service';
+import { FileUploaderService } from './file-uploader.service';
 
 @Injectable({
   providedIn: 'any'
@@ -17,7 +18,8 @@ export class ChatService {
 
   constructor(
     private http: HttpClient,
-    private floatingInputService: FloatingInputStateService
+    private floatingInputService: FloatingInputStateService,
+    private fileUploaderService: FileUploaderService
   ) {
     this.setChats();
   }
@@ -109,6 +111,9 @@ export class ChatService {
   }
 
   public setCurrentChat(chat: Chat | null): void {
+    if (this.currentChat?.id == chat?.id) return;
+
+    this.fileUploaderService.abort();
     this.currentChat = chat;
   }
 
@@ -119,7 +124,7 @@ export class ChatService {
   }
 
   deleteAll() {
-    this.currentChat = null;
+    this.setCurrentChat(null);
 
     this.chatList = this.chatList.filter((val) => val.isArchived);
     this.favouriteChats = [];

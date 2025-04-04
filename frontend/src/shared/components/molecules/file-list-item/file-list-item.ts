@@ -33,7 +33,7 @@ export class FileListItem {
     effect(() => {
       if (this.fileItem() == undefined || !this.fileItem().isUploading) return;
 
-      const progress = (this.fileItem().uploadProgress / 100) * 94.2;
+      const progress = 94.2 - (this.fileItem().uploadProgress / 100) * 94.2;
       this.progressBar.nativeElement.style.strokeDashoffset = progress + 'px';
     });
   }

@@ -46,6 +46,7 @@ export class SidebarComponent {
   }
 
   createImage() {
+    this.chatService.setCurrentChat(null);
     this.llmService.generateImage();
   }
 
