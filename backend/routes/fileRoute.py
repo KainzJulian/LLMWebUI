@@ -50,15 +50,6 @@ def getFilesFromChat(chatID: str) -> Response:
     return Response(success=True, data=nameList)
 
 
-@fileRouter.post("test/{id}")
-def getText(id: str) -> Response:
-
-    gridOut = fs.open_download_stream_by_name(id)
-    print(gridOut.read().decode())
-
-    return Response(success=True, data="test")
-
-
 @fileRouter.post("/upload/{chatID}")
 async def uploadFile(chatID: str, file: UploadFile, fileID: str) -> Response:
 
@@ -75,24 +66,24 @@ async def uploadFile(chatID: str, file: UploadFile, fileID: str) -> Response:
             {"$push": {"files": fileData.model_dump()}},
         )
 
-        # if file.content_type == "application/pdf":
-        #     text = extractTextFromPDF(file.file)
-
         with fs.open_upload_stream(
             fileID,
             chunk_size_bytes=1048576,
             metadata={"contentType": file.content_type},
         ) as grid_in:
 
-            # if file.content_type == "application/pdf":
-            #     while chunk := await text.read(1024 * 1024):
-            #         grid_in.write(chunk)
-            #         print(f"Received chunk of size {len(chunk)} bytes")
-            # else:
-            while chunk := await file.read(1024 * 1024):
+            match file.content_type:
+                case "application/pdf":
+                    text = extractTextFromPDF(file.file)
 
-                print(f"Received chunk of size {len(chunk)} bytes")
-                grid_in.write(chunk)
+                    for i in range(0, len(text), grid_in.chunk_size):
+                        chunk = text[i : i + grid_in.chunk_size]
+                        grid_in.write(chunk)
+                case _:
+                    while chunk := await file.read(1024 * 1024):
+
+                        print(f"Received chunk of size {len(chunk)} bytes")
+                        grid_in.write(chunk)
 
         return Response(success=True, data=fileData.id)
 
@@ -135,10 +126,10 @@ def getDataFromFilesAsConvo(id: str) -> list | None:
     for i in data:
 
         gridOut = fs.open_download_stream_by_name(i.id)
-        decodedText = gridOut.read().decode("utf-8")
+        text = gridOut.read()
 
-        for i in range(0, len(decodedText), chunk_size):
-            chunk = decodedText[i : i + chunk_size]
+        for i in range(0, len(text), chunk_size):
+            chunk = text[i : i + chunk_size]
             result.append(Convo(role="user", content=chunk))
 
     return result
