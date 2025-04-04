@@ -50,7 +50,15 @@ def getFilesFromChat(chatID: str) -> Response:
     return Response(success=True, data=nameList)
 
 
-@fileRouter.post("test")
+@fileRouter.post("test/{id}")
+def getText(id: str) -> Response:
+
+    gridOut = fs.open_download_stream_by_name(id)
+    print(gridOut.read().decode())
+
+    return Response(success=True, data="test")
+
+
 @fileRouter.post("/upload/{chatID}")
 async def uploadFile(chatID: str, file: UploadFile, fileID: str) -> Response:
 
@@ -75,6 +83,12 @@ async def uploadFile(chatID: str, file: UploadFile, fileID: str) -> Response:
             chunk_size_bytes=1048576,
             metadata={"contentType": file.content_type},
         ) as grid_in:
+
+            # if file.content_type == "application/pdf":
+            #     while chunk := await text.read(1024 * 1024):
+            #         grid_in.write(chunk)
+            #         print(f"Received chunk of size {len(chunk)} bytes")
+            # else:
             while chunk := await file.read(1024 * 1024):
 
                 print(f"Received chunk of size {len(chunk)} bytes")

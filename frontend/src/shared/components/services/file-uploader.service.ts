@@ -13,7 +13,7 @@ export class FileUploaderService {
 
   public currentChatID: string = '';
 
-  public ajax = new XMLHttpRequest();
+  public ajax: XMLHttpRequest[] = [];
 
   constructor(public http: HttpClient) {}
 
@@ -30,7 +30,7 @@ export class FileUploaderService {
   }
 
   public abort() {
-    this.ajax.abort();
+    this.ajax.forEach((ajax) => ajax.abort());
     this.fileDataList.update((listData) => {
       return listData.filter((data) => !data.isUploading);
     });
@@ -50,6 +50,8 @@ export class FileUploaderService {
   }
 
   saveFile(file: File) {
+    const ajax = new XMLHttpRequest();
+
     const url = new URL(ENV.fileRoute.href + '/upload/' + this.currentChatID);
     const fileData = new FileData(
       crypto.randomUUID(),
@@ -60,6 +62,7 @@ export class FileUploaderService {
       true,
       0
     );
+
     this.fileDataList.update(() => [...this.fileDataList(), fileData]);
 
     url.searchParams.append('fileID', fileData.id);
@@ -67,7 +70,7 @@ export class FileUploaderService {
     const formData = new FormData();
     formData.append('file', file);
 
-    this.ajax.upload.addEventListener('progress', (event) => {
+    ajax.upload.addEventListener('progress', (event) => {
       console.log('Event Loaded', event.loaded, 'Event total', event.total);
 
       const progress = Math.round((100 * event.loaded) / event.total);
@@ -79,7 +82,7 @@ export class FileUploaderService {
       });
     });
 
-    this.ajax.upload.addEventListener('load', (event) => {
+    ajax.upload.addEventListener('load', (event) => {
       console.log('upload completed', event.total);
 
       this.fileDataList.update((data) => {
@@ -89,16 +92,18 @@ export class FileUploaderService {
       });
     });
 
-    this.ajax.upload.addEventListener('abort', () => {
+    ajax.upload.addEventListener('abort', () => {
       console.error('Aported');
     });
 
-    this.ajax.upload.addEventListener('error', () => {
+    ajax.upload.addEventListener('error', () => {
       console.error('Error');
     });
 
-    this.ajax.open('POST', url);
-    this.ajax.send(formData);
+    ajax.open('POST', url);
+    ajax.send(formData);
+
+    this.ajax.push(ajax);
   }
 
   deleteFile(index: number) {
