@@ -1,5 +1,4 @@
 from pydantic import BaseModel
-from POJOs.convo import Convo
 
 
 class SearchResult(BaseModel):

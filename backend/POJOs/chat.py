@@ -1,8 +1,5 @@
-from sqlite3 import Date
 from typing import Optional
-import ollama
-from pydantic import BaseModel, Field
-
+from pydantic import BaseModel
 from POJOs.fileData import FileData
 from POJOs.convo import Convo
 
