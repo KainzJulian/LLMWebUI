@@ -1,12 +1,7 @@
-import json
 import re
-from bson import ObjectId
-from fastapi import APIRouter, HTTPException
-import ollama
-from POJOs.chat import Chat
-from POJOs.convo import Convo
-from POJOs.response import Response
-from POJOs.searchResult import SearchResult
+from fastapi import APIRouter
+from POJOs import *
+from utils import getIDFromString
 from database import chatCollection
 
 chatRouter = APIRouter(prefix="/chats")
@@ -23,7 +18,7 @@ def getAllChats() -> Response:
     return Response(success=True, data=chats)
 
 
-@chatRouter.delete("/")
+@chatRouter.delete("/remove")
 def deleteAllChats():
     try:
         chatCollection.delete_many({"isArchived": False})
@@ -33,7 +28,7 @@ def deleteAllChats():
     return Response(success=True, data=True)
 
 
-@chatRouter.delete("/remove/{id}")
+@chatRouter.delete("/{id}/remove")
 def deleteChat(id: str) -> Response:
     try:
         chatCollection.delete_one({"_id": getIDFromString(id)})
@@ -47,6 +42,8 @@ def deleteChat(id: str) -> Response:
 def getChatByID(id: str) -> Response:
     try:
         document = chatCollection.find_one({"_id": getIDFromString(id)})
+
+        document["_id"] = str(document["_id"])
 
         if document is None:
             return Response(
@@ -73,7 +70,7 @@ def createChat(chat: Chat) -> Response:
         return Response(success=False, error=str(e))
 
 
-@chatRouter.post("/add/{id}")
+@chatRouter.post("/{id}/add")
 def addConvo(convo: Convo, id: str) -> Response:
 
     try:
@@ -87,7 +84,7 @@ def addConvo(convo: Convo, id: str) -> Response:
     return Response(success=True, data=True)
 
 
-@chatRouter.post("/switchFavourite/{id}")
+@chatRouter.post("/{id}/switch-favourite")
 def changeFavourite(id: str) -> Response:
 
     body = chatCollection.find_one({"id": id})
@@ -103,15 +100,8 @@ def changeFavourite(id: str) -> Response:
         return Response(success=False, error=str(e))
 
 
-def getIDFromString(id: str) -> ObjectId:
-    try:
-        return ObjectId(id)
-    except Exception as e:
-        raise HTTPException(status_code=400, detail="Invalid ID: " + id)
-
-
-@chatRouter.post("/rename/{id}")
-def changeName(name: str, id: str) -> Response:
+@chatRouter.post("/{id}/rename")
+def changeName(id: str, name: str) -> Response:
     try:
         chatCollection.update_one(
             {"_id": getIDFromString(id)}, {"$set": {"name": name}}
@@ -121,19 +111,19 @@ def changeName(name: str, id: str) -> Response:
         return Response(success=False, error=str(e))
 
 
-@chatRouter.post("/archive/{id}")
+@chatRouter.post("/{id}/archive")
 def archive(id: str) -> Response:
     try:
         chatCollection.update_one(
             {"_id": getIDFromString(id)}, {"$set": {"isArchived": True}}
         )
 
-        return Response(success=True)
+        return Response(success=True, data=True)
     except Exception as e:
         return Response(success=False, error=str(e))
 
 
-@chatRouter.get("/archive/all")
+@chatRouter.get("/archived")
 def getArchive() -> Response:
     try:
 
@@ -147,14 +137,14 @@ def getArchive() -> Response:
         return Response(success=False, error=str(e))
 
 
-@chatRouter.post("/dearchive/{id}")
+@chatRouter.post("/{id}/dearchive")  # /dearchive/{id}
 def dearchive(id: str) -> Response:
     try:
         chatCollection.update_one(
             {"_id": getIDFromString(id)}, {"$set": {"isArchived": False}}
         )
 
-        return Response(success=True)
+        return Response(success=True, data=True)
     except Exception as e:
         return Response(success=False, error=str(e))
 

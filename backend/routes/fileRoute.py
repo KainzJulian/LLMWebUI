@@ -1,33 +1,30 @@
 from typing import BinaryIO
-import uuid
-from bson import ObjectId
-from fastapi import APIRouter, File, HTTPException, UploadFile
-from POJOs.fileData import FileData
-from POJOs.response import Response
-from POJOs.convo import Convo
+from fastapi import APIRouter, UploadFile
+from POJOs import *
+from utils import getIDFromString
 from database import chatCollection, fs
 
-fileRouter = APIRouter(prefix="/file")
+fileRouter = APIRouter(prefix="/chats")
 
 
-@fileRouter.get("/{chatID}/names")
-def getFilesNamesFromChat(chatID: str) -> Response:
+@fileRouter.get("/{id}/names")
+def getFileNamesFromChat(id: str) -> Response:
 
     fileNames = chatCollection.find_one(
-        {"_id": getIDFromString(chatID)}, {"_id": 0, "files": {"filename": 1}}
+        {"_id": getIDFromString(id)}, {"_id": 0, "files": {"filename": 1}}
     )
 
     return Response(success=True, data=fileNames["files"])
 
 
-@fileRouter.get("/{chatID}")
-def getFilesFromChat(chatID: str) -> Response:
+@fileRouter.get("/{id}/files")
+def getFilesFromChat(id: str) -> Response:
 
     nameList = []
 
     try:
         files = chatCollection.find_one(
-            {"_id": getIDFromString(chatID)},
+            {"_id": getIDFromString(id)},
             {"_id": 0, "files": {"filename": 1, "contentType": 1, "id": 1, "size": 1}},
         )
 
@@ -50,8 +47,8 @@ def getFilesFromChat(chatID: str) -> Response:
     return Response(success=True, data=nameList)
 
 
-@fileRouter.post("/upload/{chatID}")
-async def uploadFile(chatID: str, file: UploadFile, fileID: str) -> Response:
+@fileRouter.post("/{id}/upload")
+async def uploadFile(id: str, file: UploadFile, fileID: str) -> Response:
 
     fileData = FileData(
         id=fileID,
@@ -62,7 +59,7 @@ async def uploadFile(chatID: str, file: UploadFile, fileID: str) -> Response:
 
     try:
         chatCollection.update_one(
-            {"_id": getIDFromString(chatID)},
+            {"_id": getIDFromString(id)},
             {"$push": {"files": fileData.model_dump()}},
         )
 
@@ -89,13 +86,6 @@ async def uploadFile(chatID: str, file: UploadFile, fileID: str) -> Response:
 
     except Exception as e:
         return Response(success=False, error=str(e))
-
-
-def getIDFromString(id: str) -> ObjectId:
-    try:
-        return ObjectId(id)
-    except Exception as e:
-        raise HTTPException(status_code=400, detail="Invalid ID: " + id)
 
 
 def extractTextFromPDF(pdf_data: BinaryIO) -> bytes:
@@ -135,12 +125,12 @@ def getDataFromFilesAsConvo(id: str) -> list | None:
     return result
 
 
-@fileRouter.delete("/delete/{chatID}")
-def deleteFile(chatID: str, fileID: str) -> Response:
+@fileRouter.delete("/{id}/delete")
+def deleteFile(id: str, fileID: str) -> Response:
 
     try:
         chatCollection.update_one(
-            {"_id": getIDFromString(chatID)},
+            {"_id": getIDFromString(id)},
             {"$pull": {"files": {"id": fileID}}},
         )
 

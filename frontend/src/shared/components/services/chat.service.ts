@@ -61,7 +61,9 @@ export class ChatService {
       this.favouriteChats.splice(index, 1);
     }
 
-    this.http.post<boolean>(ENV.chatURL + '/switchFavourite/' + id, body).subscribe((res) => {
+    const url = new URL(ENV.chatURL + '/' + id + '/switch-favourite/');
+
+    this.http.post<boolean>(url.href, body).subscribe((res) => {
       if (!res) this.currentChat = null;
     });
   }
@@ -69,9 +71,9 @@ export class ChatService {
   delete(id: string): Chat {
     const index = this.getChatList().findIndex((val) => val.id == id);
 
-    const url = ENV.chatURL.href + '/remove/' + id;
+    const url = new URL(ENV.chatURL.href + '/' + id + '/remove/');
 
-    this.http.delete<boolean>(url).subscribe((res) => {
+    this.http.delete<boolean>(url.href).subscribe((res) => {
       console.log(res);
     });
 
@@ -96,7 +98,9 @@ export class ChatService {
 
     console.log(chatBody);
 
-    this.http.post<BackendResponse<string>>(ENV.chatURL + '/new', chatBody).subscribe((res) => {
+    const url = new URL(ENV.chatURL + '/new');
+
+    this.http.post<BackendResponse<string>>(url.href, chatBody).subscribe((res) => {
       if (res.data == null) return;
 
       const chat = new Chat(res.data, name, name, [], new Date());
@@ -129,7 +133,9 @@ export class ChatService {
     this.chatList = this.chatList.filter((val) => val.isArchived);
     this.favouriteChats = [];
 
-    this.http.delete<BackendResponse<boolean>>(ENV.chatURL.href).subscribe((res) => {
+    const url = new URL(ENV.chatURL.href + '/remove');
+
+    this.http.delete<BackendResponse<boolean>>(url.href).subscribe((res) => {
       console.log(res);
     });
   }
@@ -139,7 +145,9 @@ export class ChatService {
   }
 
   setChats(): void {
-    this.http.get<BackendResponse<Chat[]>>(ENV.chatURL.href).subscribe((res) => {
+    const url = new URL(ENV.chatURL.href);
+
+    this.http.get<BackendResponse<Chat[]>>(url.href).subscribe((res) => {
       if (res.data == null) return;
       console.log(res.data);
 
@@ -165,7 +173,9 @@ export class ChatService {
 
   public addConvo(convo: Convo, id: string) {
     const body = convo;
-    this.http.post<BackendResponse<boolean>>(ENV.chatURL + '/add/' + id, body).subscribe((res) => {
+    const url = new URL(ENV.chatURL + '/' + id + '/add/');
+
+    this.http.post<BackendResponse<boolean>>(url.href, body).subscribe((res) => {
       console.log(res);
     });
   }
@@ -173,27 +183,27 @@ export class ChatService {
   archive(id: string) {
     this.setCurrentChat(null);
 
-    this.http
-      .post<BackendResponse<Chat[]>>(ENV.chatURL.href + '/archive/' + id, null)
-      .subscribe((res) => {
-        this.getChatList()
-          .find((val) => val.id == id)
-          ?.archive();
+    const url = new URL(ENV.chatURL.href + '/' + id + '/archive/');
 
-        const index = this.favouriteChats.findIndex((val) => val.id == id);
-        if (index != -1) this.favouriteChats.splice(index, 1);
+    this.http.post<BackendResponse<Chat[]>>(url.href, null).subscribe((res) => {
+      this.getChatList()
+        .find((val) => val.id == id)
+        ?.archive();
 
-        console.log(res);
-      });
+      const index = this.favouriteChats.findIndex((val) => val.id == id);
+      if (index != -1) this.favouriteChats.splice(index, 1);
+
+      console.log(res);
+    });
   }
 
   rename(input: string) {
     const chat = this.floatingInputService.chat();
 
-    const path = new URL(ENV.chatURL.href + '/rename/' + chat.id);
-    path.searchParams.set('name', input);
+    const url = new URL(ENV.chatURL.href + '/' + chat.id + '/rename/');
+    url.searchParams.set('name', input);
 
-    this.http.post<BackendResponse<boolean>>(path.href, input).subscribe((res) => console.log(res));
+    this.http.post<BackendResponse<boolean>>(url.href, input).subscribe((res) => console.log(res));
   }
 
   download(chat: Chat, fileName: string) {
@@ -203,35 +213,36 @@ export class ChatService {
     link.href = window.URL.createObjectURL(blob);
     link.download = fileName + '.json';
     link.click();
+
     window.URL.revokeObjectURL(link.href);
   }
 
   dearchive(id: string) {
     this.setCurrentChat(null);
 
-    this.http
-      .post<BackendResponse<Chat[]>>(ENV.chatURL.href + '/dearchive/' + id, null)
-      .subscribe((res) => {
-        console.log(res);
+    const url = new URL(ENV.chatURL.href + '/' + id + '/dearchive/');
 
-        const chat = this.getArchivedChats().find((val) => val.id == id);
+    this.http.post<BackendResponse<Chat[]>>(url.href, null).subscribe((res) => {
+      console.log(res);
 
-        this.getArchivedChats()
-          .find((val) => val.id == id)
-          ?.dearchive();
+      const chat = this.getArchivedChats().find((val) => val.id == id);
 
-        if (chat?.isFavourite)
-          this.favouriteChats.push(
-            new Chat(
-              chat.id,
-              chat.modelName,
-              chat.name,
-              chat.convo,
-              chat.date,
-              chat.isFavourite,
-              chat.isArchived
-            )
-          );
-      });
+      this.getArchivedChats()
+        .find((val) => val.id == id)
+        ?.dearchive();
+
+      if (chat?.isFavourite)
+        this.favouriteChats.push(
+          new Chat(
+            chat.id,
+            chat.modelName,
+            chat.name,
+            chat.convo,
+            chat.date,
+            chat.isFavourite,
+            chat.isArchived
+          )
+        );
+    });
   }
 }

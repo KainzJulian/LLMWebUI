@@ -52,7 +52,8 @@ export class FileUploaderService {
   saveFile(file: File) {
     const ajax = new XMLHttpRequest();
 
-    const url = new URL(ENV.fileRoute.href + '/upload/' + this.currentChatID);
+    const url = new URL(ENV.fileRoute.href + '/' + this.currentChatID + '/upload');
+
     const fileData = new FileData(
       crypto.randomUUID(),
       file.name,
@@ -115,7 +116,7 @@ export class FileUploaderService {
       ...this.fileDataList().slice(index + 1)
     ]);
 
-    const url = new URL(ENV.fileRoute.href + '/delete/' + this.currentChatID);
+    const url = new URL(ENV.fileRoute.href + '/' + this.currentChatID + '/delete/');
     url.searchParams.append('fileID', file.id);
 
     this.http.delete<BackendResponse<boolean>>(url.href).subscribe((res) => {
@@ -129,7 +130,9 @@ export class FileUploaderService {
     this.fileDataList.set([]);
     this.currentChatID = id;
 
-    this.http.get<BackendResponse<FileData[]>>(ENV.fileRoute.href + '/' + id).subscribe((res) => {
+    const url = new URL(ENV.fileRoute.href + '/' + id + '/files');
+
+    this.http.get<BackendResponse<FileData[]>>(url.href).subscribe((res) => {
       if (res.data == null) return;
       this.fileDataList.set(res.data);
     });
