@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SearchListItem } from './search-list-item';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('SearchListItem', () => {
   let component: SearchListItem;
@@ -8,9 +9,9 @@ describe('SearchListItem', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SearchListItem]
-    })
-    .compileComponents();
+      imports: [SearchListItem],
+      providers: [provideHttpClient(withInterceptorsFromDi())]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SearchListItem);
     component = fixture.componentInstance;

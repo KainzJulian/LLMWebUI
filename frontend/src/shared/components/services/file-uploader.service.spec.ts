@@ -1,12 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 
 import { FileUploaderService } from './file-uploader.service';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('FileUploaderService', () => {
   let service: FileUploaderService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [provideHttpClient(withInterceptorsFromDi())]
+    });
     service = TestBed.inject(FileUploaderService);
   });
 

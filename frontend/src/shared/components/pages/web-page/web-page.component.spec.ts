@@ -7,7 +7,7 @@ import { MainMenuComponent } from '../../molecules/main-menu/main-menu.component
 import { InputFieldComponent } from '../../molecules/input-field/input-field.component';
 import { FloatingButton } from '../../molecules/floating-button/floating-button';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ChatService } from '../../services/chat.service';
 import { ModelService } from '../../services/model.service';
 import { By } from '@angular/platform-browser';
@@ -26,15 +26,15 @@ describe('WepPageComponent', () => {
         MainMenuComponent,
         InputFieldComponent,
         FloatingButton,
-        CommonModule,
-        HttpClientModule
+        CommonModule
       ],
       providers: [
         {
           provide: ChatService,
           useValue: { currentChat: null, switchFavouriteState: jest.fn().mockReturnValue({}) }
         },
-        { provide: ModelService, useValue: { modelArray: [], switchFavouriteState: jest.fn() } }
+        { provide: ModelService, useValue: { modelArray: [], switchFavouriteState: jest.fn() } },
+        provideHttpClient(withInterceptorsFromDi())
       ]
     }).compileComponents();
 

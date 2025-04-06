@@ -4,7 +4,6 @@ import { FileUploaderService } from '../../services/file-uploader.service';
 import { CommonModule } from '@angular/common';
 import { BaseButton } from '../../atoms/base-button/base-button';
 import { Icon } from '../../atoms/icon/icon';
-import { ChatService } from '../../services/chat.service';
 import { FileListItem } from '../file-list-item/file-list-item';
 
 @Component({
@@ -17,10 +16,7 @@ import { FileListItem } from '../file-list-item/file-list-item';
 export class FileUploader {
   public isDragging = signal(false);
 
-  constructor(
-    public fileUploaderService: FileUploaderService,
-    public chatService: ChatService
-  ) {}
+  constructor(public fileUploaderService: FileUploaderService) {}
 
   deleteFile(index: number) {
     this.fileUploaderService.deleteFile(index);
