@@ -1,0 +1,28 @@
+@import '@styles';
+
+.container {
+  border-radius: $radius--mid;
+  padding: $padding--big;
+
+  background-color: $color-accent;
+
+  max-height: 100%;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.button--close {
+  position: absolute;
+
+  right: 16px;
+  top: 16px;
+}
+
+.floating-info__text {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+
+  padding-top: 32px;
+}

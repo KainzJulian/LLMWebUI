@@ -11,6 +11,7 @@ import { FloatingInputStateService } from '../../services/floating-input-state.s
 import { SearchBarService } from '../../services/search-bar.service';
 import { SearchBar } from '../../molecules/search-bar/search-bar';
 import { FileUploader } from '../../molecules/file-uploader/file-uploader';
+import { FloatingInfo } from '../../molecules/floating-info/floating-info';
 
 @Component({
   selector: 'app-web-page',
@@ -24,7 +25,8 @@ import { FileUploader } from '../../molecules/file-uploader/file-uploader';
     MainMenuComponent,
     FloatingInput,
     SearchBar,
-    FileUploader
+    FileUploader,
+    FloatingInfo
   ],
   templateUrl: './web-page.component.html',
   styleUrl: './web-page.component.scss'

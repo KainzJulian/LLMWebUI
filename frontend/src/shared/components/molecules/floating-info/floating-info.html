@@ -1,0 +1,6 @@
+<div class="container" [hidden]="!this.floatingInfoService.visible()">
+  <base-button class="button--close" (onClick)="close()">
+    <icon iconName="close-light" />
+  </base-button>
+  <p class="floating-info__text" [innerHTML]="this.floatingInfoService.text()"></p>
+</div>

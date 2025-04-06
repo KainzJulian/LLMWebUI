@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { BaseButton } from '../../atoms/base-button/base-button';
 import { Icon } from '../../atoms/icon/icon';
 import { FileListItem } from '../file-list-item/file-list-item';
+import { FloatingInfoService } from '../../services/floating-info.service';
 
 @Component({
   selector: 'file-uploader',
@@ -16,7 +17,10 @@ import { FileListItem } from '../file-list-item/file-list-item';
 export class FileUploader {
   public isDragging = signal(false);
 
-  constructor(public fileUploaderService: FileUploaderService) {}
+  constructor(
+    public fileUploaderService: FileUploaderService,
+    public floatingInfoService: FloatingInfoService
+  ) {}
 
   deleteFile(index: number) {
     this.fileUploaderService.deleteFile(index);
@@ -67,7 +71,13 @@ export class FileUploader {
   processEntry(entry: FileSystemEntry, path = '') {
     if (entry.isFile) {
       (entry as FileSystemFileEntry).file((file) => {
-        if (file.size == 0) return; // TODO: Toast for empty files
+        if (file.size == 0) {
+          this.floatingInfoService.show(
+            'The provided file <strong>' + file.name + '</strong> is empty',
+            5000
+          );
+          return;
+        }
         this.fileUploaderService.saveFile(file);
       });
     } else if (entry.isDirectory) {
