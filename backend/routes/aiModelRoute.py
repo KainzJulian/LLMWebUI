@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from fastapi.responses import StreamingResponse
 import ollama
 import database
@@ -83,8 +83,6 @@ async def generate(convo: list[Convo], id: str) -> Response:
         )
 
     except Exception as e:
-        print("hi")
-        print(e)
         return Response(success=False, error=str(e))
 
 
@@ -96,7 +94,11 @@ async def generateChatResponse(convoList: list[Convo], modelName: str):
 
     response: ollama.ChatResponse
 
-    async for response in await ollama.AsyncClient().chat(
-        modelName, message, stream=True
-    ):
-        yield response.message.content
+    try:
+        async for response in await ollama.AsyncClient().chat(
+            modelName, message, stream=True
+        ):
+            yield response.message.content
+
+    except Exception as e:
+        yield str(e)
