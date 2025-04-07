@@ -44,3 +44,52 @@ button {
   text-align: start;
   width: 100%;
 }
+
+.tooltip {
+  position: relative;
+
+  & .tooltip__text {
+    visibility: hidden;
+    width: auto;
+
+    background-color: black;
+    color: #fff;
+    text-align: center;
+
+    border-radius: $radius--small;
+    padding: $padding--small;
+
+    position: absolute;
+    z-index: 1;
+
+    transition: opacity 0.3s;
+    opacity: 0;
+    pointer-events: none;
+
+    &--top {
+      left: 50%;
+      bottom: 125%;
+      transform: translateX(-50%);
+    }
+
+    &--right {
+      left: 125%;
+    }
+
+    &--bottom {
+      left: 50%;
+      top: 125%;
+      transform: translateX(-50%);
+    }
+
+    &--left {
+      right: 125%;
+    }
+  }
+}
+
+.tooltip:hover .tooltip__text {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 1s;
+}

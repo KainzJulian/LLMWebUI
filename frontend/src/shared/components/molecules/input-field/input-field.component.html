@@ -11,28 +11,28 @@
   <div class="toolbar">
     <ng-container *ngIf="!this.loadingState.isLoading(); else defaultMenu">
       <div class="toolbar__left">
-        <base-button (onClick)="listenUserInput()">
+        <base-button position="top" tooltipText="Toggle Voice Input" (onClick)="listenUserInput()">
           <icon #toggleVoiceInput iconName="mic-off-light" />
         </base-button>
 
-        <base-button (onClick)="readAIOutput()">
+        <base-button position="top" tooltipText="Toggle AI Output" (onClick)="readAIOutput()">
           <icon #toggleReadOutput iconName="speaker-off-light" />
         </base-button>
 
-        <base-button (onClick)="uploadFile()">
+        <base-button position="top" tooltipText="Upload File" (onClick)="uploadFile()">
           <icon iconName="upload-light" />
         </base-button>
       </div>
 
       <div class="toolbar__right">
-        <base-button (onClick)="sendRequest(input.value)">
+        <base-button position="top" tooltipText="Send" (onClick)="sendRequest(input.value)">
           <icon iconName="send-light" />
         </base-button>
       </div>
     </ng-container>
 
     <ng-template #defaultMenu class="toolbar__right">
-      <base-button (onClick)="cancelRequest()">
+      <base-button position="top" tooltipText="Cancel" (onClick)="cancelRequest()">
         <icon iconName="close-light" />
       </base-button>
     </ng-template>

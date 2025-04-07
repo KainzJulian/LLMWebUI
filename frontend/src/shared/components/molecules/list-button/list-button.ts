@@ -39,6 +39,8 @@ export class ListButton {
   @Output() download = new EventEmitter<void>();
   @Output() archive = new EventEmitter<void>();
 
+  @Input() tooltipText: string = '';
+
   clickIcon() {
     if (this.showMenuOnIconClick) this.switchMenu();
 

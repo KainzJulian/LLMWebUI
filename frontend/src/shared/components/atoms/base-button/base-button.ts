@@ -10,6 +10,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class BaseButton {
   @Input() buttonClass: string = 'hover--icon';
+  @Input() tooltipText: string = '';
+  @Input() position: 'top' | 'right' | 'bottom' | 'left' = 'top';
 
   @Output() onClick = new EventEmitter<void>();
 

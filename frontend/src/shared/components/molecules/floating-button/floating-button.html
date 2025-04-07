@@ -6,7 +6,11 @@
     bottom: this.config.bottom + 'px'
   }"
 >
-  <base-button (onClick)="onClick.emit()">
+  <base-button
+    [position]="this.position"
+    [tooltipText]="this.tooltipText"
+    (onClick)="onClick.emit()"
+  >
     <icon [iconName]="this.iconName" />
   </base-button>
 </div>

@@ -17,6 +17,8 @@
       class="button__icon"
       *ngIf="this.isHovering && this.iconName != ''"
       (onClick)="this.clickIcon()"
+      position="left"
+      [tooltipText]="this.tooltipText"
     >
       <icon [iconName]="this.iconName" />
     </base-button>

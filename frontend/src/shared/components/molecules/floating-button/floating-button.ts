@@ -21,6 +21,9 @@ export class FloatingButton {
   @Input() iconName: string = '';
 
   @Output() onClick = new EventEmitter<void>();
+
+  @Input() tooltipText: string = '';
+  @Input() position: 'top' | 'right' | 'bottom' | 'left' = 'top';
 }
 
 interface FloatingButtonConfig {

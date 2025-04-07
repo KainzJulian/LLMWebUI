@@ -1,24 +1,29 @@
 <div *ngIf="!this.sidebarService.isSidebarOpen()" class="button-group">
-  <base-button (onClick)="openSidebar()">
+  <base-button tooltipText="Open sidebar" position="right" (onClick)="openSidebar()">
     <icon iconName="sidebar-light" />
   </base-button>
 </div>
 
 <div *ngIf="this.sidebarService.isSidebarOpen()" class="container">
   <div class="menu-bar--top">
-    <base-button id="close-sidebar" (onClick)="closeSidebar()">
+    <base-button
+      tooltipText="Close sidebar"
+      position="right"
+      id="close-sidebar"
+      (onClick)="closeSidebar()"
+    >
       <icon iconName="sidebar-light" />
     </base-button>
 
-    <base-button (onClick)="switchArchivedPanel()">
+    <base-button tooltipText="Archived Chats" position="bottom" (onClick)="switchArchivedPanel()">
       <icon iconName="archivebox-light" />
     </base-button>
 
-    <base-button (onClick)="createImage()">
+    <base-button tooltipText="Create Image" position="bottom" (onClick)="createImage()">
       <icon iconName="image-light" />
     </base-button>
 
-    <base-button (onClick)="openSearch()">
+    <base-button tooltipText="Search" position="bottom" (onClick)="openSearch()">
       <icon iconName="search-light" />
     </base-button>
   </div>
@@ -55,6 +60,7 @@
             (onClickIcon)="this.chatService.createChat(item.model)"
             [text]="item.model"
             iconName="add-light"
+            tooltipText="Create Chat"
           ></list-button>
         }
       }
@@ -78,6 +84,7 @@
             [text]="chat.name"
             iconName="dots-light"
             [isSelected]="this.chatService.isCurrentChat(chat, chatService.favouriteChats)"
+            tooltipText="Options"
           ></list-button>
         }
       }
@@ -100,6 +107,7 @@
             [text]="chat.name"
             iconName="dots-light"
             [isSelected]="this.chatService.isCurrentChat(chat, chatService.getChatList())"
+            tooltipText="Options"
           ></list-button>
         }
       }
@@ -107,7 +115,7 @@
   </div>
 
   <div class="menu-bar--bottom">
-    <base-button (onClick)="openOptions()">
+    <base-button tooltipText="Open Main menu" position="right" (onClick)="openOptions()">
       <icon iconName="options-light" />
     </base-button>
   </div>

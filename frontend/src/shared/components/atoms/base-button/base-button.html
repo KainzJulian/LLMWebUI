@@ -1,3 +1,11 @@
-<button class="hover--icon" [classList]="this.buttonClass" (click)="this.onClick.emit()">
-  <ng-content />
-</button>
+<div class="tooltip">
+  <p
+    *ngIf="this.tooltipText.length != 0"
+    [ngClass]="'tooltip__text tooltip__text--' + this.position"
+    [innerHTML]="this.tooltipText"
+  ></p>
+
+  <button class="hover--icon" [classList]="this.buttonClass" (click)="this.onClick.emit()">
+    <ng-content />
+  </button>
+</div>

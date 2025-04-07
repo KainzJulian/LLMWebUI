@@ -11,6 +11,8 @@
       this.chatService.currentChat.isFavourite ? 'bookmark-light-filled' : 'bookmark-light'
     "
     (onClick)="this.chatService.switchFavouriteState()"
+    position="left"
+    tooltipText="Toggle Favourite"
   ></floating-button>
 
   <div class="group--convo">
