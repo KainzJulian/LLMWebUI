@@ -9,7 +9,8 @@ import { BackendResponse } from '../../../types/response';
 import { SearchResult } from '../../../types/searchResult';
 import { SearchListItem } from '../search-list-item/search-list-item';
 import { BaseButton } from '../../atoms/base-button/base-button';
-import { Icon } from "../../atoms/icon/icon";
+import { Icon } from '../../atoms/icon/icon';
+import { FloatingInfoService } from '../../services/floating-info.service';
 
 @Component({
   selector: 'search-bar',
@@ -23,14 +24,24 @@ export class SearchBar {
 
   constructor(
     public searchService: SearchBarService,
-    public http: HttpClient
+    public http: HttpClient,
+    private floatingInfoService: FloatingInfoService
   ) {}
 
   public searchChat() {
     this.http
       .get<BackendResponse<SearchResult[]>>(ENV.chatURL.href + '/search/' + this.input)
       .subscribe((res) => {
-        if (res.data == null) return;
+        console.log(res.data);
+
+        if (res.data == null || res.data?.length == 0) {
+          this.floatingInfoService.show(
+            'No results found for "<strong>' + this.input + '</strong>"',
+            5000
+          );
+
+          return;
+        }
 
         this.searchService.searchResults = res.data;
       });

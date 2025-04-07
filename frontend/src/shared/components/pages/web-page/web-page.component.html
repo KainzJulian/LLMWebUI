@@ -36,6 +36,7 @@
   <file-uploader></file-uploader>
 
   <floating-info
+    [hidden]="!this.floatingInfoService.visible()"
     style="position: absolute; width: 25%; height: 20%; right: 0px; bottom: 0px; padding: 8px"
   ></floating-info>
 </div>

@@ -12,6 +12,7 @@ import { SearchBarService } from '../../services/search-bar.service';
 import { SearchBar } from '../../molecules/search-bar/search-bar';
 import { FileUploader } from '../../molecules/file-uploader/file-uploader';
 import { FloatingInfo } from '../../molecules/floating-info/floating-info';
+import { FloatingInfoService } from '../../services/floating-info.service';
 
 @Component({
   selector: 'app-web-page',
@@ -35,6 +36,7 @@ export class WebPageComponent {
   constructor(
     public chatService: ChatService,
     public floatingInputService: FloatingInputStateService,
-    public searchService: SearchBarService
+    public searchService: SearchBarService,
+    public floatingInfoService: FloatingInfoService
   ) {}
 }

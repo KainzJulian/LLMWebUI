@@ -4,6 +4,7 @@ import { Chat } from '../../types/chat';
 import { Convo } from '../../types/convo';
 import { ChatService } from './chat.service';
 import { LoadingStateService } from './loading-state.service';
+import { FloatingInfoService } from './floating-info.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class LLMRequestService implements OnDestroy {
 
   constructor(
     private chatService: ChatService,
-    private loadingState: LoadingStateService
+    private loadingState: LoadingStateService,
+    private floatingInfoService: FloatingInfoService
   ) {}
 
   public cancelRequest() {
@@ -53,7 +55,10 @@ export class LLMRequestService implements OnDestroy {
       body: JSON.stringify(convo),
       signal: signal
     })
-      .then((response) => response.body?.getReader())
+      .then((response) => {
+        console.log(response.body);
+        return response.body?.getReader();
+      })
       .then(async (reader) => {
         const decoder = new TextDecoder();
 
@@ -82,7 +87,10 @@ export class LLMRequestService implements OnDestroy {
 
         this.loadingState.set(false);
       })
-      .catch((error) => console.warn(error));
+      .catch((error) => {
+        this.loadingState.set(false);
+        this.floatingInfoService.show(error, 5000);
+      });
 
     this.abortController = abortController;
   }
