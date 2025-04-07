@@ -8,6 +8,8 @@ export class FloatingInfoService {
   text = signal('');
   duration = signal(0);
 
+  timeout = setTimeout(() => {}, 0);
+
   hide() {
     this.visible.set(false);
   }
@@ -17,7 +19,9 @@ export class FloatingInfoService {
     this.duration.set(durationInMS);
     this.visible.set(true);
 
-    setTimeout(() => {
+    if (this.timeout != null) clearTimeout(this.timeout);
+
+    this.timeout = setTimeout(() => {
       this.hide();
     }, durationInMS);
   }
