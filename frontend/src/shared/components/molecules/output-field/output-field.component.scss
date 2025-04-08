@@ -24,6 +24,10 @@ div {
   line-height: 1.7em;
 }
 
+.output__buttons {
+  display: flex;
+}
+
 .text--ai {
   background-color: $color;
   float: left;

@@ -1,6 +1,6 @@
 <div [classList]="textStyle">
   <p #output [innerHTML]="text" class="output__text"></p>
-  <ng-container *ngIf="!this.loadingState.isLoading() && isAiText()">
+  <div class="output__buttons" *ngIf="!this.loadingState.isLoading() && isAiText()">
     <base-button (onClick)="copyText(output.innerHTML)">
       <icon iconName="copy-light" />
     </base-button>
@@ -11,5 +11,5 @@
     >
       <icon iconName="repeat-light" />
     </base-button>
-  </ng-container>
+  </div>
 </div>
