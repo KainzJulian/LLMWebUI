@@ -1,0 +1,43 @@
+@import '@styles';
+
+.code {
+  background-color: $color-accent;
+  width: 50%;
+  height: auto;
+
+  display: flex;
+  flex-direction: column;
+
+  margin-left: 25%;
+  margin-top: 25%;
+
+  border-radius: $radius--mid;
+
+  padding: $padding--mid;
+
+  &__title {
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    &__button {
+      margin-left: auto;
+    }
+
+    &__text {
+      font-size: 0.8rem;
+      margin-left: 8px;
+    }
+  }
+
+  &__text {
+    overflow-y: auto;
+  }
+}
+
+.text__container {
+  padding: $padding--mid;
+}

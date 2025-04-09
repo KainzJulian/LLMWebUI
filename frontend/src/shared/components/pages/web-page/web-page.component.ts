@@ -13,6 +13,7 @@ import { SearchBar } from '../../molecules/search-bar/search-bar';
 import { FileUploader } from '../../molecules/file-uploader/file-uploader';
 import { FloatingInfo } from '../../molecules/floating-info/floating-info';
 import { FloatingInfoService } from '../../services/floating-info.service';
+import { CodeParagraph } from '../../molecules/code-paragraph/code-paragraph';
 
 @Component({
   selector: 'app-web-page',
@@ -27,7 +28,8 @@ import { FloatingInfoService } from '../../services/floating-info.service';
     FloatingInput,
     SearchBar,
     FileUploader,
-    FloatingInfo
+    FloatingInfo,
+    CodeParagraph
   ],
   templateUrl: './web-page.component.html',
   styleUrl: './web-page.component.scss'

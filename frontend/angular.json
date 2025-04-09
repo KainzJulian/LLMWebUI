@@ -29,7 +29,7 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.scss"],
+            "styles": ["src/styles.scss", "node_modules/highlight.js/styles/atom-one-dark.css"],
             "scripts": []
           },
           "configurations": {

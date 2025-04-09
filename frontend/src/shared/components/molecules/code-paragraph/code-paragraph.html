@@ -1,0 +1,16 @@
+<div class="code">
+  <div class="code__title">
+    <div>
+      <p class="code__title__text">{{ title }}</p>
+    </div>
+    <div class="code__title__button">
+      <base-button position="top" tooltipText="Copy Code" (click)="copyCode()">
+        <icon iconName="copy-light"></icon>
+      </base-button>
+    </div>
+  </div>
+
+  <div class="text__container">
+    <div class="code__text" [innerHTML]="this.code"></div>
+  </div>
+</div>

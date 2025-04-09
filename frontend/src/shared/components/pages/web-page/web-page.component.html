@@ -1,4 +1,42 @@
-<div class="container">
+<code-paragraph
+  title="This is the title of the coresponding code paragraph which is quit long"
+  code="```python
+
+import random
+
+operators = [
+  '+',
+  '-',
+  '*',
+  '/',
+  '%',
+  '**',
+  '//',
+  '&',
+  '|',
+  '^',
+  '>>',
+  '<<',
+]
+
+max_depth = 5
+
+def generate_code(depth):
+  if depth > max_depth:
+    return 'x'
+
+  operator = random.choice(operators)
+  if operator in ('&', '|', '^'):
+    return (
+      '('
+      + generate_code(depth + 1)
+      + ' '
+
+  ```
+  "
+></code-paragraph>
+
+<!-- <div class="container">
   <app-sidebar></app-sidebar>
 
   <floating-button
@@ -41,4 +79,4 @@
     [hidden]="!this.floatingInfoService.visible()"
     style="position: absolute; width: 25%; height: 20%; right: 0px; bottom: 0px; padding: 8px"
   ></floating-info>
-</div>
+</div> -->
