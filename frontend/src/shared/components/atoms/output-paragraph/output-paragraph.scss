@@ -1,0 +1,13 @@
+@import '@styles';
+
+.output__text {
+  margin: 0;
+  padding-top: $padding--mid;
+  padding-bottom: $padding--mid;
+  padding-left: $padding--big;
+  padding-right: $padding--big;
+
+  overflow-wrap: anywhere;
+
+  line-height: 1.7em;
+}

@@ -17,8 +17,10 @@ export class CodeParagraph implements OnInit {
   @Input() title: string = '';
   @Input() code: string = '';
 
-  copyCode() {
-    navigator.clipboard.writeText(this.code);
+  copyCode(text: string) {
+    console.log('Text', text);
+
+    navigator.clipboard.writeText(text);
   }
 
   ngOnInit(): void {

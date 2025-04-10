@@ -1,15 +1,11 @@
 @import '@styles';
 
 .code {
-  background-color: $color-accent;
-  width: 50%;
+  width: 100%;
   height: auto;
 
   display: flex;
   flex-direction: column;
-
-  margin-left: 25%;
-  margin-top: 25%;
 
   border-radius: $radius--mid;
 

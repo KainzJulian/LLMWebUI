@@ -62,7 +62,8 @@ textarea {
   border-radius: $radius--small;
 }
 
-p {
+p,
+textarea {
   margin: 0px;
   font-family:
     system-ui,

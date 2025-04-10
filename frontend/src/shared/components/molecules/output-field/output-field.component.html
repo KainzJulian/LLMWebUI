@@ -1,7 +1,11 @@
 <div [classList]="textStyle">
-  <p #output [innerHTML]="text" class="output__text"></p>
+  <ng-container #container>
+    <div *ngIf="isAiText()"></div>
+  </ng-container>
+  <!-- <p class="output__text" *ngIf="!isAiText()">{{ text }}</p> -->
+
   <div class="output__buttons" *ngIf="!this.loadingState.isLoading() && isAiText()">
-    <base-button (onClick)="copyText(output.innerHTML)">
+    <base-button (onClick)="copyText(this.text)">
       <icon iconName="copy-light" />
     </base-button>
 
